@@ -86,6 +86,12 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
 
     Route::post('/approvedStatus/{id}', [AppointmentCTRL::class, 'approvedStatus']);
     Route::post('/canceledStatus/{id}', [AppointmentCTRL::class, 'canceledStatus']);
+
+    // routes/web.php
+
+
+    Route::get('/appointments/search', [AppointmentController::class, 'searchByName'])->name('appointments.search');
+
 });
 
 // Add Activity
