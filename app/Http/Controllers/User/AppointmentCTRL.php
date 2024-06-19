@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AppointmentFormRequest;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentCTRL extends Controller
 {
@@ -14,7 +15,7 @@ class AppointmentCTRL extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::orderBy('created_at', 'desc')->paginate(5);
+        $appointments = Appointment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(5);
         return view('User.appointment-list', compact('appointments'));
     }
 
@@ -35,16 +36,18 @@ class AppointmentCTRL extends Controller
         // Logic to update the status of the order with the given ID
 
         // Find the appointment record by ID
-        $approved = Appointment::find($id);
-        $approved->status = 'Cancelled';
-        $approved->save();
+        $approved = Appointment::findOrFail($id);
 
-        $request->validate([
-            'reason' => 'required|string',
-        ]);
+        $approved->status = 'canceled';
 
+
+        // $request->validate([
+        //     'reason' => 'required|string',
+        // ]);
         // Insert the selected reason into the 'message' column
+        // $approved->user_id = $request->user_id;
         $approved->reason = $request->reason;
+        $approved->updated_at = now();
         $approved->save();
 
         return redirect()->back()->with('statusCancelled', 'Cancelled status updated successfully');
@@ -57,8 +60,8 @@ class AppointmentCTRL extends Controller
     {
         $data = $request->validated();
 
-        $appointment = Appointment::create($data);
-        return redirect('/Appointment')->with('status', 'Your Appointment is added.');
+        $appointment = Auth::user()->appointments()->create($data);
+        return redirect('/Appointment')->with('status', 'Your Appointment has been added.');
     }
 
 
@@ -71,7 +74,7 @@ class AppointmentCTRL extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AppointmentFormRequest $request,  $appointment_id)
+    public function update(AppointmentFormRequest $request, $appointment_id)
     {
         $data = $request->validated();
 
