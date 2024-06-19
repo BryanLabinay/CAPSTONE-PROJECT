@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,8 +24,10 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Using a closure based composer
         View::composer('layouts.navigation', function ($view) {
-            // Fetch notifications with status 'Approved' and 'Cancelled'
-            $notifications = Appointment::whereIn('status', ['Approved', 'Cancelled'])->get();
+            // Fetch appointments for the authenticated user
+            $notifications = Appointment::where('user_id', Auth::id())
+                                        ->whereIn('status', ['Approved', 'Cancelled'])
+                                        ->get();
 
             // Filter out read notifications
             $unreadNotifications = $notifications->reject(function ($notification) {
