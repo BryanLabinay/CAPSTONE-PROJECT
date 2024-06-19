@@ -149,6 +149,13 @@
         </div>
     </div>
     <div class="row gy-4 font-web">
+
+        <form action="{{ route('appointments.search') }}" method="GET" class="form-inline mb-2">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ request('name') }}">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
         <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">

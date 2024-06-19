@@ -41,4 +41,11 @@ class AppointmentController extends Controller
         $appointment = Appointment::find($appointment_id)->delete();
         return redirect()->back()->with('delete', 'Appointment is Remove');
     }
+
+    public function searchByName(Request $request)
+    {
+        $searchName = $request->input('name');
+        $appointments = Appointment::where('name', 'like', '%' . $searchName . '%')->paginate(10);
+        return view('Admin.Appointment.all-appointment', compact('appointments'));
+    }
 }
