@@ -150,12 +150,26 @@
     </div>
     <div class="row gy-4 font-web">
 
-        <form action="{{ route('appointments.search') }}" method="GET" class="form-inline mb-2">
-            <div class="form-group mx-sm-3 mb-2">
-                <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ request('name') }}">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-        </form>
+        <div class="d-flex">
+            <form action="{{ route('appointments.search') }}" method="GET" class="form-inline mb-2 mr-2">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ request('name') }}">
+                </div>
+                <button type="submit" class="btn btn-primary ml-2">Search</button>
+            </form>
+            <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2">
+                @csrf
+                <div class="form-group">
+                    <label for="filter_date" class="mr-2">Select Date:</label>
+                    <input type="date" id="filter_date" name="filter_date" class="form-control" onchange="this.form.submit()" required>
+                </div>
+            </form>
+
+            <form action="{{ route('appointments.today') }}" method="GET" class="form-inline mb-2">
+                <button type="submit" class="btn btn-info">Today</button>
+            </form>
+        </div>
+
         <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">
