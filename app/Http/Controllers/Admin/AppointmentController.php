@@ -48,4 +48,21 @@ class AppointmentController extends Controller
         $appointments = Appointment::where('name', 'like', '%' . $searchName . '%')->paginate(10);
         return view('Admin.Appointment.all-appointment', compact('appointments'));
     }
+
+    public function filterByDate(Request $request)
+    {
+        $filterDate = $request->input('filter_date');
+        $appointments = Appointment::whereDate('date', $filterDate)->paginate(10);
+
+        return view('Admin.Appointment.all-appointment', compact('appointments'));
+    }
+
+    public function showTodayAppointments()
+    {
+        // Filter appointments for today's date
+        $todayDate = now()->toDateString();
+        $appointments = Appointment::whereDate('date', $todayDate)->paginate(10);
+
+        return view('Admin.Appointment.all-appointment', compact('appointments'));
+    }
 }
