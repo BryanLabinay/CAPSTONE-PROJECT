@@ -1,0 +1,110 @@
+* {
+    font-family: "Poppins";
+}
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --bg-white: #f0f0f0;
+    --bg-slate-1: #94a3b8;
+    --bg-slate-2: #64748b;
+    --bg-white: #faf3f0;
+    --red: #dc3545;
+    --yellow: #ffc94a;
+    --blue: #008dda;
+    --mint-green: #a3e4db;
+    --blue-2: #19a7ce;
+    --bg-gray-900: #111827;
+    --gray: #374151;
+    --sage-green: #7bc1b7;
+    --primary: #075364;
+    --text: #0b8fac;
+    --light-blue: #8ed7f0;
+    --navy-blue: #383b85;
+    --navy-blue-1: #1c1678;
+    --purple: #5182ff;
+}
+
+.body {
+    caret-color: transparent;
+    background-color: var(--bg-white);
+}
+
+.navigation {
+    background-color: var(--white);
+}
+.text-color {
+    color: var(--navy-blue);
+}
+
+.caret {
+    caret-color: transparent;
+}
+.input:focus {
+    caret-color: var(--black);
+}
+.input1 {
+    caret-color: var(--black);
+}
+.logo {
+    height: 3rem;
+    padding: 0;
+}
+.bg-color {
+    background-color: var(--navy-blue);
+}
+.appointment-logo {
+    height: 50px;
+}
+
+/* Color */
+.icon {
+    color: var(--navy-blue);
+}
+.header {
+    background-color: var(--navy-blue);
+}
+
+.event-img {
+    height: 17rem;
+    width: 30rem;
+}
+.staff-img {
+    width: 30rem;
+    height: 20rem;
+}
+.rounded-table {
+    border-radius: 20px; /* Adjust this value as needed */
+    overflow: hidden; /* Ensures border-radius is applied correctly */
+}
+
+.btn-button {
+    background-color: var(--navy-blue);
+}
+
+.btn-button:hover {
+    background-color: var(--navy-blue-1);
+}
+
+.btn-hover {
+    color: var(--black);
+}
+.btn-hover:hover {
+    color: var(--blue);
+}
+
+.card-hover {
+    width: 18rem;
+    height: 150px;
+    overflow: hidden; /* Hides overflow to prevent content from showing outside */
+}
+
+.card-hover:hover {
+    border-radius: 20px;
+    box-shadow: 0 10px 10px rgba(0, 68, 255, 0.2); /* Adds a subtle shadow effect */
+    border: 1px solid var(--navy-blue);
+}
+.filebtn {
+    color: white;
+    background-color: var(--yellow);
+}

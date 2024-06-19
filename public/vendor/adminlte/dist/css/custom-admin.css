@@ -1,0 +1,31 @@
+body {
+    font-family: "poppins";
+}
+.page-title {
+    font-weight: 600;
+}
+/* Calendar */
+.calendar {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.calendar .card {
+    margin-bottom: 20px;
+}
+.calendar .card-header {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+.calendar .card-body table {
+    width: 100%;
+}
+.calendar .card-body th,
+.calendar .card-body td {
+    text-align: center;
+    padding: 10px;
+}
+.calendar .card-body .days .text-muted {
+    color: #ccc;
+}
