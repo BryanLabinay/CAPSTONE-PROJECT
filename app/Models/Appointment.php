@@ -13,6 +13,7 @@ class Appointment extends Model
 
     protected $table = 'appointments';
     protected $fillable = [
+        'user_id',
         'name',
         'address',
         'phone',
@@ -27,5 +28,10 @@ class Appointment extends Model
         return LogOptions::defaults()
             ->logOnly(['name', 'address', 'phone', 'date', 'appointment', 'status', 'message']);
         // Chain fluent methods for configuration options
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
