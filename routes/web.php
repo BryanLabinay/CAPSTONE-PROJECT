@@ -91,6 +91,8 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
 
 
     Route::get('/appointments/search', [AppointmentController::class, 'searchByName'])->name('appointments.search');
+    Route::get('/appointments/filter', [AppointmentController::class, 'filterByDate'])->name('appointments.filter');
+    Route::get('/appointments/today', [AppointmentController::class, 'showTodayAppointments'])->name('appointments.today');
 
 });
 
