@@ -164,7 +164,11 @@
                                 </div>
                             @empty
                                 <tr>
-                                    <td>No Appointment</td>
+                                    <td colspan="9">
+                                        <div class="h5 text-center alert alert-primary">
+                                            No Appointment
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforelse
 
