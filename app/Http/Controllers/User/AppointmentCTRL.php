@@ -38,7 +38,7 @@ class AppointmentCTRL extends Controller
         // Find the appointment record by ID
         $approved = Appointment::findOrFail($id);
 
-        $approved->status = 'canceled';
+        $approved->status = 'Cancelled';
 
 
         // $request->validate([
