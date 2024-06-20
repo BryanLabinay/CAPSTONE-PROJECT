@@ -223,11 +223,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>No Pending Appointment</h5>
+                            <td colspan="9">
+                                <div class="h5 text-center alert alert-warning">
+                                    No Pending Appointment
                                 </div>
-                            </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

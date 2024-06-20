@@ -184,11 +184,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>No Approved Appointment</h5>
+                            <td colspan="9">
+                                <div class="h5 text-center alert alert-warning">
+                                    No Approved Appointment
                                 </div>
-                            </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

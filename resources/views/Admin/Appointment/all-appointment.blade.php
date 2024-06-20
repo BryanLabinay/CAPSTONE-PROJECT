@@ -134,7 +134,7 @@
 @stop
 
 @section('content')
-    <div class="row mb-3">
+    <div class="row mb-2">
         <div class="col d-flex justify-content-end">
             <form action="{{ route('export.allrecord.pdf') }}" method="get">
                 @csrf
@@ -148,28 +148,35 @@
             </form>
         </div>
     </div>
-    <div class="row gy-4 font-web">
-
-        <div class="d-flex">
-            <form action="{{ route('appointments.search') }}" method="GET" class="form-inline mb-2 mr-2">
-                <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ request('name') }}">
-                </div>
-                <button type="submit" class="btn btn-primary ml-2">Search</button>
-            </form>
+    <hr class="mt-0 mb-3">
+    <div class="row mb-2">
+        <div class="col-6 d-flex justify-content-start">
             <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2">
                 @csrf
                 <div class="form-group">
                     <label for="filter_date" class="mr-2">Select Date:</label>
-                    <input type="date" id="filter_date" name="filter_date" class="form-control" onchange="this.form.submit()" required>
+                    <input type="date" id="filter_date" name="filter_date" class="form-control border border-1 me-1"
+                        onchange="this.form.submit()" required>
                 </div>
             </form>
 
             <form action="{{ route('appointments.today') }}" method="GET" class="form-inline mb-2">
-                <button type="submit" class="btn btn-info">Today</button>
+                <button type="submit" class="btn btn-primary">Today</button>
             </form>
         </div>
 
+        <div class="col-6 d-flex justify-content-end">
+            <form action="{{ route('appointments.search') }}" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control me-2" placeholder="Enter Name"
+                        value="{{ request('name') }}">
+                </div>
+                <button type="submit" class="btn btn-primary"><i
+                        class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="row font-web">
         <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">
@@ -249,11 +256,11 @@
                         </tr>
                     @empty
                         <tr>
-                            <div class="row">
-                                <div class="col">
-                                    <h5>No Appointment</h5>
+                            <td colspan="9">
+                                <div class="h5 text-center alert alert-warning">
+                                    No Appointment
                                 </div>
-                            </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
