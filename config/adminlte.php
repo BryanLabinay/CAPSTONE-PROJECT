@@ -357,7 +357,7 @@ return [
         ],
         [
             'text' => 'Appointment',
-            'icon' => 'fas fa-fw fa-calendar',
+            'icon' => 'fa-regular fa-calendar-check',
             'submenu' => [
                 [
                     'text' => 'All',
@@ -388,7 +388,7 @@ return [
         [
             'text' => 'Calendar',
             'url' => '/Admin/Calendars',
-            'icon' => 'fas fa-fw fa-calendar',
+            'icon' => 'fa-regular fa-calendar-days',
         ],
         [
             'text' => 'Add Activity',
@@ -426,10 +426,7 @@ return [
                         ],
                     ],
                 ],
-                // [
-                //     'text' => 'level_one',
-                //     'url' => '#',
-                // ],
+
             ],
         ],
         // Activity List
@@ -476,7 +473,7 @@ return [
         ['header' => 'ACTION',],
         [
             'text' => 'Activity Log',
-            'icon' => 'fas fa-fw fa-list',
+            'icon' => 'fa-solid fa-list-check',
             'url' => '/Activity-Logs',
         ],
     ],
