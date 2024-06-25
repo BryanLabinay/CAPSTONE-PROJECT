@@ -29,10 +29,10 @@
             <thead class="table-primary">
                 <tr>
                     <th>ID</th>
+                    <th>User</th>
                     <th>Subject Type</th>
-                    <th>Event</th>
                     <th>Description</th>
-                    <th>Created</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,30 +42,40 @@
                     $counter = ($currentPage - 1) * $perPage + 1;
                 @endphp
                 @forelse ($logs as $log)
-                    {{-- @php
-                            $desc = '';
-                            if ($activity->log_name == 'user' && $activity->description == 'created') {
-                                $desc = 'New user registered';
-                            } elseif ($activity->log_name == 'user' && $activity->description == 'updated') {
+                    @php
+                        $desc = '';
+                        $subjectType = $log->subject_type;
+                        $description = $log->description;
+
+                        if (isset($activity_types[$subjectType])) {
+                            $module = $activity_types[$subjectType];
+
+                            if ($module == 'User Module' && $description == 'created') {
+                                $desc = 'New User Registered';
+                            } elseif ($module == 'User Module' && $description == 'updated') {
                                 $desc = 'User updated his/her information';
-                            } elseif ($activity->log_name == 'event' && $activity->description == 'created') {
-                                $desc = 'New project created';
-                            } elseif ($activity->log_name == 'appointment' && $activity->description == 'created') {
-                                $desc = 'New appointment created';
-                            } elseif ($activity->log_name == 'appointment' && $activity->description == 'updated') {
-                                $desc = 'Update existing appointment';
-                            } elseif ($activity->description == 'logged in') {
-                                $desc =
-                                    'User ' .
-                                    (!empty($activity->causer) ? $activity->causer->name : '') .
-                                    ' logged in successfully';
+                            } elseif ($module == 'Appointment Module' && $description == 'created') {
+                                $desc = 'New Appointment created';
+                            } elseif ($module == 'Appointment Module' && $description == 'updated') {
+                                $desc = 'Updated Appointment';
+                            } elseif ($module == 'Appointment Module' && $description == 'deleted') {
+                                $desc = 'Appointment Deleted';
+                            } elseif ($module == 'Event Module' && $description == 'created') {
+                                $desc = 'New Event Created';
+                            } elseif ($module == 'Event Module' && $description == 'updated') {
+                                $desc = 'Updated Event';
+                            } elseif ($module == 'Event Module' && $description == 'deleted') {
+                                $desc = 'Event Deleted';
+                            } elseif ($description == 'logged in') {
+                                $desc = 'User ' . optional($log->causer)->name . ' Logged in successfully';
                             }
-                        @endphp --}}
+                        }
+                    @endphp
                     <tr>
                         <td>{{ $counter++ }}</td>
-                        <td>{{ $log->subject_type }}</td>
-                        <td>{{ $log->event }}</td>
-                        <td>{{ $log->description }}</td>
+                        <td>{{ optional($log->causer)->name }}</td>
+                        <td>{{ $activity_types[$log->subject_type] }}</td>
+                        <td>{{ $desc }}</td>
                         <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td>
                     </tr>
                 @empty

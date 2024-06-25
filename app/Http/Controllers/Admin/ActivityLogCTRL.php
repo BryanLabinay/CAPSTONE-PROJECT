@@ -11,9 +11,14 @@ class ActivityLogCTRL extends Controller
 {
     public function index()
     {
-        // Get paginated activity logs, 10 per page
-        $logs = Activity::latest()->paginate(10);
-        // Pass the paginated logs to the view
-        return view('Admin.activity-logs', compact('logs'));
+
+        $activity_types = [
+            'App\Models\User' => 'User Module',
+            'App\Models\Event' => 'Event Module',
+            'App\Models\Appointment' => 'Appointment Module',
+        ];
+
+        $logs = Activity::with('subject', 'causer')->orderBy('created_at', 'desc')->paginate(10);
+        return view('Admin.activity-logs', compact('logs', 'activity_types'));
     }
 }

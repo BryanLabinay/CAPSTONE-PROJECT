@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Models\Activity as BaseActivity;
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Activity extends BaseActivity
 {
     protected $table = 'activity_log';
 

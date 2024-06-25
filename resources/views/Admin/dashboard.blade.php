@@ -36,26 +36,25 @@
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <a href="{{ route('all-appointment') }}" class="text-decoration-none">
-                    <div class="small-box bg-info">
-                        <div class="inner p-2">
+                    <div class="small-box" style="background-color:#343984; height:110px;"> <!-- Adjust height as needed -->
+                        <div class="inner p-2 text-white">
                             <h3>{{ $countall }}</h3>
                             <p>All Appointments</p>
                         </div>
-                        <a href="#" class="small-box-footer">View More <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </a>
             </div>
+
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <a href="{{ route('pending.appointment') }}" class="text-decoration-none">
-                    <div class="small-box bg-secondary">
+                    <div class="small-box bg-secondary" style="height: 110px;">
                         <div class="inner p-2">
                             <h3>{{ $countpending }}</h3>
                             {{-- <sup style="font-size: 20px">%</sup> --}}
                             <p>Pending Appointment</p>
                         </div>
-                        <a href="#" class="small-box-footer">View More <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </a>
             </div>
@@ -63,12 +62,11 @@
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <a href="{{ route('approved.appointment') }}" class="text-decoration-none">
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-success" style="height: 110px;">
                         <div class="inner p-2">
                             <h3>{{ $countapproved }}</h3>
                             <p>Approved Appointment</p>
                         </div>
-                        <a href="#" class="small-box-footer">View More <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </a>
             </div>
@@ -76,13 +74,12 @@
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <a href="{{ route('cancelled.appointment') }}" class="text-decoration-none">
-                    <div class="small-box bg-danger">
+                    <div class="small-box bg-danger" style="height: 110px">
                         <div class="inner p-2">
                             <h3>{{ $countrejected }}</h3>
 
                             <p>Reject Appointment</p>
                         </div>
-                        <a href="#" class="small-box-footer">View More <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </a>
             </div>
