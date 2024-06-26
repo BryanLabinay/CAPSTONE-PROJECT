@@ -81,7 +81,7 @@
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li>
                         @auth
-                            <a class="getstarted scrollto text-decoration-none" href="{{ route('home') }}">Dashboard</a>
+                            <a class="getstarted scrollto text-decoration-none" href="{{ route('home') }}">Home</a>
                             <script>
                                 // Automatically redirect to the dashboard if authenticated
                                 window.location.href = "{{ route('home') }}";

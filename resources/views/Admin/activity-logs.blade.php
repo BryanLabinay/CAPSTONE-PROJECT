@@ -16,6 +16,7 @@
             font-family: "Nunito", sans-serif;
         }
     </style>
+
 @stop
 
 @section('content_header')
@@ -25,67 +26,72 @@
 
 @section('content')
     <div class="container-fluid">
-        <table class="table table-bordered">
-            <thead class="table-primary">
-                <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Subject Type</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $perPage = $logs->perPage();
-                    $currentPage = $logs->currentPage();
-                    $counter = ($currentPage - 1) * $perPage + 1;
-                @endphp
-                @forelse ($logs as $log)
+        <div class="p-3 bg-primary bg-opacity-25 rounded-3">
+            <table class="table table-bordered">
+                <thead class="table-danger">
+                    <tr class="text-center">
+                        <th>No.</th>
+                        <th>User</th>
+                        <th>Subject Type</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @php
-                        $desc = '';
-                        $subjectType = $log->subject_type;
-                        $description = $log->description;
-
-                        if (isset($activity_types[$subjectType])) {
-                            $module = $activity_types[$subjectType];
-
-                            if ($module == 'User Module' && $description == 'created') {
-                                $desc = 'New User Registered';
-                            } elseif ($module == 'User Module' && $description == 'updated') {
-                                $desc = 'User updated his/her information';
-                            } elseif ($module == 'Appointment Module' && $description == 'created') {
-                                $desc = 'New Appointment created';
-                            } elseif ($module == 'Appointment Module' && $description == 'updated') {
-                                $desc = 'Updated Appointment';
-                            } elseif ($module == 'Appointment Module' && $description == 'deleted') {
-                                $desc = 'Appointment Deleted';
-                            } elseif ($module == 'Event Module' && $description == 'created') {
-                                $desc = 'New Event Created';
-                            } elseif ($module == 'Event Module' && $description == 'updated') {
-                                $desc = 'Updated Event';
-                            } elseif ($module == 'Event Module' && $description == 'deleted') {
-                                $desc = 'Event Deleted';
-                            } elseif ($description == 'logged in') {
-                                $desc = 'User ' . optional($log->causer)->name . ' Logged in successfully';
-                            }
-                        }
+                        $perPage = $logs->perPage();
+                        $currentPage = $logs->currentPage();
+                        $counter = ($currentPage - 1) * $perPage + 1;
                     @endphp
-                    <tr>
-                        <td>{{ $counter++ }}</td>
-                        <td>{{ optional($log->causer)->name }}</td>
-                        <td>{{ $activity_types[$log->subject_type] }}</td>
-                        <td>{{ $desc }}</td>
-                        <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td>No Activity</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-        {{ $logs->links('pagination::bootstrap-5') }}
+                    @forelse ($logs as $log)
+                        @php
+                            $desc = '';
+                            $subjectType = $log->subject_type;
+                            $description = $log->description;
+
+                            if (isset($activity_types[$subjectType])) {
+                                $module = $activity_types[$subjectType];
+
+                                if ($module == 'User Module' && $description == 'created') {
+                                    $desc = 'New User Registered';
+                                } elseif ($module == 'User Module' && $description == 'updated') {
+                                    $desc = 'User updated his/her information';
+                                } elseif ($module == 'Appointment Module' && $description == 'created') {
+                                    $desc = 'Create an Appointment';
+                                } elseif ($module == 'Appointment Module' && $description == 'updated') {
+                                    $desc = 'Updated an Appointment';
+                                } elseif ($module == 'Appointment Module' && $description == 'deleted') {
+                                    $desc = 'Appointment Deleted';
+                                } elseif ($module == 'Event Module' && $description == 'created') {
+                                    $desc = 'New Event Created';
+                                } elseif ($module == 'Event Module' && $description == 'updated') {
+                                    $desc = 'Updated Event';
+                                } elseif ($module == 'Event Module' && $description == 'deleted') {
+                                    $desc = 'Event Deleted';
+                                } elseif ($description == 'logged in') {
+                                    $desc = 'User ' . optional($log->causer)->name . ' Logged in successfully';
+                                }
+                            }
+                        @endphp
+                        <tr class="text-center">
+                            <td>{{ $counter++ }}</td>
+                            <td>{{ optional($log->causer)->name }}</td>
+                            <td>{{ $activity_types[$log->subject_type] }}</td>
+                            <td>{{ $desc }}</td>
+                            {{-- <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td> --}}
+                            <td>{{ \Carbon\Carbon::parse($log->created_at)->format('F d, Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($log->created_at)->format('h:i A') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td>No Activity</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            {{ $logs->links('pagination::bootstrap-5') }}
+        </div>
     </div>
 @stop
 

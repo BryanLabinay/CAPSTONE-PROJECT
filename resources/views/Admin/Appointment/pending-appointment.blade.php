@@ -154,7 +154,7 @@
                         <th scope="col">Appointment</th>
                         {{-- <th scope="col">Message</th> --}}
                         <th scope="col">Status</th>
-                        <th scope="col">Reason</th>
+                        {{-- <th scope="col">Reason</th> --}}
                         <th scope="col">Approval</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -182,7 +182,7 @@
                                 @else
                                     gray @endif">
                                 {{ $data->status }}</td>
-                            <td>{{ $data->reason }}</td>
+                            {{-- <td>{{ $data->reason }}</td> --}}
                             {{-- Approval --}}
                             <td class="py-0">
                                 <div class="d-flex justify-content-center align-items-center mt-1">
