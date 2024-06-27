@@ -22,8 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('images/' . $value) : asset('images/default.jpg');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
