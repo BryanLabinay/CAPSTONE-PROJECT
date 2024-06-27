@@ -97,8 +97,17 @@
         <div class="nav-item dropdown p-1 px-2 font-web">
             <a class="nav-link d-flex align-items-center" style="color:#012970;" href="#" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ url('assets/img/team/team-1.jpg') }}" height="35" class="me-1"
-                    style="border-radius:50%;" alt="User Profile">
+                {{--  <img src="{{ $user->image }}" alt="{{ $user->name }}">  --}}
+                {{--  @if ($user->image)
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="User Image">
+                @else
+                    <img src="{{ asset('path_to_default_image.jpg') }}" alt="Default Image">
+                @endif  --}}
+                @if($user_image->image === null)
+    <img src="{{ asset('default.jpg') }}" height="35" class="me-1" style="border-radius: 50%;" alt="User Profile">
+@else
+    <img src="{{ asset($user_image->image) }}" height="35" class="me-1" style="border-radius: 50%;" alt="User Profile">
+@endif
 
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
