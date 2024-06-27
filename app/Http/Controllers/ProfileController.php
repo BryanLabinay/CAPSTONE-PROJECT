@@ -26,15 +26,33 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+
+            // Alternatively, you can use Storage facade to store in 'public/images'
+            // $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+            // $imagePath = $image->storeAs('public/images', $imageName);
+        } else {
+            $imageName = null; // If no image is uploaded, set imageName to null or specify a default image path
         }
 
-        $request->user()->save();
+        // Update user record
+        $user->image = $imageName; // Save the image path or filename
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        session()->flash('status', 'Profile updated successfully.');
+        return redirect()->route('profile.edit');
     }
 
     /**
