@@ -56,7 +56,7 @@
                     <table class="table table-striped mb-0 table-bordered">
                         <thead class="table-primary">
                             <tr class="text-center">
-                                <th scope="col">#</th>
+                                <th scope="col">No.</th>
                                 <th scope="col">Name</th>
                                 {{-- <th scope="col">Address</th> --}}
                                 {{-- <th scope="col">Phone</th> --}}
