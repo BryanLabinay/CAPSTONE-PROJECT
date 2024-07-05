@@ -202,7 +202,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-primary elevation-2',
+    'classes_sidebar' => 'sidebar-light-navy elevation-2',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -269,7 +269,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => '/Admin/profile/edit',
 
     /*
     |--------------------------------------------------------------------------
@@ -337,11 +337,7 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'Search',
         ],
-        [
-            'text' => 'blog',
-            'url' => '#',
-            'can' => 'manage-blog',
-        ],
+        ['header' => 'NAVIGATION'],
         [
             'text' => 'Dashboard',
             'url' => '/admin/dashboard',
@@ -349,12 +345,11 @@ return [
             'label' => '',
             'label_color' => '',
         ],
-        ['header' => 'NAVIGATION'],
-        [
-            'text' => 'profile',
-            'url' => '/Admin/profile/edit',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+        // [
+        //     'text' => 'profile',
+        //     'url' => '/Admin/profile/edit',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
         [
             'text' => 'Appointment',
             'icon' => 'fa-regular fa-calendar-check',
@@ -426,7 +421,24 @@ return [
                         ],
                     ],
                 ],
-
+                [
+                    'text' => 'Blog',
+                    'icon' => 'fa-solid fa-image',
+                    'icon_color' => 'blue',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Service',
+                    'icon' => 'fa-solid fa-hand-holding-heart',
+                    'icon_color' => 'success',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Contact',
+                    'icon' => 'fa-solid fa-address-book',
+                    'icon_color' => 'blue',
+                    'url' => '#',
+                ],
             ],
         ],
         // Activity List

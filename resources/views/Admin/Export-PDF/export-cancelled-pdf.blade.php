@@ -1,48 +1,157 @@
+</html>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Appointment Record PDF</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="shortcut icon" href="{{ asset('IMG/csulogo.png') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 0px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* margin-top: 20px; */
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            font-size: 15px;
+            /* font-weight: 600; */
+        }
+
+        thead {
+            background-color: #f2f2f2;
+
+
+        }
+
+        .title {
+            background-color: #131842;
+            width: 100%;
+            color: #ffffff
+                /* padding: 4px 0; */
+        }
+
+        .div1,
+        .div2 {
+            border-top: 1px solid black;
+            padding: 0;
+        }
+
+        @page {
+            margin: 150px 25px;
+        }
+
+        header {
+            position: fixed;
+            top: -160px;
+            left: 0px;
+            right: 0px;
+            height: 100px;
+            text-align: center;
+            background-color: white;
+            padding: 10px 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: -100px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            text-align: center;
+            background-color: white;
+            padding: 10px 0;
+        }
+
+        .pagenum:before {
+            content: counter(page);
+        }
+
+        .small-table td {
+            font-size: 12px;
+            padding: 5px;
+        }
+
+        .img {
+            margin-top: 10px;
+            width: 60px;
+            position: absolute;
+        }
+
+        img {
+            position: absolute;
+            width: 100%;
+            top: 0px;
+            left: 65px;
+        }
+
+        h1 {
+            padding: 0;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="row gy-4 font-web">
-        <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
-            <h3>Rejected Appointment Record</h3>
-            <table class="table table-striped mb-0 table-bordered">
-                <thead class="table-danger">
-                    <tr class="text-center">
-                        <th scope="col">No.</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Adress</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Appointment</th>
-                        {{-- <th scope="col">Message</th> --}}
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($cancelled as $index => $data)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->address }}</td>
-                            <td>{{ $data->phone }}</td>
-                            <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
-                            <td>{{ $data->appointment }}</td>
-                            <td>{{ $data->status }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <header>
+        <div class="img">
+            <img src="Image/logo/mendoza.png">
         </div>
-    </div>
+        <h2>DR. MENDOZA MULTI-SPECIALIST CLINIC</h2>
+        <p>
+            Magsaysay Corner St. Minanga Aparri Cagayan
+        </p>
+        <p class="title">CANCELLLED PATIENTS APPOINTMENT RECORDS</p>
+        {{-- <p>ATTENDANCE FOR STUDENTS LOG SHEET</p> --}}
+    </header>
+    <footer>
+        <div class="div2">Footer Content Here</div>
+        <div>Page <span class="pagenum"></span></div>
+    </footer>
+    <main>
+        <table class="small-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Date</th>
+                    <th>Appointment</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($cancelled as $index => $data)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->address }}</td>
+                        <td>{{ $data->phone }}</td>
+                        <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
+                        <td>{{ $data->appointment }}</td>
+                        <td>{{ $data->status }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </main>
 </body>
 
 </html>
