@@ -11,6 +11,7 @@ use App\Exports\ExportApprovedAppointment;
 use App\Exports\ExportRejectedAppointment;
 use App\Models\Appointment;
 
+
 class ExportAppointmentController extends Controller
 {
     // All Appointment
@@ -30,6 +31,8 @@ class ExportAppointmentController extends Controller
         return Excel::download(new ExportRejectedAppointment, 'Rejected-AppointmentRecord.xlsx');
     }
 
+
+    // Export PDF
     public function ExportAllAppointmentPdf()
     {
         $appointments = Appointment::all();
