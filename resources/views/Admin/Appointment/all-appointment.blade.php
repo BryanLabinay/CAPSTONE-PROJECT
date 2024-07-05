@@ -187,7 +187,7 @@
                         <th scope="col">Appointment</th>
                         {{-- <th scope="col">Message</th> --}}
                         <th scope="col">Status</th>
-                        <th scope="col">Reason</th>
+                        {{-- <th scope="col">Reason</th> --}}
                         <th scope="col">Approval</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -215,7 +215,7 @@
                                 @else
                                     gray @endif">
                                 {{ $data->status }}</td>
-                            <td>{{ $data->reason }}</td>
+                            {{-- <td>{{ $data->reason }}</td> --}}
                             {{-- Approval --}}
                             <td class="py-0">
                                 <div class="d-flex justify-content-center align-items-center mt-1">
@@ -238,18 +238,18 @@
                                     {{-- View --}}
                                     <a href="#" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal{{ $data->id }}">
-                                        <i class="fas fa-fw fa-magnifying-glass fs-5 me-3 text-success"></i>
+                                        <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
                                     </a>
 
                                     {{-- Delete --}}
-                                    <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
+                                    {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
                                         method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn text-danger p-0">
                                             <i class="fas fa-fw fa-trash fs-5"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
 

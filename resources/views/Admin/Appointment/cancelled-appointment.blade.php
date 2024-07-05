@@ -165,18 +165,18 @@
                                     {{-- View --}}
                                     <a href="#" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal{{ $data->id }}">
-                                        <i class="fas fa-fw fa-magnifying-glass fs-5 me-3 text-success"></i>
+                                        <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
                                     </a>
 
                                     {{-- Delete --}}
-                                    <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
+                                    {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
                                         method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn text-danger p-0">
                                             <i class="fas fa-fw fa-trash fs-5"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </td>
 
