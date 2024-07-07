@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 @section('css')
     {{-- Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
