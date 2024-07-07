@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Approved Appointment')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Font Awesome --}}
@@ -124,7 +125,7 @@
                         $currentPage = $approved->currentPage();
                         $counter = ($currentPage - 1) * $perPage + 1;
                     @endphp
-                    @forelse ($approved->sortByDesc('created_at') as $data)
+                    @forelse ($approved as $data)
                         <tr class="text-center">
 
                             <td class="">{{ $counter++ }}</td>
