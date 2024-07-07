@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Event List')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Font Awesome --}}
