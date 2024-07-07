@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin Profile')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Favicon --}}
