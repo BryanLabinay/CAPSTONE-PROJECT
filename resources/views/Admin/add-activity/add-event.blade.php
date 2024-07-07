@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Add Event')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Font Awesome --}}
@@ -83,8 +84,8 @@
 
 @section('content')
     <div class="container mt-3">
-        <div class="row">
-            <div class="col-6 p-3 text-light rounded-4" style="background-color: #2C4E80;">
+        <div class="row d-flex justify-content-center">
+            <div class="col-6 p-3 text-light rounded-2" style="background-color: #2C4E80;">
                 <h4 class="">Event Form</h4>
                 <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
                     @csrf
@@ -109,7 +110,7 @@
                         </div>
                     </div>
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
             </div>
         </div>
@@ -134,18 +135,15 @@
         document.addEventListener('DOMContentLoaded', function() {
             const descriptionTextarea = document.getElementById('description');
 
-            // Adjust the height of the textarea based on its content
             function adjustTextareaHeight() {
                 descriptionTextarea.style.height = 'auto';
                 descriptionTextarea.style.height = descriptionTextarea.scrollHeight + 'px';
             }
 
-            // Listen for input events and adjust the height accordingly
             descriptionTextarea.addEventListener('input', function() {
                 adjustTextareaHeight();
             });
 
-            // Adjust the height initially
             adjustTextareaHeight();
         });
     </script>
