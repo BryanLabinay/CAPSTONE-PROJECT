@@ -31,4 +31,33 @@ class AddActivityCTRL extends Controller
         $data->save();
         return redirect()->back()->with('data', $data)->with('statusevent', 'Event Added');
     }
+
+    // Add Employee
+    public function addDoctor()
+    {
+        return view('Admin.add-activity.Employee.add-doctor');
+    }
+
+    public function addStaff()
+    {
+        return view('Admin.add-activity.Employee.add-staff');
+    }
+
+    // Blog
+    public function blog()
+    {
+        return view('Admin.add-activity.blog');
+    }
+
+    // Add Services
+    public function service()
+    {
+        return view('Admin.add-activity.service');
+    }
+
+    // Add Contact
+    public function contact()
+    {
+        return view('Admin.add-activity.contact');
+    }
 }
