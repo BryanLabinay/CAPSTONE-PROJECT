@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Pending Appointment')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Font Awesome --}}
@@ -148,7 +149,7 @@
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">
                     <tr class="text-center">
-                        <th scope="col">#</th>
+                        <th scope="col">No.</th>
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Appointment</th>
