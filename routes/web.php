@@ -87,19 +87,20 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
     Route::post('/approvedStatus/{id}', [AppointmentCTRL::class, 'approvedStatus']);
     Route::post('/canceledStatus/{id}', [AppointmentCTRL::class, 'canceledStatus']);
 
-    // routes/web.php
-
-
     Route::get('/appointments/search', [AppointmentController::class, 'searchByName'])->name('appointments.search');
     Route::get('/appointments/filter', [AppointmentController::class, 'filterByDate'])->name('appointments.filter');
     Route::get('/appointments/today', [AppointmentController::class, 'showTodayAppointments'])->name('appointments.today');
-
 });
 
 // Add Activity
 Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () {
     Route::get('/Event', [AddActivityCTRL::class, 'addevent'])->name('add.event');
     Route::post('/Event', [AddActivityCTRL::class, 'storeevent'])->name('store.event');
+    Route::get('/Employee/Doctor', [AddActivityCTRL::class, 'addDoctor'])->name('add.doctor');
+    Route::get('/Employee/Staff', [AddActivityCTRL::class, 'addStaff'])->name('add.staff');
+    Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
+    Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
+    Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
 });
 
 // Activity List
@@ -108,6 +109,15 @@ Route::middleware(['auth', 'admin'])->prefix('Activity-List')->group(function ()
     Route::get('/events/{event_id}/edit', [ActivityListCTRL::class, 'eventEdit'])->name('event.edit');
     Route::put('/events/{event_id}/update', [ActivityListCTRL::class, 'eventUpdate'])->name('event.update');
     Route::delete('/Delete-Event/{event_id}', [ActivityListCTRL::class, 'deleteEvent'])->name('delete-event');
+    // Employee List
+    Route::get('/Employee/Doctor-List', [ActivityListCTRL::class, 'doctorList'])->name('doctor.list');
+    Route::get('/Employee/Staff-List', [ActivityListCTRL::class, 'staffList'])->name('staff.list');
+    // Blog List
+    Route::get('/Blog-List', [ActivityListCTRL::class, 'blogList'])->name('blog.list');
+    // Service List
+    Route::get('/Service-List', [ActivityListCTRL::class, 'serviceList'])->name('service.list');
+    // Contact List
+    Route::get('/Contact-List', [ActivityListCTRL::class, 'contactList'])->name('contact.list');
 });
 
 // Export Excel
@@ -122,6 +132,7 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
 
 // Activity Log
 Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
+
 
 
 // ? END ADMIN ROUTE
