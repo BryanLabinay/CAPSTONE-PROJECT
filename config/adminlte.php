@@ -403,21 +403,25 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Doctor',
-                            'url' => '#',
+                            'url' => 'Add-Activity/Employee/Doctor',
+                            'icon' => 'fa-solid fa-user-doctor',
+                            'icon_color' => 'info'
                         ],
                         [
                             'text' => 'Staff',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
+                            'url' => 'Add-Activity/Employee/Staff',
+                            'icon' => 'fa-solid fa-user-nurse',
+                            'icon_color' => 'info',
+                            // 'submenu' => [
+                            //     [
+                            //         'text' => 'level_three',
+                            //         'url' => '#',
+                            //     ],
+                            //     [
+                            //         'text' => 'level_three',
+                            //         'url' => '#',
+                            //     ],
+                            // ],
                         ],
                     ],
                 ],
@@ -425,19 +429,19 @@ return [
                     'text' => 'Blog',
                     'icon' => 'fa-solid fa-image',
                     'icon_color' => 'blue',
-                    'url' => '#',
+                    'url' => 'Add-Activity/Blog',
                 ],
                 [
                     'text' => 'Service',
                     'icon' => 'fa-solid fa-hand-holding-heart',
                     'icon_color' => 'success',
-                    'url' => '#',
+                    'url' => 'Add-Activity/Service',
                 ],
                 [
                     'text' => 'Contact',
                     'icon' => 'fa-solid fa-address-book',
                     'icon_color' => 'blue',
-                    'url' => '#',
+                    'url' => 'Add-Activity/Contact',
                 ],
             ],
         ],
@@ -448,41 +452,66 @@ return [
             'submenu' => [
                 [
                     'text' => 'Event List',
-                    'icon' => 'fas fa-fw fa-list-check',
+                    'icon' => 'fa-solid fa-list-ol',
                     'icon_color' => 'blue',
                     'url' => '/Activity-List/Event',
                 ],
                 [
-                    'text' => 'Employee',
-                    'url' => '#',
+                    'text' => 'Employee List',
+                    'icon' => 'fa-solid fa-users',
+                    'icon_color' => 'red',
                     'submenu' => [
                         [
-                            'text' => 'Doctor',
-                            'url' => '#',
+                            'text' => 'Doctor List',
+                            'url' => 'Activity-List/Employee/Doctor-List',
+                            'icon' => 'fa-solid fa-user-doctor',
+                            'icon_color' => 'blue',
                         ],
                         [
-                            'text' => 'Staff',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
+                            'text' => 'Staff List',
+                            'url' => 'Activity-List/Employee/Staff-List',
+                            'icon' => 'fa-solid fa-user-nurse',
+                            'icon_color' => 'blue',
+                            // 'submenu' => [
+                            //     [
+                            //         'text' => 'level_three',
+                            //         'url' => '#',
+                            //     ],
+                            //     [
+                            //         'text' => 'level_three',
+                            //         'url' => '#',
+                            //     ],
+                            // ],
                         ],
                     ],
                 ],
                 [
-                    'text' => 'level_one',
-                    'url' => '#',
+                    'text' => 'Blog List',
+                    'url' => 'Activity-List/Blog-List',
+                    'icon' => 'fa-regular fa-images',
+                    'icon_color' => 'blue',
+                ],
+                [
+                    'text' => 'Service List',
+                    'url' => 'Activity-List/Service-List',
+                    'icon' => 'fa-solid fa-hand-holding-heart',
+                    'icon_color' => 'green',
+                ],
+                [
+                    'text' => 'Contact List',
+                    'url' => 'Activity-List/Contact-List',
+                    'icon' => 'fa-solid fa-address-book',
+                    'icon_color' => 'blue',
                 ],
             ],
         ],
-        ['header' => 'ACTION',],
+        ['header' => 'OTHERS',],
+        [
+            'text' => 'Medical Certificate',
+            'url' => '#',
+            'icon' => 'fa-solid fa-certificate',
+            'icon_color' => 'red',
+        ],
         [
             'text' => 'Activity Log',
             'icon' => 'fa-solid fa-list-check',
