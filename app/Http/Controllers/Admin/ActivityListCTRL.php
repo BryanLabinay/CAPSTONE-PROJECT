@@ -32,13 +32,10 @@ class ActivityListCTRL extends Controller
     // Update event
     public function eventUpdate(EventFormRequest $request, $event_id)
     {
-        // Retrieve the validated input data
         $validated = $request->validated();
 
-        // Find the existing event
         $event = Event::findOrFail($event_id);
 
-        // Handle file upload if a new file is provided
         if ($request->hasFile('img')) {
             $file = $request->file('img');
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -46,7 +43,6 @@ class ActivityListCTRL extends Controller
             $validated['img'] = $filename;
         }
 
-        // Update the event with validated data
         $event->update($validated);
 
         return redirect()->route('event-list')->with('messageupdate', 'Updated Event');
@@ -58,5 +54,33 @@ class ActivityListCTRL extends Controller
     {
         $event = Event::find($event_id)->delete();
         return redirect()->back()->with('eventdelete', 'Event Deleted');
+    }
+
+    // Employee List
+    public function doctorList()
+    {
+        return view('Admin.activity-list.Employee-List.doctor-list');
+    }
+    public function staffList()
+    {
+        return view('Admin.activity-list.Employee-List.staff-list');
+    }
+
+    // Blog list
+    public function blogList()
+    {
+        return view('Admin.activity-list.blog-list');
+    }
+
+    // Service List
+    public function serviceList()
+    {
+        return view('Admin.activity-list.service-list');
+    }
+
+    // Contact List
+    public function contactList()
+    {
+        return view('Admin.activity-list.contact-list');
     }
 }
