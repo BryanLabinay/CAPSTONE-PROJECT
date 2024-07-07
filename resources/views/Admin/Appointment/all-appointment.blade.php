@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'All Appointment')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
+
 
 @section('css')
     {{-- Favicon --}}
@@ -181,7 +182,7 @@
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">
                     <tr class="text-center">
-                        <th scope="col">#</th>
+                        <th scope="col">No.</th>
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Appointment</th>
@@ -198,7 +199,7 @@
                         $currentPage = $appointments->currentPage();
                         $counter = ($currentPage - 1) * $perPage + 1;
                     @endphp
-                    @forelse ($appointments->sortByDesc('created_at') as $data)
+                    @forelse ($appointments as $data)
                         <tr class="text-center">
 
                             <td class="">{{ $counter++ }}</td>
