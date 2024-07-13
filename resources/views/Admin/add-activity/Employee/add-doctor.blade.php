@@ -32,7 +32,54 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-7 d-flex justify-content-center">
+                <div class="bg-secondary p-2 text-black px-3 rounded-2 bg-opacity-50" style="width: 600px;">
+                    <form action="" method="get">
+                        <h4 class="fw-semibold text-dark">Add Doctor Form</h4>
+                        <hr class="mt-0 text-black">
+                        <div class="form-group">
+                            <label for="">Name:</label>
+                            <input type="text" class="form-control" placeholder="Enter the name here...">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Skills:</label>
+                            <input type="text" class="form-control" placeholder="Enter the Skills here...">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" name="" id="" class="form-control">
+                        </div>
+                        <button class="btn btn-primary px-5">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="d-flex align-items-center bg-secondary bg-opacity-50 rounded-2 p-0 px-3">
+                    <div class="me-3">
+                        <img src="{{ asset('Image/Staff/img1.jpg') }}" class="border border-1 border-secondary"
+                            height="50" width="50" alt="Doctor Profile" style="border-radius:50%;">
+                    </div>
+                    <div class="flex-grow-1 p-0">
+                        <div class="d-flex align-items-center mt-3 p-0">
+                            <h6 class="m-0 fw-semibold">Bryan</h6>
+                        </div>
+                        <p class="text-muted">Doctor</p>
+                    </div>
+                    <div class="d-flex align-items-center ms-3">
+                        <a href="" class="btn btn-sm btn-outline-primary me-2">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form action="" method="post" class="m-0">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
+            </div>
+        </div>
     </div>
 @stop
 
