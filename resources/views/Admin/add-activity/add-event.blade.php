@@ -2,7 +2,6 @@
 
 @section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
 
-
 @section('css')
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ url('Css/fontawesome.min.css') }}">
@@ -80,39 +79,124 @@
             });
         </script>
     @endif
+    @if (session('eventdelete'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+            (async () => {
+                await Toast.fire({
+                    icon: 'warning',
+                    title: 'Event Deleted'
+                })
+            })();
+        </script>
+    @endif
+    @if (session('messageupdate'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    iconColor: 'white',
+                    customClass: {
+                        popup: 'colored-toast',
+                    },
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Event Changed'
+                });
+            });
+        </script>
+    @endif
 @stop
 
 @section('content')
-    <div class="container mt-3">
-        <div class="row d-flex justify-content-center">
-            <div class="col-6 p-3 text-light rounded-2" style="background-color: #2C4E80;">
-                <h4 class="">Event Form</h4>
-                <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
-                    @csrf
-                    <!-- Title -->
-                    <div class="form-group">
-                        <label for="title">Title:</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
-                    </div>
-                    <!-- Description -->
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea class="form-control" id="description" name="description" rows="1"
-                            style="height: auto; overflow-y: hidden;" required></textarea>
-                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-7 d-flex justify-content-center">
+                <div class="p-3 text-dark rounded-2 bg-secondary bg-opacity-25 shadow-sm" style="width: 600px;">
+                    <h4 class="">Event Form</h4>
+                    <hr class="mt-0">
+                    <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
+                        @csrf
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" name="description" rows="1"
+                                style="height: auto; overflow-y: hidden;" required></textarea>
+                        </div>
 
-                    <!-- File Upload -->
-                    <div class="form-group">
-                        <label for="file">Upload File:</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="img" name="img" required>
-                            <label class="custom-file-label" for="img">Choose file</label>
+                        <!-- File Upload -->
+                        <div class="form-group">
+                            <label for="file">Upload File:</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="img" name="img" required>
+                                <label class="custom-file-label" for="img">Choose file</label>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 p-0 mb-2">
+                @forelse ($eventlist as $event)
+                    <div class="bg-secondary bg-opacity-50 border rounded-2 p-2 d-flex align-items-center shadow-sm">
+                        <div class="me-3">
+                            <img src="{{ asset('uploads/' . $event->img) }}" class="rounded-circle" height="50"
+                                width="50" alt="{{ $event->title }}">
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 text-dark fw-bolder">{{ $event->title }}</h6>
+                                <small class="text-muted">{{ $event->formattedTimestamp }}</small>
+                            </div>
+                            <p class="text-muted m-0">
+                                {{ strlen($event->description) > 35 ? substr($event->description, 0, 35) . '...' : $event->description }}
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <a href="{{ route('event.edit', $event->id) }}" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <form action="{{ route('delete-event', $event->id) }}" method="post" class="m-0">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </form>
+                @empty
+                    <div class="col-5">
+                        <div class="bg-secondary bg-opacity-50 rounded-2 shadow-sm">
+                            <h5 class="text-center">No Events</h5>
+                        </div>
+                    </div>
+                @endforelse
             </div>
+
+            {{-- {{ $eventlist->links('pagination::bootstrap-5') }} --}}
         </div>
     </div>
 @stop
