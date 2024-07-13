@@ -12,7 +12,14 @@ class AddActivityCTRL extends Controller
 
     public function addEvent()
     {
-        return view('Admin.add-activity.add-event');
+        $eventlist = Event::latest()->get();
+
+        foreach ($eventlist as $event) {
+            $event->formattedTimestamp = $event->created_at->diffForHumans();
+        }
+
+        return view('Admin.add-activity.add-event', compact('eventlist'));
+        // return view('Admin.add-activity.add-event');
     }
 
     //    Store Event
@@ -30,6 +37,20 @@ class AddActivityCTRL extends Controller
 
         $data->save();
         return redirect()->back()->with('data', $data)->with('statusevent', 'Event Added');
+    }
+
+    // Edit Event
+    public function eventEdit($event_id)
+    {
+        $event = Event::findOrFail($event_id);
+        return view('Admin.activity-list.event-update', compact('event'));
+    }
+
+    // Delete Event
+    public function deleteEvent($event_id)
+    {
+        $event = Event::find($event_id)->delete();
+        return redirect()->back()->with('eventdelete', 'Event Deleted');
     }
 
     // Add Employee
