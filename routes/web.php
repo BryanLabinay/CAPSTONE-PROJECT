@@ -128,6 +128,8 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::get('/Export-All-Appointment-Pdf', [ExportAppointmentController::class, 'ExportAllAppointmentPdf'])->name('export.allrecord.pdf');
     Route::get('/Export-Approved-Appointment-Pdf', [ExportAppointmentController::class, 'ExportApprovedAppointmentPdf'])->name('export.approvedrecord.pdf');
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');
+    Route::get('/Reports-Appointment-Pdf', [ExportAppointmentController::class, 'reports'])->name('export.reports.pdf');
+
 });
 
 // Activity Log
