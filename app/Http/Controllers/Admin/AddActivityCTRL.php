@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\DoctorList;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -57,6 +58,25 @@ class AddActivityCTRL extends Controller
     public function addDoctor()
     {
         return view('Admin.add-activity.Employee.add-doctor');
+    }
+
+
+    public function uploadDoctor(Request $request)
+    {
+        $doctor = new DoctorList();
+
+        $doctor->name = $request->name;
+        $doctor->position = $request->position;
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $imgName = time() . '_' . $img->getClientOriginalName();
+            $img->move(public_path('Doctors'), $imgName);
+            $doctor->image = $imgName;
+        }
+
+        $doctor->save();
+
+        return redirect()->back()->with('success', 'Record Added');
     }
 
     public function addStaff()
