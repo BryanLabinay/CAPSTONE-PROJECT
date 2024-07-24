@@ -102,6 +102,8 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
     Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
     Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
+    Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
+
 });
 
 // Activity List
