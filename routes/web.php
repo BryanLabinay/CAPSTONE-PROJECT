@@ -7,11 +7,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\AppointmentCTRL;
 use App\Http\Controllers\Admin\ActivityLogCTRL;
 use App\Http\Controllers\Admin\AddActivityCTRL;
+use App\Http\Controllers\Admin\MedicalCertCTRL;
 use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\ActivityListCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
-use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Navigation\UserNavCTRL;
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
 
 Route::get('/', function () {
@@ -129,11 +130,12 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::get('/Export-Approved-Appointment-Pdf', [ExportAppointmentController::class, 'ExportApprovedAppointmentPdf'])->name('export.approvedrecord.pdf');
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');
     Route::get('/Reports-Appointment-Pdf', [ExportAppointmentController::class, 'reports'])->name('export.reports.pdf');
-
 });
-
-// Activity Log
-Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Activity Log
+    Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
+    Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
+});
 
 
 
