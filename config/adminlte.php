@@ -508,7 +508,7 @@ return [
         ['header' => 'OTHERS',],
         [
             'text' => 'Medical Certificate',
-            'url' => '#',
+            'url' => '/Medical-Certificate',
             'icon' => 'fa-solid fa-certificate',
             'icon_color' => 'red',
         ],
