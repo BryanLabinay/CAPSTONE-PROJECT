@@ -159,6 +159,9 @@
                 </div>
             </div>
             <div class="col-lg-5 p-0 mb-2">
+                <div class="bg-secondary bg-opacity-50 p-0 rounded-2 text-black">
+                    <h4 class="text-center">Event List</h4>
+                </div>
                 @forelse ($eventlist as $event)
                     <div class="bg-secondary bg-opacity-50 border rounded-2 p-2 d-flex align-items-center shadow-sm">
                         <div class="me-3">
