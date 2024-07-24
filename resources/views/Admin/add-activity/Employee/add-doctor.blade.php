@@ -22,6 +22,27 @@
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .clickable-container {
+            position: relative;
+        }
+
+        .stretched-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .clickable-container a,
+        .clickable-container button,
+        .clickable-container form {
+            z-index: 2;
+            pointer-events: auto;
+        }
     </style>
 @stop
 
@@ -54,30 +75,35 @@
                     </form>
                 </div>
             </div>
-            <div class="col-5">
-                <div class="d-flex align-items-center bg-secondary bg-opacity-50 rounded-2 p-0 px-3">
-                    <div class="me-3">
-                        <img src="{{ asset('Image/Staff/img1.jpg') }}" class="border border-1 border-secondary"
-                            height="50" width="50" alt="Doctor Profile" style="border-radius:50%;">
-                    </div>
-                    <div class="flex-grow-1 p-0">
-                        <div class="d-flex align-items-center mt-3 p-0">
-                            <h6 class="m-0 fw-semibold">Bryan</h6>
+            <div class="col-5 p-0">
+                <div class="bg-secondary bg-opacity-50 p-0 rounded-2 text-black">
+                    <h4 class="text-center">Doctor List</h4>
+                </div>
+                <div class="clickable-container position-relative">
+                    <a href="#" class="stretched-link"></a>
+                    <div class="d-flex align-items-center bg-secondary bg-opacity-50 rounded-2 px-3">
+                        <div class="me-3">
+                            <img src="{{ asset('Image/Staff/img1.jpg') }}" class="border border-1 border-secondary"
+                                height="50" width="50" alt="Doctor Profile" style="border-radius:50%;">
                         </div>
-                        <p class="text-muted">Doctor</p>
-                    </div>
-                    <div class="d-flex align-items-center ms-3">
-                        <a href="" class="btn btn-sm btn-outline-primary me-2">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <form action="" method="post" class="m-0">
-                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
+                        <div class="flex-grow-1 p-0">
+                            <div class="d-flex align-items-center mt-3">
+                                <h6 class="">Bryan</h6>
+                                <p class="text-muted">Doctor</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <a href="edit_url" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <form action="#" method="post" class="m-0">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -88,7 +114,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    {{-- <script>
-            console.log("Hi, Welcome to E.A MENDOZA APPOINTMENT SYSTEM!");
-        </script> --}}
+
 @stop
