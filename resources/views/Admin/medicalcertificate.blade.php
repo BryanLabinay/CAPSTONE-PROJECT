@@ -31,7 +31,27 @@
 
 @section('content')
     <div class="container-fluid">
-
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="p-3 text-dark rounded-2 bg-secondary bg-opacity-25 shadow-sm" style="width: 600px;">
+                    <h5 class="">Input Patient</h5>
+                    <hr class="mt-0">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        @csrf
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label for="title">Patient Name:</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="d-inline">
+                            <button type="submit" class="btn btn-primary">Print</button>
+                            <button class="btn btn-danger">Send to Patient</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
 
