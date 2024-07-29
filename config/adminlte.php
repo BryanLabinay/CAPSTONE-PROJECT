@@ -399,31 +399,7 @@ return [
                     'text' => 'Employee',
                     'icon' => 'fas fa-fw fa-users',
                     'icon_color' => 'red',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Doctor',
-                            'url' => 'Add-Activity/Employee/Doctor',
-                            'icon' => 'fa-solid fa-user-doctor',
-                            'icon_color' => 'info'
-                        ],
-                        [
-                            'text' => 'Staff',
-                            'url' => 'Add-Activity/Employee/Staff',
-                            'icon' => 'fa-solid fa-user-nurse',
-                            'icon_color' => 'info',
-                            // 'submenu' => [
-                            //     [
-                            //         'text' => 'level_three',
-                            //         'url' => '#',
-                            //     ],
-                            //     [
-                            //         'text' => 'level_three',
-                            //         'url' => '#',
-                            //     ],
-                            // ],
-                        ],
-                    ],
+                    'url' => 'Add-Activity/Employee/Doctor',
                 ],
                 [
                     'text' => 'Blog',
