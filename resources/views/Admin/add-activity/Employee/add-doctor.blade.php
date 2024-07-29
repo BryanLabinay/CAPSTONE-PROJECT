@@ -58,7 +58,7 @@
                 <div class="bg-secondary p-2 text-black px-3 rounded-2 bg-opacity-50" style="width: 600px;">
                     <form action="{{ route('upload-doctor') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <h4 class="fw-semibold text-dark">Add Doctor Form</h4>
+                        <h4 class="fw-semibold text-dark">Add Employee Form</h4>
                         <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="">Name:</label>
@@ -66,15 +66,19 @@
                                 placeholder="Enter the name here...">
                         </div>
                         <div class="form-group">
-                            <label for="">Position:</label>
-                            <select name="position" id="" required>
-                                <option value="Doctor">Doctor</option>
-                                <option value="Staff">Staff</option>
-                            </select>
+                            <label for="position">Position:</label>
+                            <div class="input-group">
+                                <select name="position" class="form-select" id="position" required>
+                                    <option selected>Choose Employee</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="">Image</label>
-                            <input type="file" name="image" id="" required ="form-control">
+                            <input type="file" name="image" id="" required class="form-control">
                         </div>
                         <button class="btn btn-primary px-5">Upload</button>
                     </form>
@@ -91,7 +95,7 @@
             @endif
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-50 p-0 rounded-2 text-black">
-                    <h4 class="text-center">Doctor List</h4>
+                    <h4 class="text-center">Employee List</h4>
                 </div>
                 <div class="clickable-container position-relative">
                     <a href="#" class="stretched-link"></a>
