@@ -137,6 +137,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Activity Log
     Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
+    Route::post('/Medical-Certificatei-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
 });
 
 
