@@ -38,11 +38,56 @@
                     <hr class="mt-0">
                     <form method="post" action="{{ route('medical-certificate-pdf') }}" enctype="multipart/form-data">
                         @csrf
-                        <!-- Title -->
+                        <!-- Patient Name Input -->
                         <div class="form-group">
                             <label for="title">Patient Name:</label>
                             <input type="text" class="form-control" id="title" name="title" required>
                         </div>
+
+                        <!-- Additional Medical Information -->
+                        <div class="form-group">
+                            <label for="heart">Heart:</label>
+                            <input type="text" class="form-control" id="heart" name="heart">
+                        </div>
+                        <div class="form-group">
+                            <label for="lung">Lung:</label>
+                            <input type="text" class="form-control" id="lung" name="lung">
+                        </div>
+                        <div class="form-group">
+                            <label for="heent">HEENT:</label>
+                            <input type="text" class="form-control" id="heent" name="heent">
+                        </div>
+                        <div class="form-group">
+                            <label for="abdomen">Abdomen:</label>
+                            <input type="text" class="form-control" id="abdomen" name="abdomen">
+                        </div>
+                        <div class="form-group">
+                            <label for="extremeties">Extremeties:</label>
+                            <input type="text" class="form-control" id="extremeties" name="extremeties">
+                        </div>
+                        <div class="form-group">
+                            <label for="intergumentary">Integumentary:</label>
+                            <input type="text" class="form-control" id="intergumentary" name="intergumentary">
+                        </div>
+
+                        <!-- Vital Signs -->
+                        <div class="form-group">
+                            <label for="bp">Blood Pressure (BP):</label>
+                            <input type="text" class="form-control" id="bp" name="bp">
+                        </div>
+                        <div class="form-group">
+                            <label for="cr">Cardiac Rate (CR):</label>
+                            <input type="text" class="form-control" id="cr" name="cr">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight:</label>
+                            <input type="text" class="form-control" id="weight" name="weight">
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Height:</label>
+                            <input type="text" class="form-control" id="height" name="height">
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="d-inline">
                             <button type="submit" class="btn btn-primary">Print</button>
