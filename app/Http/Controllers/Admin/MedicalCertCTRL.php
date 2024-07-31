@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 
 class MedicalCertCTRL extends Controller
 {
@@ -15,8 +16,10 @@ class MedicalCertCTRL extends Controller
 
     public function MedicalCertificatePDF(Request $request)
     {
+
         $data = [
             'patient_name' => $request->input('title'),
+            'address' => $request->input('address'),
             'heart' => $request->input('heart'),
             'lung' => $request->input('lung'),
             'heent' => $request->input('heent'),
@@ -29,15 +32,13 @@ class MedicalCertCTRL extends Controller
             'cr' => $request->input('cr'),
             'weight' => $request->input('weight'),
             'height' => $request->input('height'),
-
-
-
+            'date' => now()->toDateString(),
 
         ];
 
 
-        $pdf = Pdf::loadView('admin.medicalcertificate-pdf', $data);
+
+        $pdf = Pdf::loadView('admin.medicalcertificate-pdf',  $data);
         return $pdf->stream('medical_certificate.pdf');
     }
-
 }
