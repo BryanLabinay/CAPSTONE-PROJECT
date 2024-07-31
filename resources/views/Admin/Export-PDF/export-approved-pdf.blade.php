@@ -5,7 +5,7 @@
 <head>
     <title>Appointment Record PDF</title>
 
-    <link rel="shortcut icon" href="{{ asset('IMG/csulogo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="IMG/csulogo.png" type="image/x-icon">
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
