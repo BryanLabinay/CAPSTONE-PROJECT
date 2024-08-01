@@ -30,7 +30,7 @@ body {
 
 header {
     position: fixed;
-    top: -160px;
+    top: -150px;
     left: 0px;
     right: 0px;
     height: 100px;
@@ -41,13 +41,38 @@ header {
 
 footer {
     position: fixed;
-    bottom: -100px;
+    bottom: -50px;
     left: 0px;
     right: 0px;
     height: 50px;
     text-align: center;
     background-color: white;
     padding: 10px 0;
+}
+.doc-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    right: 10px; /* Adjust this value to your needs */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.doc-name {
+    font-weight: bold;
+    font-size: 1em; /* Adjust this value to your needs */
+}
+
+.ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.li {
+    margin: 0;
 }
 
 .pagenum:before {
@@ -76,6 +101,38 @@ img {
 h2{
     padding: 0;
 }
-.patient{
 
+.date{
+    font-size: 15px;
+   position: absolute;
+   top: 43px;
+   right: -0px;
+   padding: 0;
+}
+ul{
+   list-style: none;
+   padding: 0;
+}
+.phy-exam{
+    font-family: cursive;
+}
+
+.assessment{
+    font-family: cursive;
+    text-align: center;
+}
+/* 
+.overlay-container {
+    position: relative;
+    width: 100%; 
+    height: 100%; 
+} */
+
+.body-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 85%; 
+    opacity: 0.1; 
 }
