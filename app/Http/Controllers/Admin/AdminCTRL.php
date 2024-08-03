@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventFormRequest;
-use Illuminate\Support\Facades\DB;
 
 class AdminCTRL extends Controller
 {
 
     // Admin Calendar
+
     public function calendar(Request $request)
     {
         $selectedDate = $request->input('date', date('Y-m-d'));
+        $formattedDate = Carbon::parse($selectedDate)->format('F j, Y');
         $currentMonth = $request->input('month', date('m')) - 1;
         $currentYear = $request->input('year', date('Y'));
 
@@ -35,10 +38,15 @@ class AdminCTRL extends Controller
             'currentMonth' => $currentMonth,
             'currentYear' => $currentYear,
             'selectedDate' => $selectedDate,
+            'formattedDate' => $formattedDate,
             'appointmentCounts' => $appointmentCounts,
             'appointments' => $appointments
         ]);
     }
+
+
+
+
     // Add event
     public function addevent()
     {
