@@ -22,6 +22,16 @@
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .body-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 90%;
+            opacity: 0.2;
+        }
     </style>
 @stop
 
@@ -33,6 +43,8 @@
 @section('content')
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+        <img src="{{ url('Image/logo/mendoza.png') }}" class="body-img ">
+
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
