@@ -77,13 +77,16 @@
                                                 str_pad($date, 2, '0', STR_PAD_LEFT);
                                             $appointmentCount = $appointmentCounts->get($currentDate, 0);
                                         @endphp
-                                        <td>
+                                        <td style="position: relative;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#appointmentModal"
-                                                data-date="{{ $currentDate }}" class="calendar-date-link">
-                                                {{ $date }} <br>
-                                                <small style="color: black; text-decoration:none;">count
-                                                    {{ $appointmentCount }}</small>
+                                                data-date="{{ $currentDate }}"
+                                                class="calendar-date-link text-decoration-none fw-semibold text-black">
+                                                {{ $date }}
                                             </a>
+                                            <div
+                                                style="position: absolute; top: -0px; right: 25px; width: 20px; height: 20px; border-radius: 50%; background-color: red; opacity: {{ $appointmentCount == 0 ? 0 : 1 }}; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
+                                                {{ $appointmentCount }}
+                                            </div>
                                         </td>
                                         @php $date++; @endphp
                                     @endif
@@ -103,7 +106,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="appointmentModalLabel">Appointments on <span
-                        id="modalDate">{{ $selectedDate }}</span></h5>
+                        id="modalDate">{{ $formattedDate }}</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -112,9 +115,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Address</th>
-                            <th>Phone</th>
                             <th>Appointment Type</th>
-                            <th>Message</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -124,9 +125,7 @@
                                 <tr>
                                     <td>{{ $appointment->name }}</td>
                                     <td>{{ $appointment->address }}</td>
-                                    <td>{{ $appointment->phone }}</td>
                                     <td>{{ $appointment->appointment }}</td>
-                                    <td>{{ $appointment->message }}</td>
                                     <td>{{ $appointment->status }}</td>
                                 </tr>
                             @endif
@@ -155,7 +154,13 @@
         document.querySelectorAll('.calendar-date-link').forEach(anchor => {
             anchor.addEventListener('click', function() {
                 const date = this.getAttribute('data-date');
-                appointmentModalTitle.textContent = date;
+                // Format the date to Month Day, Year
+                const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                appointmentModalTitle.textContent = formattedDate;
 
                 // Update modal body with appointments
                 const appointments = @json($appointments);
@@ -164,15 +169,13 @@
                 appointments.forEach(appointment => {
                     if (appointment.date === date) {
                         appointmentsHTML += `
-                                <tr>
-                                    <td>${appointment.name}</td>
-                                    <td>${appointment.address}</td>
-                                    <td>${appointment.phone}</td>
-                                    <td>${appointment.appointment}</td>
-                                    <td>${appointment.message}</td>
-                                    <td>${appointment.status}</td>
-                                </tr>
-                            `;
+                            <tr>
+                                <td>${appointment.name}</td>
+                                <td>${appointment.address}</td>
+                                <td>${appointment.appointment}</td>
+                                <td>${appointment.status}</td>
+                            </tr>
+                        `;
                     }
                 });
 
