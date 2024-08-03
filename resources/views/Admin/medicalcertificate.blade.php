@@ -21,6 +21,16 @@
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .body-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 90%;
+            opacity: 0.1;
+        }
     </style>
 @stop
 
@@ -33,7 +43,9 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-center mb-5">
             <div class="col-12" style="width:70vw;">
-                <div class="p-3 text-dark rounded-2 bg-secondary bg-opacity-25 shadow-sm">
+                {{-- rounded-2 bg-secondary bg-opacity-25 shadow-sm --}}
+                <div class="p-3 text-dark">
+                    {{-- <img src="Image/logo/mendoza.png" class="body-img "> --}}
                     <h5 class="">Input Patient</h5>
                     <hr class="mt-0">
                     <form method="post" action="{{ route('medical-certificate-pdf') }}" enctype="multipart/form-data">
@@ -52,7 +64,7 @@
                                 <div class="form-group">
                                     <label for="heart">Address:</label>
                                     <input type="text" class="form-control" name="address"
-                                        placeholder="Patient Address...">
+                                        placeholder="Patient Address..." required>
                                 </div>
                             </div>
                         </div>
