@@ -128,7 +128,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
-                <div class="p-3 text-dark rounded-2 bg-secondary bg-opacity-25 shadow-sm" style="width: 600px;">
+                <div class="p-3 text-dark rounded-1 bg-secondary bg-opacity-25" style="width: 600px;">
                     <h4 class="">Event Form</h4>
                     <hr class="mt-0">
                     <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
