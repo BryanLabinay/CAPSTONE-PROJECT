@@ -15,7 +15,7 @@ class AppointmentCTRL extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(5);
+        $appointments = Appointment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(7);
         return view('User.appointment-list', compact('appointments'));
     }
 
