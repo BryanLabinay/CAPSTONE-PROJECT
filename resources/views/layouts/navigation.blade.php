@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<header id="header" class="header fixed-top py-1 font-web">
+<header id="header" class="header fixed-top py-1 font-web shadow-sm">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         <!-- Logo -->
         <a href="{{ url('/dashboard') }}" class="logo d-flex align-items-center text-decoration-none">
