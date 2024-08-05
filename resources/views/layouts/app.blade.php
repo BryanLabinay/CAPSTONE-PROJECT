@@ -120,21 +120,21 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{ url('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <script src="{{ url('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- FullCalendar JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale-all.js"></script>
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <!--  Main JS File -->
+    <script src="{{ url('assets/js/main.js') }}"></script>
     <!-- Include AOS JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
