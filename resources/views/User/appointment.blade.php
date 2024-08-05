@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section id="team" class="mt-2 team">
+    <section id="team" class="team">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
             </header>
@@ -26,11 +26,12 @@
                     </script>
                 @endif
             </div>
-            <div class="row gy-4 font-web">
+            <div class="row font-web">
                 <div class="col-6 bg-primary-subtle rounded-4 me-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="p-3">
-                        <h3 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5" style="color:#012970;">Appointment
-                            Form</h3>
+                        <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
+                            Appointment
+                            Form</h4>
                         <form action="{{ route('Add-Appointment') }}" method="post">
                             @csrf
                             <div class="form-group mb-2">
@@ -82,7 +83,8 @@
                 </div>
                 <div class="col-5 ms-5 bg-primary-subtle rounded-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="text-center mt-2">
-                        <h3 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5" style="color:#012970;">Consultation
+                        <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
+                            Consultation
                     </div>
                     <div class="row px-4">
                         <div class="col bg-white rounded-3 py-1 px-3">
