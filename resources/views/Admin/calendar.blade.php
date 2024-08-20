@@ -27,17 +27,18 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                        <input type="hidden" name="month" value="{{ $currentMonth + 1 }}">
+                        <input type="hidden" name="month" value="{{ $currentMonth }}">
                         <input type="hidden" name="year" value="{{ $currentYear }}">
                         <button type="submit" class="btn btn-sm btn-primary" name="prevMonth">Previous</button>
                     </form>
                     <span id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
                     <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                        <input type="hidden" name="month" value="{{ $currentMonth + 1 }}">
+                        <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
                         <input type="hidden" name="year" value="{{ $currentYear }}">
                         <button type="submit" class="btn btn-sm btn-primary" name="nextMonth">Next</button>
                     </form>
                 </div>
+
                 <div class="card-body">
                     <table class="table table-bordered">
                         <thead>
@@ -58,6 +59,7 @@
                                 );
                                 $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth + 1, $currentYear);
                                 $date = 1;
+                                $today = date('Y-m-d'); // Get today's date
                             @endphp
                             @for ($i = 0; $i < 6; $i++)
                                 <tr>
@@ -80,7 +82,7 @@
                                         <td style="position: relative;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#appointmentModal"
                                                 data-date="{{ $currentDate }}"
-                                                class="calendar-date-link text-decoration-none fw-semibold text-black">
+                                                class="calendar-date-link text-decoration-none fw-semibold text-black {{ $currentDate == $today ? 'bg-warning p-1 rounded-circle text-dark' : '' }}">
                                                 {{ $date }}
                                             </a>
                                             <div
@@ -93,6 +95,7 @@
                                 @endfor
                             </tr>
                         @endfor
+
                     </tbody>
                 </table>
             </div>
@@ -106,7 +109,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="appointmentModalLabel">Appointments on <span id="modalDate"
-                        class="fw-bold">{{ $formattedDate }}</span></h5>
+                        class="fw-bold">{{ $selectedDate }}</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
