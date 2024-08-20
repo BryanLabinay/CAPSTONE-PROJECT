@@ -39,6 +39,6 @@ class MedicalCertCTRL extends Controller
 
 
         $pdf = Pdf::loadView('admin.medicalcertificate-pdf',  $data);
-        return $pdf->stream('medical_certificate.pdf');
+        return $pdf->download('medical_certificate.pdf');
     }
 }
