@@ -42,7 +42,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row d-flex justify-content-center mb-5">
-            <div class="col-12" style="width:70vw;">
+            <div class="col-12 border rounded-1 shadow-sm bg-secondary bg-opacity-25" style="width:70vw;">
                 {{-- rounded-2 bg-secondary bg-opacity-25 shadow-sm --}}
                 <div class="p-3 text-dark">
                     {{-- <img src="Image/logo/mendoza.png" class="body-img "> --}}
