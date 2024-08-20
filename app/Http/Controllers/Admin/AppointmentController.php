@@ -11,7 +11,7 @@ class AppointmentController extends Controller
     // All User Appointment List
     public function appointmentlist()
     {
-        $appointments = Appointment::orderBy('created_at', 'desc')->paginate(5);
+        $appointments = Appointment::orderBy('created_at', 'desc')->paginate(10);
         return view('Admin.Appointment.all-appointment', compact('appointments'));
     }
 
