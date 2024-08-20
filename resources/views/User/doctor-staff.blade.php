@@ -1,7 +1,7 @@
 <x-app-layout>
     <section id="team" class="mt-3 team">
         <div class="container" data-aos="fade-up">
-            <header class="section-header p-1">
+            <header class="section-header p-1">u
                 <h2 class="text-danger">Team</h2>
                 <h3 class="font-web fw-bold" style="color: #012970;">Our hard working team</h3>
 
