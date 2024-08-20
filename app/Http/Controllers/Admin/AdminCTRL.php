@@ -17,10 +17,22 @@ class AdminCTRL extends Controller
 
     public function calendar(Request $request)
     {
-        $selectedDate = $request->input('date', date('Y-m-d'));
-        $formattedDate = Carbon::parse($selectedDate)->format('F j, Y');
+        // Get the current month and year from the request, or use the current date if not provided
         $currentMonth = $request->input('month', date('m')) - 1;
         $currentYear = $request->input('year', date('Y'));
+
+        // Adjust for year boundary when navigating to previous or next month
+        if ($currentMonth < 0) {
+            $currentMonth = 11; // December
+            $currentYear--;
+        } elseif ($currentMonth > 11) {
+            $currentMonth = 0; // January
+            $currentYear++;
+        }
+
+        // Get the selected date, or use the current date
+        $selectedDate = $request->input('date', date('Y-m-d'));
+        $formattedDate = Carbon::parse($selectedDate)->format('F j, Y');
 
         // Get all appointments
         $appointments = DB::table('appointments')->get();
