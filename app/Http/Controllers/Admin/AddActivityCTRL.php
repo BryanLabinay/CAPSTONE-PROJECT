@@ -101,4 +101,10 @@ class AddActivityCTRL extends Controller
     {
         return view('Admin.add-activity.contact');
     }
+
+    // Summernote
+    public function summernote()
+    {
+        return view('Admin.summernote');
+    }
 }
