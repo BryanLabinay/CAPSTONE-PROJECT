@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminProfileCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
+use App\Http\Controllers\SummernoteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -74,8 +75,7 @@ Route::middleware(['auth', 'admin'])->prefix('Admin')->group(function () {
 });
 
 // Admin Navigation
-Route::prefix('Admin')->group(function () {
-});
+Route::prefix('Admin')->group(function () {});
 
 // Appointment-List
 Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function () {
@@ -103,7 +103,8 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
     Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
     Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
-
+    // Summernote 
+    Route::get('/Summernote', [SummernoteController::class, 'summernote'])->name('summernote');
 });
 
 // Activity List
@@ -133,9 +134,12 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');
     Route::get('/Reports-Appointment-Pdf', [ExportAppointmentController::class, 'reports'])->name('export.reports.pdf');
 });
+
+// Other Navigation
 Route::middleware(['auth', 'admin'])->group(function () {
     // Activity Log
     Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
+    // Medical Certificate
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
     Route::post('/Medical-Certificatei-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
 });
