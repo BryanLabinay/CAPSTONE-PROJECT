@@ -58,7 +58,6 @@ class AdminCTRL extends Controller
 
 
 
-
     // Add event
     public function addevent()
     {
