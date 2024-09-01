@@ -13,6 +13,86 @@
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .calendar {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #343984;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        #monthYear {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            /* font-family: 'Poppins'; */
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border-color: #ddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+        }
+
+        .calendar-date-link {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar-date-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        .bg-secondary {
+            background-color: #343984 !important;
+            color: #f0f0f0
+        }
+
+        .modal-title {
+            color: #343984;
+        }
+
+        .modal-body table {
+            margin-bottom: 0;
+        }
+
+        .btn-primary {
+            background-color: #343984;
+            border-color: #343984;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c3176;
+            border-color: #2c3176;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-date-link {
+                padding: 5px;
+                font-size: 0.9rem;
+            }
+
+            #monthYear {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 5px 10px;
+            }
+        }
     </style>
 @stop
 
@@ -22,20 +102,22 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="calendar">
+    <div class="container-fluid">
+        <div class="">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
+                <div class="card-header d-flex justify-content-center align-items-center">
                     <form method="GET" action="{{ route('calendar') }}" class="d-flex">
                         <input type="hidden" name="month" value="{{ $currentMonth }}">
                         <input type="hidden" name="year" value="{{ $currentYear }}">
-                        <button type="submit" class="btn btn-sm btn-primary" name="prevMonth">Previous</button>
+                        <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth"><i
+                                class="fa-solid fa-chevron-left"></i></button>
                     </form>
                     <span id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
                     <form method="GET" action="{{ route('calendar') }}" class="d-flex">
                         <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
                         <input type="hidden" name="year" value="{{ $currentYear }}">
-                        <button type="submit" class="btn btn-sm btn-primary" name="nextMonth">Next</button>
+                        <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth"><i
+                                class="fa-solid fa-chevron-right"></i></button>
                     </form>
                 </div>
 
@@ -43,13 +125,13 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
+                                <th>SUN</th>
+                                <th>MON</th>
+                                <th>TUE</th>
+                                <th>WED</th>
+                                <th>THU</th>
+                                <th>FRI</th>
+                                <th>SAT</th>
                             </tr>
                         </thead>
                         <tbody id="calendarBody">
@@ -82,11 +164,11 @@
                                         <td style="position: relative;">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#appointmentModal"
                                                 data-date="{{ $currentDate }}"
-                                                class="calendar-date-link text-decoration-none fw-semibold text-black {{ $currentDate == $today ? 'bg-warning p-1 rounded-circle text-dark' : '' }}">
+                                                class="calendar-date-link text-decoration-none fw-bold text-black {{ $currentDate == $today ? 'bg-secondary text-light' : '' }}">
                                                 {{ $date }}
                                             </a>
                                             <div
-                                                style="position: absolute; top: -0px; right: 25px; width: 20px; height: 20px; border-radius: 50%; background-color: red; opacity: {{ $appointmentCount == 0 ? 0 : 1 }}; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
+                                                style="position: absolute; top: 0px; right: 25px; width: 20px; height: 20px; border-radius: 50%; background-color: red; opacity: {{ $appointmentCount == 0 ? 0 : 1 }}; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
                                                 {{ $appointmentCount }}
                                             </div>
                                         </td>
@@ -95,7 +177,6 @@
                                 @endfor
                             </tr>
                         @endfor
-
                     </tbody>
                 </table>
             </div>
@@ -109,7 +190,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="appointmentModalLabel">Appointments on <span id="modalDate"
-                        class="fw-bold">{{ $selectedDate }}</span></h5>
+                        class="fw-bold text-danger">{{ $selectedDate }}</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
