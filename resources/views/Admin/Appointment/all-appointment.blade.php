@@ -139,7 +139,7 @@
         <div class="col d-flex justify-content-end">
             <form action="{{ route('export.reports.pdf') }}" method="get">
                 @csrf
-                <button class="btn btn-primary me-2"><i class="fa-solid fa-file-pdf me-1"></i>MAKE REPORTS</button>
+                <button class="btn btn-primary me-2"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
             </form>
             <form action="{{ route('export.allrecord.pdf') }}" method="get">
                 @csrf
