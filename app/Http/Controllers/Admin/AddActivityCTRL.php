@@ -57,7 +57,7 @@ class AddActivityCTRL extends Controller
     // Add Employee
     public function addDoctor()
     {
-        return view('Admin.add-activity.Employee.add-doctor');
+        return view('Admin.add-activity.add-employee');
     }
 
 
