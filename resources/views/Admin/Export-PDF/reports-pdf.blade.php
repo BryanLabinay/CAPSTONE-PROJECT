@@ -2,57 +2,30 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="Css/reports.css">
     <title>Appointments Report</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1,
-        h2 {
-            text-align: center;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
 </head>
 
 <body>
-    <h1>Appointments Report</h1>
-
-    <h2>Status Counts</h2>
+    <header>
+        <div class="img">
+            <img src="Image/logo/mendoza.png">
+        </div>
+        <h2>DR. MENDOZA MULTI-SPECIALIST CLINIC</h2>
+        <p class="address">
+            Magsaysay Corner St. Minanga Aparri Cagayan <br>
+            CEL# 0917 574 4643
+        </p>
+        <p class="title">APPOINTMENTS REPORT</p>
+    </header>
     <ul>
         <li>Pending: {{ $statusCounts['Pending'] }}</li>
         <li>Approved: {{ $statusCounts['Approved'] }}</li>
         <li>Cancelled: {{ $statusCounts['Cancelled'] }}</li>
     </ul>
 
-    <h2>Appointment Status Counts</h2>
+    <p class="title-2">APPOINTMENT STATUS COUNTS</p>
+    <img src="Image/logo/mendoza.png" class="body-img">
     <table>
         <thead>
             <tr>
