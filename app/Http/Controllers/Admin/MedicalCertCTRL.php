@@ -34,11 +34,14 @@ class MedicalCertCTRL extends Controller
             'height' => $request->input('height'),
             'date' => now()->toDateString(),
 
+            //Remarks/Diagnosis
+            'remarks' => $request->input('remarks'),
         ];
 
 
 
-        $pdf = Pdf::loadView('admin.medicalcertificate-pdf',  $data);
-        return $pdf->download('medical_certificate.pdf');
+        $pdf = Pdf::loadView('admin.medicalcertificate-pdf',  $data)
+            ->setPaper('letter', 'portrait');
+        return $pdf->stream('medical_certificate.pdf');
     }
 }
