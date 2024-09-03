@@ -385,6 +385,12 @@ return [
             'url' => '/Admin/Calendars',
             'icon' => 'fa-regular fa-calendar-days',
         ],
+        // [
+        //     'text' => 'Summernote',
+        //     'url' => '/Add-Activity/Summernote',
+        //     'icon' => 'fa-solid fa-file-pen',
+        //     'icon_color' => 'red',
+        // ],
         [
             'text' => 'Add Activity',
             'icon' => 'fas fa-fw fa-plus',
