@@ -137,15 +137,15 @@
 @section('content')
     <div class="row mb-2">
         <div class="col d-flex justify-content-end">
-            <form action="{{ route('export.reports.pdf') }}" method="get">
+            <form action="{{ route('export.reports.pdf') }}" method="get" target="_blank">
                 @csrf
                 <button class="btn btn-primary me-2"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
             </form>
-            <form action="{{ route('export.allrecord.pdf') }}" method="get">
+            <form action="{{ route('export.allrecord.pdf') }}" method="get" target="_blank">
                 @csrf
                 <button class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export PDF</button>
             </form>
-            <form action="{{ route('export.excel') }}" method="post">
+            <form action="{{ route('export.excel') }}" method="post" target="_blank">
                 @csrf
                 <button class="btn btn-success">
                     <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
@@ -156,7 +156,7 @@
     <hr class="mt-0 mb-3">
     <div class="row mb-2">
         <div class="col-6 d-flex justify-content-start">
-            <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2">
+            <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2" target="_blank">
                 @csrf
                 <div class="form-group">
                     <label for="filter_date" class="mr-2">Select Date:</label>
