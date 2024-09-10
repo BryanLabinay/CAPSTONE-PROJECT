@@ -37,21 +37,21 @@ class ExportAppointmentController extends Controller
     {
         $appointments = Appointment::all();
         $pdf = PDF::loadView('Admin.Export-PDF.export-pdf', compact('appointments'));
-        return $pdf->download('Download-Record.pdf');
+        return $pdf->stream('Download-Record.pdf');
     }
 
     public function ExportApprovedAppointmentPdf()
     {
         $appointments = Appointment::where('status', 'Approved')->get();
         $pdf = PDF::loadView('Admin.Export-PDF.export-approved-pdf', compact('appointments'));
-        return $pdf->download('Download-Record.pdf');
+        return $pdf->stream('Download-Record.pdf');
     }
 
     public function ExportCancelledAppointmentPdf()
     {
         $cancelled = Appointment::where('status', 'Cancelled')->get();
         $pdf = Pdf::loadView('Admin.Export-PDF.export-cancelled-pdf', compact('cancelled'));
-        return $pdf->download('Download-Record.pdf');
+        return $pdf->stream('Download-Record.pdf');
     }
 
 
