@@ -32,7 +32,99 @@
 
 @section('content')
     <div class="container-fluid">
-
+        <div class="row">
+            <div class="col-7 d-flex justify-content-center">
+                <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                    <form action="{{ route('contact.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <h5 class="fw-semibold text-dark">Contact Form</h5>
+                        <hr class="mt-0 text-black">
+                        <div class="form-group">
+                            <label for="">Contact Number:</label>
+                            <input name="cpnumber" type="text" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input name="email" type="email" required class="form-control">
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <button class="btn btn-primary px-5 ">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-5 p-0">
+                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                    <h5 class="text-center">Contact List</h5>
+                </div>
+                <div class="clickable-container position-relative mb-1">
+                    <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#infoModal"></a>
+                    <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                        {{-- <div class="me-3">
+                            <img src="{{ asset('assets/img/Staff/cover.jpg') }}" class="border border-1 border-secondary"
+                                height="50" width="50" alt="" style="border-radius:50%;">
+                        </div> --}}
+                        <div class="list-group">
+                            <div class="p-2">
+                                <div class="flex-grow-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h6 class="mb-0 text-dark fw-bold">Consultation</h6>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mb-0 text-muted">
+                                                Lorem ipsum dolor sit amet.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-5 p-0">
+            <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                <h5 class="text-center">Service List</h5>
+            </div>
+            @forelse ($services as $service)
+                <div class="clickable-container position-relative mb-1">
+                    <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#infoModal"></a>
+                    <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                        <div class="me-3">
+                            <img src="{{ asset('uploads/service/' . $service->img) }}"
+                                class="border border-1 border-secondary" height="50" width="50"
+                                alt="{{ $service->service }}" style="border-radius:50%;">
+                        </div>
+                        <div class="list-group">
+                            <div class="p-2">
+                                <div class="flex-grow-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h6 class="mb-0 text-dark fw-bold">{{ $service->service }}</h6>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mb-0 text-muted">
+                                                {{ strlen($service->description) > 40 ? substr($service->description, 0, 40) . '...' : $service->description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="row d-flex justify-content-center">
+                    <div class="col-5">
+                        <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
+                            <h5 class="text-center text-black">No Blog</h5>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
+        </div> --}}
+        </div>
     </div>
 @stop
 
