@@ -427,67 +427,6 @@ return [
                 ],
             ],
         ],
-        // Activity List
-        [
-            'text' => 'Activity List',
-            'icon' => 'fas fa-fw fa-bars',
-            'submenu' => [
-                [
-                    'text' => 'Event List',
-                    'icon' => 'fa-solid fa-list-ol',
-                    'icon_color' => 'blue',
-                    'url' => '/Activity-List/Event',
-                ],
-                [
-                    'text' => 'Employee List',
-                    'icon' => 'fa-solid fa-users',
-                    'icon_color' => 'red',
-                    'submenu' => [
-                        [
-                            'text' => 'Doctor List',
-                            'url' => 'Activity-List/Employee/Doctor-List',
-                            'icon' => 'fa-solid fa-user-doctor',
-                            'icon_color' => 'blue',
-                        ],
-                        [
-                            'text' => 'Staff List',
-                            'url' => 'Activity-List/Employee/Staff-List',
-                            'icon' => 'fa-solid fa-user-nurse',
-                            'icon_color' => 'blue',
-                            // 'submenu' => [
-                            //     [
-                            //         'text' => 'level_three',
-                            //         'url' => '#',
-                            //     ],
-                            //     [
-                            //         'text' => 'level_three',
-                            //         'url' => '#',
-                            //     ],
-                            // ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Blog List',
-                    'url' => 'Activity-List/Blog-List',
-                    'icon' => 'fa-regular fa-images',
-                    'icon_color' => 'blue',
-                ],
-                [
-                    'text' => 'Service List',
-                    'url' => 'Activity-List/Service-List',
-                    'icon' => 'fa-solid fa-hand-holding-heart',
-                    'icon_color' => 'green',
-                ],
-                [
-                    'text' => 'Contact List',
-                    'url' => 'Activity-List/Contact-List',
-                    'icon' => 'fa-solid fa-address-book',
-                    'icon_color' => 'blue',
-                ],
-            ],
-        ],
-        ['header' => 'OTHERS',],
         [
             'text' => 'Medical Certificate',
             'url' => '/Medical-Certificate',
