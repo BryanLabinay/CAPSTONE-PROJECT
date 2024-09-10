@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+// use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class MedicalCertCTRL extends Controller
 {
@@ -16,8 +17,13 @@ class MedicalCertCTRL extends Controller
 
     public function MedicalCertificatePDF(Request $request)
     {
+        $formattedDate = Carbon::now()->isoFormat('MMMM D, YYYY');
 
         $data = [
+
+            // Date
+            'date' => $formattedDate,
+
             'patient_name' => $request->input('title'),
             'address' => $request->input('address'),
             'heart' => $request->input('heart'),
@@ -36,6 +42,11 @@ class MedicalCertCTRL extends Controller
 
             //Remarks/Diagnosis
             'remarks' => $request->input('remarks'),
+
+            // Doctor Information
+            'doctorName' => $request->input('doctorName'),
+            'position' => $request->input('position'),
+            'district' => $request->input('district'),
         ];
 
 
