@@ -92,7 +92,7 @@
 @section('content')
     <div class="row mb-3">
         <div class="col d-flex justify-content-end">
-            <form action="{{ route('export.approvedrecord.pdf') }}" method="get">
+            <form action="{{ route('export.approvedrecord.pdf') }}" method="get" target="_blank">
                 @csrf
                 <button class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export PDF</button>
             </form>
