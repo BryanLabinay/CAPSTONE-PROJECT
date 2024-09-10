@@ -48,7 +48,8 @@
                     {{-- <img src="Image/logo/mendoza.png" class="body-img "> --}}
                     <h5 class="">Input Patient</h5>
                     <hr class="mt-0">
-                    <form method="post" action="{{ route('medical-certificate-pdf') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('medical-certificate-pdf') }}" enctype="multipart/form-data"
+                        target="_blank">
                         @csrf
                         <!-- Patient Name Input -->
                         <div class="row">
@@ -169,16 +170,63 @@
                                     <input type="text" class="form-control" id="height" name="height">
                                 </div>
                             </div>
-
-
-
+                        </div>
+                        <hr class="mt-0">
+                        <div class="row">
+                            <h6 class="fw-semibold">ASSESSMENT:</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Vital Signs -->
+                                <div class="form-group">
+                                    <label for="bp">Remark/Diagnosis:</label>
+                                    <select name="remarks" id="remarks" class="form-select"
+                                        aria-label="Default select example" required>
+                                        <option selected disabled hidden>Select Class...</option>
+                                        <option value="FIT TO WORK CLASS A">FIT TO WORK CLASS A</option>
+                                        <option value="FIT TO WORK CLASS B">FIT TO WORK CLASS B</option>
+                                        <option value="FIT TO WORK CLASS C">FIT TO WORK CLASS C</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 p-0 ms-3">
+                                <p><i class="fa-solid fa-caret-right me-1"></i>CLASS A: Physically fit for all types of
+                                    work. No physical defects or disease noted.</p>
+                                <p><i class="fa-solid fa-caret-right me-1"></i>CLASS B: Physically fit for all types of
+                                    work. Has minor defect/ailment.</p>
+                                <p><i class="fa-solid fa-caret-right me-1"></i>CLASS C: Employee but owning to certain
+                                    impairments or conditions. Recommending follow
+                                    up/evaluation.</p>
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <div class="row">
+                            <h6 class="fw-semibold">DOCTOR INFORMATION:</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="">Doctor Name:</label>
+                                <input type="text" class="form-control" name="doctorName" id="doctorName" required>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                            <div class="col-6">
+                                <label for="">Position:</label>
+                                <input type="text" class="form-control" name="position" id="position" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="">District:</label>
+                                <input type="text" class="form-control" name="district" id="district" required>
+                            </div>
                         </div>
 
 
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary me-2 px-4">Create</button>
-                            <button class="btn btn-danger">Send to Patient</button>
+                            {{-- <button class="btn btn-danger">Send to Patient</button> --}}
                         </div>
                     </form>
                 </div>
