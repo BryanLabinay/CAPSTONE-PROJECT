@@ -23,28 +23,6 @@
             font-family: "Nunito", sans-serif;
         }
 
-        .clickable-container {
-            position: relative;
-        }
-
-        .stretched-link {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .clickable-container a,
-        .clickable-container button,
-        .clickable-container form {
-            z-index: 2;
-            pointer-events: auto;
-        }
-
-
         .colored-toast.swal2-icon-success {
             background-color: #012970 !important;
         }
@@ -110,10 +88,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
-                <div class="bg-secondary p-2 text-black px-3 rounded-2 bg-opacity-50" style="width: 600px;">
+                <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
                     <form action="{{ route('upload-doctor') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <h4 class="fw-semibold text-dark">Add Employee Form</h4>
+                        <h5 class="fw-semibold text-dark">Add Employee Form</h5>
                         <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="">Name:</label>
@@ -124,7 +102,7 @@
                             <label for="position">Position:</label>
                             <div class="input-group">
                                 <select name="position" class="form-select" id="position" required>
-                                    <option selected>Choose Employee</option>
+                                    <option selected disabled hidden></option>
                                     <option value="Doctor">Doctor</option>
                                     <option value="Staff">Staff</option>
                                 </select>
@@ -139,48 +117,95 @@
                     </form>
                 </div>
             </div>
-            {{-- @if ('success')
-                <script>
-                    alert('Record uploaded successfully!');
-                </script>
-            @else
-                <script>
-                    alert('Record not uploaded successfully!');
-                </script>
-            @endif --}}
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-50 p-0 rounded-2 text-black">
-                    <h4 class="text-center">Employee List</h4>
+                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                    <h5 class="text-center">Employee List</h5>
                 </div>
-                <div class="clickable-container position-relative">
-                    <a href="#" class="stretched-link"></a>
-                    <div class="d-flex align-items-center bg-secondary bg-opacity-50 rounded-2 px-3">
-                        <div class="me-3">
-                            <img src="{{ asset('Image/Staff/img1.jpg') }}" class="border border-1 border-secondary"
-                                height="50" width="50" alt="Doctor Profile" style="border-radius:50%;">
-                        </div>
-                        <div class="flex-grow-1 p-0">
-                            <div class="d-flex align-items-center mt-3">
-                                <h6 class="">Bryan</h6>
-                                <p class="text-muted">Doctor</p>
+                @forelse ($employees as $employee)
+                    <div class="clickable-container position-relative mb-1">
+                        <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#infoModal"></a>
+                        <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                            <div class="me-3">
+                                <img src="{{ asset('Doctors/' . $employee->image) }}"
+                                    class="border border-1 border-secondary" height="50" width="50"
+                                    alt="{{ $employee->name }}" style="border-radius:50%;">
+                            </div>
+                            <div class="list-group">
+                                <div class="p-2">
+                                    <div class="flex-grow-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="mb-0 text-dark fw-bold">{{ $employee->name }}</h6>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="mb-0 text-muted">{{ $employee->position }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Repeat the above block for more notifications -->
                             </div>
                         </div>
-                        <div class="d-flex align-items-center ms-3">
-                            <a href="edit_url" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <form action="#" method="post" class="m-0">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </form>
+                    </div>
+                @empty
+                    <div class="col-5">
+                        <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                            <h5 class="text-center">No Employee</h5>
                         </div>
                     </div>
-                </div>
+                @endforelse
+
+                @foreach ($employees as $employee)
+                    <!-- Modal Trigger -->
+                    <a href="#" class="stretched-link" data-bs-toggle="modal"
+                        data-bs-target="#infoModal{{ $employee->id }}"></a>
+
+                    <!-- Modal Structure -->
+                    <div class="modal fade" id="infoModal{{ $employee->id }}" tabindex="-1"
+                        aria-labelledby="infoModalLabel{{ $employee->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="infoModalLabel{{ $employee->id }}">Profile Information</h5>
+                                    <div class="d-flex align-items-center ms-3">
+                                        <a href="#" class="btn btn-sm btn-outline-primary me-2">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <form action="" method="post" class="m-0">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-center">
+                                        <!-- Image inside the modal -->
+                                        <img src="{{ asset('Doctors/' . $employee->image) }}"
+                                            class="img-fluid rounded-circle mb-3" alt="{{ $employee->name }}"
+                                            style="width: 150px; height: 150px; border: 2px solid #6c757d;">
+                                        <h6 class="text-dark fw-bold">{{ $employee->name }}</h6>
+                                        <p class="text-muted">{{ $employee->position }}</p>
+                                        <!-- Add more details about the employee if needed -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
             </div>
         </div>
     </div>
 @stop
+
 
 
 @section('js')
