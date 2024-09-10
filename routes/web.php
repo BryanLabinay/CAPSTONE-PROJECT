@@ -95,14 +95,23 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
 
 // Add Activity
 Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () {
+    // Events
     Route::get('/Event', [AddActivityCTRL::class, 'addevent'])->name('add.event');
     Route::post('/Event', [AddActivityCTRL::class, 'storeevent'])->name('store.event');
+    // Employee
     Route::get('/Employee/Doctor', [AddActivityCTRL::class, 'addDoctor'])->name('add.doctor');
     Route::get('/Employee/Staff', [AddActivityCTRL::class, 'addStaff'])->name('add.staff');
-    Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
-    Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
-    Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
     Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
+    // Blog
+    Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
+    Route::post('/Blog', [AddActivityCTRL::class, 'storeBlog'])->name('store.blog');
+    // Service
+    Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
+    Route::post('/Service', [AddActivityCTRL::class, 'serviceStore'])->name('service.store');
+    // Contact
+    Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
+    Route::post('/Contact', [AddActivityCTRL::class, 'contactStore'])->name('contact.store');
+
     // Summernote 
     Route::get('/Summernote', [SummernoteController::class, 'summernote'])->name('summernote');
 });
