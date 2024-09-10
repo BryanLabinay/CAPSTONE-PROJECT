@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Appointment Record PDF</title>
+    <title>Approved Appointment Record PDF</title>
 
     <link rel="shortcut icon" href="IMG/csulogo.png" type="image/x-icon">
     <style>
