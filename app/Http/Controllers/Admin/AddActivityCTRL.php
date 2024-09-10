@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\DoctorList;
+use App\Models\Blog;
 use App\Models\Event;
+use App\Models\Contact;
+use App\Models\Service;
+use App\Models\DoctorList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogFormRequest;
 use App\Http\Requests\EventFormRequest;
+use App\Http\Requests\ContactFormRequest;
+use App\Http\Requests\ServiceFormRequest;
 
 class AddActivityCTRL extends Controller
 {
@@ -57,7 +63,8 @@ class AddActivityCTRL extends Controller
     // Add Employee
     public function addDoctor()
     {
-        return view('Admin.add-activity.add-employee');
+        $employees = DoctorList::all();
+        return view('Admin.add-activity.add-employee', compact('employees'));
     }
 
 
@@ -87,13 +94,49 @@ class AddActivityCTRL extends Controller
     // Blog
     public function blog()
     {
-        return view('Admin.add-activity.blog');
+        $blogs = Blog::latest()->get();
+        return view('Admin.add-activity.blog', compact('blogs'));
+    }
+
+    // Store Blog 
+    public function storeBlog(BlogFormRequest $request)
+    {
+        $blog = new Blog();
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        if ($request->hasFile('img')) {
+            $img = $request->file('img');
+            $imgName = time() . '_' . $img->getClientOriginalName();
+            $img->move(public_path('uploads/blogs'), $imgName);
+            $blog->img = $imgName;
+        }
+
+        $blog->save();
+        return redirect()->back()->with('blog', $blog)->with('statusblog', 'Blog Uploaded');
     }
 
     // Add Services
     public function service()
     {
-        return view('Admin.add-activity.service');
+        $services = Service::latest()->get();
+        return view('Admin.add-activity.service', compact('services'));
+    }
+
+    // Service Store
+    public function serviceStore(ServiceFormRequest $request)
+    {
+        $service = new Service;
+        $service->service = $request->service;
+        $service->description = $request->description;
+        if ($request->hasFile('img')) {
+            $img = $request->file('img');
+            $imgName = time() . '_' . $img->getClientOriginalName();
+            $img->move(public_path('uploads/service'), $imgName);
+            $service->img = $imgName;
+        }
+
+        $service->save();
+        return redirect()->back()->with('service', $service)->with('serviceStatus', 'Service Added');
     }
 
     // Add Contact
@@ -101,6 +144,18 @@ class AddActivityCTRL extends Controller
     {
         return view('Admin.add-activity.contact');
     }
+
+
+    // Contact Store
+    public function contactStore(ContactFormRequest $request)
+    {
+        $contact = new Contact;
+        $contact->cpnumber = $request->cpnumber;
+        $contact->email = $request->email;
+        $contact->save();
+        return redirect()->back()->with('contact', $contact)->with('contactStatus', 'Contact Added');
+    }
+
 
     // Summernote
     public function summernote()
