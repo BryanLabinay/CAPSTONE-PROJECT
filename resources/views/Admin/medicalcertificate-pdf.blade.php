@@ -27,10 +27,10 @@
     {{-- Footer --}}
     <footer>
         <div class="doc-title">
-            <p class="doc-name">Dr. Mark Bryan Labinay</p>
+            <p class="doc-name">{{ $doctorName }}</p>
             <ul class="ul">
-                <li class="li">MEDICAL OFFICER III</li>
-                <li class="li">APARRI PROVINCIAL HOSPITAL</li>
+                <li class="li">{{ $position }}</li>
+                <li class="li">{{ $district }}</li>
             </ul>
         </div>
     </footer>
@@ -40,7 +40,7 @@
 
     <h1 class="med-certif">MEDICAL CERTIFICATE</h1>
     {{-- {{ $date ?? 'NO' }} --}}
-    <h5 class="date">August 01, 2024</h5>
+    <h5 class="date">{{ $date }}</h5>
     <p class="patient">This is to certify that <strong>{{ $patient_name }}</strong> from
         <strong>{{ $address }}</strong> was seen
         examined in this clinic.
@@ -48,23 +48,24 @@
 
     <h3 class="phy-exam">PHYSICAL EXAMINATIONS:</h3>
     <ul>
-        <li>Heart: {{ $heart ?? 'NO' }}</li>
-        <li>Chest/Lung: {{ $lung ?? 'NO' }}</li>
-        <li>HEENT: {{ $heent ?? 'NO' }}</li>
-        <li>Abdomen: {{ $abdomen ?? 'NO' }}</li>
-        <li>Extremeties: {{ $extremeties ?? 'NO' }}</li>
-        <li>Integumentary: {{ $intergumentary ?? 'NO' }}</li>
+        <li class="phy-li-1">Heart: {{ $heart ?? 'NO' }}</li>
+        <li class="phy-li">Chest/Lung: {{ $lung ?? 'NO' }}</li>
+        <li class="phy-li">HEENT: {{ $heent ?? 'NO' }}</li>
+        <li class="phy-li">Abdomen: {{ $abdomen ?? 'NO' }}</li>
+        <li class="phy-li">Extremeties: {{ $extremeties ?? 'NO' }}</li>
+        <li class="phy-li">Integumentary: {{ $intergumentary ?? 'NO' }}</li>
     </ul>
 
     <h3 class="phy-exam">VITAL SIGNS:</h3>
     <ul>
-        <li><i>Blood Pressure (BP): {{ $bp ?? 'NO' }}mmHg</i></li>
-        <li><i>Cardiac Rate (CR): {{ $cr ?? 'NO' }}</i></li>
-        <li><i>Weight: {{ $weight ?? 'NO' }}KG</i></li>
-        <li><i>Height: {{ $height ?? 'NO' }}CM </i></li>
+        <li class="phy-li-1"><i>Blood Pressure (BP): {{ $bp ?? 'NO' }}</i></li>
+        <li class="phy-li"><i>Cardiac Rate (CR): {{ $cr ?? 'NO' }}</i></li>
+        <li class="phy-li"><i>Weight: {{ $weight ? $weight . ' KG' : 'NO' }}</i></li>
+        <li class="phy-li"><i>Height: {{ !empty($height) ? $height . ' CM' : 'NO' }}</i></li>
+
     </ul>
     <h3 class="assessment"><i>ASSESSMENT: ESSENTIALLY NORMAL AT THE TIME OF EXAMINATION</i></h3>
-    <h3 class="phy-exam">REMARKS/DIAGNOSIS: FIT TO WORK CLASS A</h3>
+    <h3 class="phy-exam">REMARKS/DIAGNOSIS: {{ $remarks }}</h3>
     <ul>
         <li>CLASS A: Physically fit for all types of work. No physical defects or disease noted</li>
         <li>CLASS B: Physically fit for all types of work. Has minor defect/ailment.</li>
