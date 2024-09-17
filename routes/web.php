@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SummernoteController;
 use App\Http\Controllers\User\AppointmentCTRL;
 use App\Http\Controllers\Admin\ActivityLogCTRL;
 use App\Http\Controllers\Admin\AddActivityCTRL;
@@ -12,9 +13,9 @@ use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\ActivityListCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
+use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
-use App\Http\Controllers\SummernoteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -92,6 +93,11 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
     Route::get('/appointments/filter', [AppointmentController::class, 'filterByDate'])->name('appointments.filter');
     Route::get('/appointments/today', [AppointmentController::class, 'showTodayAppointments'])->name('appointments.today');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function () {
+    Route::get('/List', [PatientsRecordCTRL::class, 'index']);
+});
+
 
 // Add Activity
 Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () {

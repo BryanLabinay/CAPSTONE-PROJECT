@@ -313,8 +313,23 @@ return [
         // ],
         [
             'type' => 'navbar-notification',
+            'id' => 'my-messenger',
+            'icon' => 'fa-solid fa-comment',
+            'icon_color' => 'blue',
+            'url' => 'messenger/show',
+            'topnav_right' => true,
+            'dropdown_mode' => true,
+            'dropdown_flabel' => 'All messages',
+            'update_cfg' => [
+                'url' => 'messenger/get',
+                'period' => 30,
+            ],
+        ],
+        [
+            'type' => 'navbar-notification',
             'id' => 'my-notification',
             'icon' => 'fas fa-bell',
+            'icon_color' => 'blue',
             'url' => 'notifications/show',
             'topnav_right' => true,
             'dropdown_mode' => true,
@@ -329,6 +344,7 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
+
 
 
 
@@ -381,10 +397,16 @@ return [
             ],
         ],
         [
+            'text' => 'Patients Record',
+            'url' => '/Patients-Record/List',
+            'icon' => 'fa-solid fa-user-group',
+        ],
+        [
             'text' => 'Calendar',
             'url' => '/Admin/Calendars',
             'icon' => 'fa-regular fa-calendar-days',
         ],
+
         // [
         //     'text' => 'Summernote',
         //     'url' => '/Add-Activity/Summernote',
