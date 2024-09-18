@@ -121,44 +121,38 @@
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
                     <h5 class="text-center">Employee List</h5>
                 </div>
-                @forelse ($employees as $employee)
+                @foreach ($employees as $employee)
                     <div class="clickable-container position-relative mb-1">
-                        <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#infoModal"></a>
-                        <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                            <div class="me-3">
-                                <img src="{{ asset('Doctors/' . $employee->image) }}"
-                                    class="border border-1 border-secondary" height="50" width="50"
-                                    alt="{{ $employee->name }}" style="border-radius:50%;">
-                            </div>
-                            <div class="list-group">
-                                <div class="p-2">
-                                    <div class="flex-grow-1">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h6 class="mb-0 text-dark fw-bold">{{ $employee->name }}</h6>
-                                            </div>
-                                            <div class="col-12">
-                                                <p class="mb-0 text-muted">{{ $employee->position }}</p>
+                        <span href="#" class="stretched-link" data-bs-toggle="modal"
+                            data-bs-target="#infoModal{{ $employee->id }} ">
+                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                                <div class="me-3">
+                                    <img src="{{ asset('Doctors/' . $employee->image) }}"
+                                        class="border border-1 border-secondary" height="50" width="50"
+                                        alt="{{ $employee->name }}" style="border-radius:50%;">
+                                </div>
+                                <div class="list-group">
+                                    <div class="p-2">
+                                        <div class="flex-grow-1">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h6 class="mb-0 text-dark fw-bold">{{ $employee->name }}</h6>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p class="mb-0 text-muted">{{ $employee->position }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Repeat the above block for more notifications -->
                                 </div>
-                                <!-- Repeat the above block for more notifications -->
                             </div>
-                        </div>
+                        </span>
                     </div>
-                @empty
-                    <div class="col-5">
-                        <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                            <h5 class="text-center">No Employee</h5>
-                        </div>
-                    </div>
-                @endforelse
 
-                @foreach ($employees as $employee)
+
+                    {{--  @foreach ($employees as $employee)  --}}
                     <!-- Modal Trigger -->
-                    <a href="#" class="stretched-link" data-bs-toggle="modal"
-                        data-bs-target="#infoModal{{ $employee->id }}"></a>
 
                     <!-- Modal Structure -->
                     <div class="modal fade" id="infoModal{{ $employee->id }}" tabindex="-1"
@@ -197,6 +191,14 @@
                             </div>
                         </div>
                     </div>
+
+                    {{--  @empty
+                    <div class="col-5">
+                        <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                            <h5 class="text-center">No Employee</h5>
+                        </div>
+                    </div>
+                @endforelse  --}}
                 @endforeach
 
 
