@@ -205,36 +205,35 @@
                     @endphp
                     @forelse ($appointments as $data)
                         <tr class="text-center">
-
                             <td class="">{{ $counter++ }}</td>
                             <td class="fw-bold text-start">{{ $data->name }}</td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
                             <td class="fw-bold">{{ $data->appointment }}</td>
-                            {{-- <td>{{ $data->message }}</td> --}}
                             <td class="fw-bold"
                                 style="color:
                                 @if ($data->status === 'Approved') green
-                                @elseif ($data->status === 'Cancelled')
-                                    red
-                                @else
-                                    gray @endif">
-                                {{ $data->status }}</td>
-                            {{-- <td>{{ $data->reason }}</td> --}}
+                                @elseif ($data->status === 'Cancelled') red
+                                @else gray @endif">
+                                {{ $data->status }}
+                            </td>
                             {{-- Approval --}}
                             <td class="py-0">
                                 <div class="d-flex justify-content-center align-items-center mt-1">
-                                    {{-- approved --}}
+                                    {{-- Approve --}}
                                     <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0">
+                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0"
+                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
                                             Approve
                                         </button>
                                     </form>
 
-
+                                    {{-- Reject --}}
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#newModal{{ $data->id }}">
-                                        <button class="btn btn-danger py-1 my-0">Reject</button>
+                                        <button class="btn btn-danger py-1 my-0"
+                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.1;" @endif>
+                                            Reject
+                                        </button>
                                     </a>
                                 </div>
                             </td>
@@ -246,7 +245,7 @@
                                         <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
                                     </a>
 
-                                    {{-- Delete --}}
+                                    {{-- Delete (optional) --}}
                                     {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
                                         method="post" class="d-inline">
                                         @csrf
@@ -257,7 +256,6 @@
                                     </form> --}}
                                 </div>
                             </td>
-
                         </tr>
                     @empty
                         <tr>
@@ -269,6 +267,7 @@
                         </tr>
                     @endforelse
                 </tbody>
+
             </table>
             <div>
                 {{ $appointments->links('pagination::bootstrap-5') }}
@@ -299,7 +298,20 @@
                         <p><b>Date:</b>
                             {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</p>
                         <p><b>Appointment:</b> {{ $data->appointment }}</p>
-                        <p><b>Message:</b> {{ $data->message }}</p>
+                        {{-- Show the Message only if it exists --}}
+                        @if (!empty($data->message))
+                            <p><b>Message:</b> {{ $data->message }}</p>
+                        @endif
+
+                        {{-- Show the Reason based on the appointment status --}}
+                        @if ($data->status === 'Cancelled')
+                            <p><b class="text-danger">Reason:</b> {{ $data->reason }}</p>
+                        @elseif($data->status === 'Pending')
+                            {{-- Hide the Reason field --}}
+                            {{-- No output for Pending --}}
+                        @elseif($data->status !== 'Approved')
+                            <p><b>Reason:</b> Not applicable</p>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -333,14 +345,15 @@
                                 <option value="Schedule conflict">Schedule conflict</option>
                                 <option value="Equipment failure">Equipment failure</option>
                                 <option value="Holiday closure">Holiday closure</option>
-
                             </select><br><br>
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
+                    {{-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

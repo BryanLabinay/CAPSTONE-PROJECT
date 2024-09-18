@@ -116,7 +116,7 @@
                         {{-- <th scope="col">Message</th> --}}
                         <th scope="col">Status</th>
                         <th scope="col">Reason</th>
-                        <th scope="col">Approval</th>
+                        {{-- <th scope="col">Approval</th> --}}
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -145,22 +145,24 @@
                                 {{ $data->status }}</td>
                             <td>{{ $data->reason }}</td>
                             {{-- Approval --}}
-                            <td class="py-0">
+                            {{-- <td class="py-0">
                                 <div class="d-flex justify-content-center align-items-center mt-1">
-                                    {{-- approved --}}
                                     <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0">
+                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0"
+                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
                                             Approve
                                         </button>
                                     </form>
 
-
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#newModal{{ $data->id }}">
-                                        <button class="btn btn-danger py-1 my-0">Reject</button>
+                                        <button class="btn btn-danger py-1 my-0"
+                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.1;" @endif>
+                                            Reject
+                                        </button>
                                     </a>
                                 </div>
-                            </td>
+                            </td> --}}
                             <td>
                                 <div class="d-flex justify-content-center align-items-center mt-0">
                                     {{-- View --}}
@@ -222,7 +224,18 @@
                         <p><b>Date:</b>
                             {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</p>
                         <p><b>Appointment:</b> {{ $data->appointment }}</p>
-                        <p><b>Message:</b> {{ $data->message }}</p>
+                        @if (!empty($data->message))
+                            <p><b>Message:</b> {{ $data->message }}</p>
+                        @endif
+                        {{-- Reason --}}
+                        @if ($data->status === 'Cancelled')
+                            <p><b class="text-danger">Reason:</b> {{ $data->reason }}</p>
+                        @elseif($data->status === 'Pending')
+                            {{-- Hide the Reason field --}}
+                            {{-- No output for Pending --}}
+                        @elseif($data->status !== 'Approved')
+                            <p><b>Reason:</b> Not applicable</p>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

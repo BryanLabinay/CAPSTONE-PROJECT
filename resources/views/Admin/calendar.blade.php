@@ -29,8 +29,11 @@
         #monthYear {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #ffffff;
-            /* font-family: 'Poppins'; */
+            color: #DC3545;
+            background: #ffffff;
+            padding: 0px 8px 0px 8px;
+            border-radius: 5px
+                /* font-family: 'Poppins'; */
         }
 
         .table-bordered th,
@@ -103,82 +106,84 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="">
-            <div class="card">
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                        <input type="hidden" name="month" value="{{ $currentMonth }}">
-                        <input type="hidden" name="year" value="{{ $currentYear }}">
-                        <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth"><i
-                                class="fa-solid fa-chevron-left"></i></button>
-                    </form>
-                    <span id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
-                    <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                        <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
-                        <input type="hidden" name="year" value="{{ $currentYear }}">
-                        <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth"><i
-                                class="fa-solid fa-chevron-right"></i></button>
-                    </form>
-                </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-center align-items-center">
+                        <form method="GET" action="{{ route('calendar') }}" class="d-flex">
+                            <input type="hidden" name="month" value="{{ $currentMonth }}">
+                            <input type="hidden" name="year" value="{{ $currentYear }}">
+                            <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth"><i
+                                    class="fa-solid fa-chevron-left"></i></button>
+                        </form>
+                        <span id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
+                        <form method="GET" action="{{ route('calendar') }}" class="d-flex">
+                            <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
+                            <input type="hidden" name="year" value="{{ $currentYear }}">
+                            <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth"><i
+                                    class="fa-solid fa-chevron-right"></i></button>
+                        </form>
+                    </div>
 
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>SUN</th>
-                                <th>MON</th>
-                                <th>TUE</th>
-                                <th>WED</th>
-                                <th>THU</th>
-                                <th>FRI</th>
-                                <th>SAT</th>
-                            </tr>
-                        </thead>
-                        <tbody id="calendarBody">
-                            @php
-                                $firstDay = (new DateTime($currentYear . '-' . ($currentMonth + 1) . '-01'))->format(
-                                    'w',
-                                );
-                                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth + 1, $currentYear);
-                                $date = 1;
-                                $today = date('Y-m-d'); // Get today's date
-                            @endphp
-                            @for ($i = 0; $i < 6; $i++)
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
                                 <tr>
-                                    @for ($j = 0; $j < 7; $j++)
-                                        @if ($i === 0 && $j < $firstDay)
-                                            <td></td>
-                                        @elseif ($date > $daysInMonth)
-                                        @break
+                                    <th>SUN</th>
+                                    <th>MON</th>
+                                    <th>TUE</th>
+                                    <th>WED</th>
+                                    <th>THU</th>
+                                    <th>FRI</th>
+                                    <th>SAT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody">
+                                @php
+                                    $firstDay = (new DateTime(
+                                        $currentYear . '-' . ($currentMonth + 1) . '-01',
+                                    ))->format('w');
+                                    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth + 1, $currentYear);
+                                    $date = 1;
+                                    $today = date('Y-m-d'); // Get today's date
+                                @endphp
+                                @for ($i = 0; $i < 6; $i++)
+                                    <tr>
+                                        @for ($j = 0; $j < 7; $j++)
+                                            @if ($i === 0 && $j < $firstDay)
+                                                <td></td>
+                                            @elseif ($date > $daysInMonth)
+                                            @break
 
-                                    @else
-                                        @php
-                                            $currentDate =
-                                                $currentYear .
-                                                '-' .
-                                                str_pad($currentMonth + 1, 2, '0', STR_PAD_LEFT) .
-                                                '-' .
-                                                str_pad($date, 2, '0', STR_PAD_LEFT);
-                                            $appointmentCount = $appointmentCounts->get($currentDate, 0);
-                                        @endphp
-                                        <td style="position: relative;">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#appointmentModal"
-                                                data-date="{{ $currentDate }}"
-                                                class="calendar-date-link text-decoration-none fw-bold text-black {{ $currentDate == $today ? 'bg-secondary text-light' : '' }}">
-                                                {{ $date }}
-                                            </a>
-                                            <div
-                                                style="position: absolute; top: 0px; right: 25px; width: 20px; height: 20px; border-radius: 50%; background-color: red; opacity: {{ $appointmentCount == 0 ? 0 : 1 }}; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
-                                                {{ $appointmentCount }}
-                                            </div>
-                                        </td>
-                                        @php $date++; @endphp
-                                    @endif
-                                @endfor
-                            </tr>
-                        @endfor
-                    </tbody>
-                </table>
+                                        @else
+                                            @php
+                                                $currentDate =
+                                                    $currentYear .
+                                                    '-' .
+                                                    str_pad($currentMonth + 1, 2, '0', STR_PAD_LEFT) .
+                                                    '-' .
+                                                    str_pad($date, 2, '0', STR_PAD_LEFT);
+                                                $appointmentCount = $appointmentCounts->get($currentDate, 0);
+                                            @endphp
+                                            <td style="position: relative;">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#appointmentModal" data-date="{{ $currentDate }}"
+                                                    class="calendar-date-link text-decoration-none fw-bold text-black {{ $currentDate == $today ? 'bg-secondary text-light' : '' }}">
+                                                    {{ $date }}
+                                                </a>
+                                                <div
+                                                    style="position: absolute; top: 0px; right: 25px; width: 20px; height: 20px; border-radius: 50%; background-color: red; opacity: {{ $appointmentCount == 0 ? 0 : 1 }}; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
+                                                    {{ $appointmentCount }}
+                                                </div>
+                                            </td>
+                                            @php $date++; @endphp
+                                        @endif
+                                    @endfor
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

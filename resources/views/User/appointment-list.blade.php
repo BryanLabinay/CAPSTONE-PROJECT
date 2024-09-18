@@ -55,7 +55,7 @@
             <div class="row gy-4 font-web container">
                 <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
                     <table class="table table-striped mb-0 table-bordered">
-                        <thead class="table-primary">
+                        <thead class="table-danger">
                             <tr class="text-center">
                                 <th scope="col">No.</th>
                                 <th scope="col">Name</th>
@@ -65,7 +65,7 @@
                                 <th scope="col">Appointment</th>
                                 {{-- <th scope="col">Message</th> --}}
                                 <th scope="col">Status</th>
-                                <th scope="col">Reason</th>
+                                {{-- <th scope="col">Reason</th> --}}
                                 <th scope="col">Action</th>
 
                             </tr>
@@ -91,7 +91,7 @@
                                         @else
                                             grey @endif">
                                         {{ $data->status }}</td>
-                                    <td>{{ $data->reason }}</td>
+                                    {{-- <td>{{ $data->reason }}</td> --}}
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center">
                                             {{-- View --}}
@@ -103,22 +103,15 @@
                                             {{-- Edit --}}
                                             <a href="{{ route('Edit-Appointment', ['appointment_id' => $data->id]) }}"
                                                 class="me-3"
-                                                @if ($data->status === 'Approved') disabled
-                                                    aria-disabled="true"
-                                                    style="pointer-events: none; opacity: 0.3;"
-                                                    @elseif ($data->status === 'Cancelled')
-                                                    disabled
-                                                    aria-disabled="true"
-                                                    style="pointer-events: none; opacity: 0.3;" @endif>
+                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') style="pointer-events: none; opacity: 0.3;" aria-disabled="true" @endif>
                                                 <i class="fa-solid fa-pen-to-square fs-5"></i>
                                             </a>
 
-                                            {{-- reject --}}
+                                            {{-- Reject --}}
                                             <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#newModal{{ $data->id }}">
-                                                <button type="submit" class="btn text-danger p-0">
-                                                    <i class="fa-solid fa-trash fs-5"></i>
-                                                </button>
+                                                data-bs-target="#newModal{{ $data->id }}"
+                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') style="pointer-events: none; opacity: 0.3;" aria-disabled="true" @endif>
+                                                <i class="fa-solid fa-trash fs-5 text-danger"></i>
                                             </a>
 
                                             {{-- Delete --}}
@@ -141,7 +134,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title fw-semibold " id="exampleModalLabel">Appointment
+                                                <h5 class="modal-title fw-semibold" id="exampleModalLabel">Appointment
                                                     Details</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -154,7 +147,18 @@
                                                 <p><b>Date:</b>
                                                     {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</p>
                                                 <p><b>Appointment:</b> {{ $data->appointment }}</p>
-                                                <p><b>Message:</b> {{ $data->message }}</p>
+                                                @if (!empty($data->message))
+                                                    <p><b>Message:</b> {{ $data->message }}</p>
+                                                @endif
+                                                {{-- Show the Reason based on the appointment status --}}
+                                                @if ($data->status === 'Cancelled')
+                                                    <p><b class="text-danger">Reason:</b> {{ $data->reason }}</p>
+                                                @elseif($data->status === 'Pending')
+                                                    {{-- Hide the Reason field --}}
+                                                    {{-- No output for Pending --}}
+                                                @elseif($data->status !== 'Approved')
+                                                    <p><b>Reason:</b> Not applicable</p>
+                                                @endif
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger"
@@ -163,6 +167,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             @empty
                                 <tr>
                                     <td colspan="9">

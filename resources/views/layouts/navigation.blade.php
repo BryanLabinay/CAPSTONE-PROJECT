@@ -44,6 +44,7 @@
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
+        <i class="fa-solid fa-comment fa-lg ms-3"style="color:#012970;"></i>
         {{-- Notification --}}
         <div class="dropdown position-relative mx-3" id="notificationIcon">
 
