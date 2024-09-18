@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 class PatientsRecordCTRL extends Controller
@@ -12,7 +13,8 @@ class PatientsRecordCTRL extends Controller
      */
     public function index()
     {
-        return view('Admin.Patients-Record.patients-record');
+        $patient = Appointment::all();
+        return view('Admin.Patients-Record.patients-record',  compact('patient'));
     }
 
     /**
@@ -34,10 +36,7 @@ class PatientsRecordCTRL extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.

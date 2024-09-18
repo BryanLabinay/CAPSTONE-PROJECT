@@ -56,65 +56,69 @@
                 </form>
             </div>
         </div>
-        <div class="row font-web">
-            <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
-                <table class="table table-striped mb-0 table-bordered">
-                    <thead class="table-danger">
-                        <tr class="text-center">
-                            <th scope="col">No.</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Total Appointment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-center clickable-row" data-bs-toggle="modal" data-bs-target="#detailsModal"
-                            data-name="Mark Bryan Labinay" data-contact="09637611743"
-                            data-address="San Vicente, Buguey, Cagayan" data-appointments="3">
-                            <td>1</td>
-                            <td class="fw-bold text-start">Mark Bryan Labinay</td>
-                            <td>09637611743</td>
-                            <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
-                            <td class="fw-bold">3</td>
-                        </tr>
-                        <tr class="text-center clickable-row" data-bs-toggle="modal" data-bs-target="#detailsModal"
-                            data-name="Mark Bryan Labinay" data-contact="09637611743"
-                            data-address="San Vicente, Buguey, Cagayan" data-appointments="3">
-                            <td>1</td>
-                            <td class="fw-bold text-start">Mark Bryan Labinay</td>
-                            <td>09637611743</td>
-                            <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
-                            <td class="fw-bold">3</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    {{-- {{ $appointments->links('pagination::bootstrap-5') }} --}}
-                </div>
-            </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailsModalLabel">Appointment Details</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Name:</strong> <span id="modalName"></span></p>
-                        <p><strong>Contact:</strong> <span id="modalContact"></span></p>
-                        <p><strong>Address:</strong> <span id="modalAddress"></span></p>
-                        <p><strong>Total Appointments:</strong> <span id="modalAppointments"></span></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        @foreach ($patient as $patients)
+            <div class="row font-web">
+                <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
+                    <table class="table table-striped mb-0 table-bordered">
+                        <thead class="table-danger">
+                            <tr class="text-center">
+                                <th scope="col">No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Total Appointment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center clickable-row" data-bs-toggle="modal"
+                                data-bs-target="#detailsModal{{ $patients->id }}" data-name="Mark Bryan Labinay"
+                                data-contact="09637611743" data-address="San Vicente, Buguey, Cagayan"
+                                data-appointments="3">
+                                <td>1</td>
+                                <td class="fw-bold text-start">{{ $patients->name }}</td>
+                                <td>09637611743</td>
+                                <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
+                                <td class="fw-bold">3</td>
+                            </tr>
+                            <tr class="text-center clickable-row" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                data-name="Mark Bryan Labinay" data-contact="09637611743"
+                                data-address="San Vicente, Buguey, Cagayan" data-appointments="3">
+                                <td>1</td>
+                                <td class="fw-bold text-start">Mark Bryan Labinay</td>
+                                <td>09637611743</td>
+                                <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
+                                <td class="fw-bold">3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        {{-- {{ $appointments->links('pagination::bootstrap-5') }} --}}
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel">Appointment Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Name:</strong> <span id="modalName">{{ $patients->name }}</span></p>
+                            <p><strong>Contact:</strong> <span id="modalContact"></span></p>
+                            <p><strong>Address:</strong> <span id="modalAddress"></span></p>
+                            <p><strong>Total Appointments:</strong> <span id="modalAppointments"></span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
     </div>
 @stop
