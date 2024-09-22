@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Navigation;
 
 use App\Models\Event;
+use App\Models\DoctorList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +12,8 @@ class UserNavCTRL extends Controller
     // Doctor and Staff Route
     public function doctorstaff()
     {
-        return view('User.doctor-staff');
+        $doctorStaff = DoctorList::all();
+        return view('User.doctor-staff', compact('doctorStaff'));
     }
 
     // Services Route
