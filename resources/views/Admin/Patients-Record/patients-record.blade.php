@@ -57,72 +57,78 @@
             </div>
         </div>
 
-        @foreach ($patient as $patients)
-            <div class="row font-web">
-                <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
-                    <table class="table table-striped mb-0 table-bordered">
-                        <thead class="table-danger">
-                            <tr class="text-center">
-                                <th scope="col">No.</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Contact</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Total Appointment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="row font-web">
+            <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
+                <table class="table table-striped mb-0 table-bordered">
+                    <thead class="table-danger">
+                        <tr class="text-center">
+                            <th scope="col">No.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Total Appointment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $counter = 1; @endphp
+
+                        @foreach ($patients as $patient)
                             <tr class="text-center clickable-row" data-bs-toggle="modal"
-                                data-bs-target="#detailsModal{{ $patients->id }}" data-name="Mark Bryan Labinay"
-                                data-contact="09637611743" data-address="San Vicente, Buguey, Cagayan"
-                                data-appointments="3">
-                                <td>1</td>
-                                <td class="fw-bold text-start">{{ $patients->name }}</td>
-                                <td>09637611743</td>
-                                <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
-                                <td class="fw-bold">3</td>
+                                data-bs-target="#detailsModal{{ $loop->index }}">
+                                <td>{{ $counter++ }}</td>
+                                <td class="fw-bold text-start">{{ $patient->name }}</td>
+                                <td>{{ $patient->phone }}</td>
+                                <td class="fw-bold">{{ $patient->address }}</td>
+                                <td class="fw-bold">{{ $patient->total }}</td>
                             </tr>
-                            <tr class="text-center clickable-row" data-bs-toggle="modal" data-bs-target="#detailsModal"
-                                data-name="Mark Bryan Labinay" data-contact="09637611743"
-                                data-address="San Vicente, Buguey, Cagayan" data-appointments="3">
-                                <td>1</td>
-                                <td class="fw-bold text-start">Mark Bryan Labinay</td>
-                                <td>09637611743</td>
-                                <td class="fw-bold">San Vicente, Buguey, Cagayan</td>
-                                <td class="fw-bold">3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div>
-                        {{-- {{ $appointments->links('pagination::bootstrap-5') }} --}}
-                    </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="detailsModal{{ $loop->index }}" tabindex="-1"
+                                aria-labelledby="detailsModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="detailsModalLabel">Appointment Details for
+                                                <b class="text-primary">{{ $patient->name }}</b>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>Name:</strong> {{ $patient->name }}</p>
+                                            <p><strong>Contact:</strong> {{ $patient->phone }}</p>
+                                            <p><strong>Address:</strong> {{ $patient->address }}</p>
+                                            <p><strong>Total Appointments:</strong> <b
+                                                    class="text-danger">{{ $patient->total }}</b></p>
+
+                                            <h6 class="fw-bold">Types of Appointments:</h6>
+                                            <ul class="py-0">
+                                                @foreach ($allAppointments->where('name', $patient->name) as $appointment)
+                                                    <li class="mt-0 p-0">
+                                                        <p><b class="text-danger">{{ $appointment->appointment }}</b>-<b
+                                                                class="text-primary">{{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</b>
+                                                        </p>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div>
+                    {{ $patients->links('pagination::bootstrap-5') }}
                 </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="detailsModalLabel">Appointment Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>Name:</strong> <span id="modalName">{{ $patients->name }}</span></p>
-                            <p><strong>Contact:</strong> <span id="modalContact"></span></p>
-                            <p><strong>Address:</strong> <span id="modalAddress"></span></p>
-                            <p><strong>Total Appointments:</strong> <span id="modalAppointments"></span></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
+        </div>
     </div>
 @stop
-
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

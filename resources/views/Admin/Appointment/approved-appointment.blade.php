@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="row gy-4 font-web">
-        <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
             <table class="table table-striped mb-0 table-bordered">
                 <thead class="table-danger">
                     <tr class="text-center">

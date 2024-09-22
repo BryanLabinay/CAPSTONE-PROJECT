@@ -156,11 +156,11 @@
 
                     <!-- Modal Structure -->
                     <div class="modal fade" id="infoModal{{ $employee->id }}" tabindex="-1"
-                        aria-labelledby="infoModalLabel{{ $employee->id }}" aria-hidden="true">
+                        aria-labelledby="infoModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="infoModalLabel{{ $employee->id }}">Profile Information</h5>
+                                    <h5 class="modal-title" id="infoModalLabel">Profile Information</h5>
                                     <div class="d-flex align-items-center ms-3">
                                         <a href="#" class="btn btn-sm btn-outline-primary me-2">
                                             <i class="fa-solid fa-pen-to-square"></i>
