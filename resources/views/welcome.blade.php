@@ -40,8 +40,8 @@
 
 <body>
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <header id="header" class="header fixed-top p-1">
+        <div class="container-fluid d-flex align-items-center justify-content-between px-5">
             <a href="/" class="logo d-flex align-items-center text-decoration-none">
                 <img src="{{ url('assets/img/mendoza.png') }}" alt="" />
                 <span class="text-decoration-none"><b class="text-danger">DR</b>. MENDOZA<b< /span>
@@ -52,11 +52,8 @@
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li>
-                        <a class="nav-link scrollto" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li><a href="#" class="text-decoration-none">Blog</a></li>
+                    <li><a href="#portfolio" class="text-decoration-none">Blog</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Doctor & Staff</a></li>
                     <li class="dropdown">
                         <a href="#" class="text-decoration-none"><span>HealthHub</span> <i
                                 class="bi bi-chevron-down"></i></a>
@@ -77,6 +74,8 @@
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
                     </li>
+                    <li><a href="#" class="text-decoration-none">News & Update</a></li>
+
 
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li>
@@ -266,7 +265,7 @@
         <section id="portfolio" class="portfolio">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h2>Portfolio</h2>
+                    <h2>Blog</h2>
                     <p>Check our latest work</p>
                 </header>
 
@@ -337,7 +336,7 @@
         <section id="team" class="team">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h2>Team</h2>
+                    <h2>Doctor & Staff</h2>
                     <p>Our hard working team</p>
                 </header>
 
@@ -357,7 +356,7 @@
                             </div>
                             <div class="member-info">
                                 <h4>Walter White</h4>
-                                <span>Chief Executive Officer</span>
+                                <span>Doctor</span>
                                 {{-- <p>
                                     Velit aut quia fugit et et. Dolorum ea voluptate vel tempore
                                     tenetur ipsa quae aut. Ipsum exercitationem iure minima enim
@@ -382,7 +381,7 @@
                             </div>
                             <div class="member-info">
                                 <h4>Sarah Jhonson</h4>
-                                <span>Product Manager</span>
+                                <span>Doctor</span>
                                 {{-- <p>
                                     Quo esse repellendus quia id. Est eum et accusantium
                                     pariatur fugit nihil minima suscipit corporis. Voluptate sed
@@ -407,7 +406,7 @@
                             </div>
                             <div class="member-info">
                                 <h4>William Anderson</h4>
-                                <span>CTO</span>
+                                <span>Doctor</span>
                                 {{-- <p>
                                     Vero omnis enim consequatur. Voluptas consectetur unde qui
                                     molestiae deserunt. Voluptates enim aut architecto porro
@@ -432,7 +431,7 @@
                             </div>
                             <div class="member-info">
                                 <h4>Amanda Jepson</h4>
-                                <span>Accountant</span>
+                                <span>Doctor</span>
                                 {{-- <p>
                                     Rerum voluptate non adipisci animi distinctio et deserunt
                                     amet voluptas. Quia aut aliquid doloremque ut possimus ipsum
@@ -445,7 +444,7 @@
             </div>
         </section>
         <!-- ======= Recent Blog Posts Section ======= -->
-        <section id="recent-blog-posts" class="recent-blog-posts">
+        {{-- <section id="recent-blog-posts" class="recent-blog-posts">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
                     <h2>Blog</h2>
@@ -459,10 +458,7 @@
                                 <img src="assets/img/blog/blog-1.jpg" class="img-fluid" alt="" />
                             </div>
                             <span class="post-date">Tue, September 15</span>
-                            {{-- <h3 class="post-title">
-                                Eum ad dolor et. Autem aut fugiat debitis voluptatem
-                                consequuntur sit
-                            </h3> --}}
+
                             <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read
                                     More</span><i class="bi bi-arrow-right"></i></a>
                         </div>
@@ -474,9 +470,7 @@
                                 <img src="assets/img/blog/blog-2.jpg" class="img-fluid" alt="" />
                             </div>
                             <span class="post-date">Fri, August 28</span>
-                            {{-- <h3 class="post-title">
-                                Et repellendus molestiae qui est sed omnis voluptates magnam
-                            </h3> --}}
+
                             <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read
                                     More</span><i class="bi bi-arrow-right"></i></a>
                         </div>
@@ -488,16 +482,14 @@
                                 <img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt="" />
                             </div>
                             <span class="post-date">Mon, July 11</span>
-                            {{-- <h3 class="post-title">
-                                Quia assumenda est et veritatis aut quae
-                            </h3> --}}
+
                             <a href="blog-single.html" class="readmore stretched-link mt-auto"><span>Read
                                     More</span><i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- End Recent Blog Posts Section -->
 
         <!-- ======= Contact Section ======= -->
@@ -585,7 +577,7 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="footer-newsletter">
+        {{-- <div class="footer-newsletter">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 text-center">
@@ -601,7 +593,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="footer-top">
             <div class="container">
@@ -617,10 +609,7 @@
                             enim, placeat consequuntur accusantium ad laborum possimus!
                         </p>
                         <div class="social-links mt-3">
-                            {{-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> --}}
                             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            {{-- <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> --}}
-                            {{-- <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a> --}}
                         </div>
                     </div>
 
