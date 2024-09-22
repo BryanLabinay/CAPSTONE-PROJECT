@@ -35,11 +35,11 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 // User Navigation
 Route::middleware(['auth', 'user'])->controller(UserNavCTRL::class)->group(function () {
-    Route::get('Team', 'doctorstaff')->name('doctor.staff');
-    Route::get('Services', 'services')->name('services');
-    Route::get('Appointment', 'appointment')->name('Add-Appointment');
-    Route::get('Calendar', 'calendar')->name('user-calendar');
-    Route::get('Events', 'events')->name('events');
+    Route::get('/Doctor&Staff', 'doctorstaff')->name('doctor.staff');
+    Route::get('/Services', 'services')->name('services');
+    Route::get('/Appointment', 'appointment')->name('Add-Appointment');
+    Route::get('/Calendar', 'calendar')->name('user-calendar');
+    Route::get('/Events', 'events')->name('events');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
