@@ -315,7 +315,7 @@ return [
             'type' => 'navbar-notification',
             'id' => 'my-messenger',
             'icon' => 'fa-solid fa-comment',
-            'icon_color' => 'blue',
+            'icon_color' => 'navy',
             'url' => 'messenger/show',
             'topnav_right' => true,
             'dropdown_mode' => true,
