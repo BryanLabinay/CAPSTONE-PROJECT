@@ -53,19 +53,15 @@
                 @endif
             </div>
             <div class="row gy-4 font-web container">
-                <div class="col bg-primary-subtle p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col bg-primary-subtle p-2 rounded-2" data-aos="fade-up" data-aos-delay="100">
                     <table class="table table-striped mb-0 table-bordered">
                         <thead class="table-danger">
                             <tr class="text-center">
                                 <th scope="col">No.</th>
                                 <th scope="col">Name</th>
-                                {{-- <th scope="col">Address</th> --}}
-                                {{-- <th scope="col">Phone</th> --}}
                                 <th scope="col">Date</th>
                                 <th scope="col">Appointment</th>
-                                {{-- <th scope="col">Message</th> --}}
                                 <th scope="col">Status</th>
-                                {{-- <th scope="col">Reason</th> --}}
                                 <th scope="col">Action</th>
 
                             </tr>
@@ -91,7 +87,6 @@
                                         @else
                                             grey @endif">
                                         {{ $data->status }}</td>
-                                    {{-- <td>{{ $data->reason }}</td> --}}
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center">
                                             {{-- View --}}
@@ -114,16 +109,6 @@
                                                 <i class="fa-solid fa-trash fs-5 text-danger"></i>
                                             </a>
 
-                                            {{-- Delete --}}
-                                            {{-- <form
-                                                action="{{ route('delete.appointment', ['appointment_id' => $data->id]) }}"
-                                                method="post" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn text-danger p-0">
-                                                    <i class="fa-solid fa-trash fs-5"></i>
-                                                </button>
-                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -193,7 +178,8 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <h4>Are you sure you want to delete this Appointment</h4>
+                                                <h4 class="text-center">Are you sure you want to delete this
+                                                    Appointment?</h4>
 
                                             </div>
                                             <div class="modal-footer">

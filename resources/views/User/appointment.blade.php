@@ -1,6 +1,6 @@
 <x-app-layout>
     <section id="team" class="team">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
             <header class="section-header">
             </header>
             <div class="d-flex justify-content-end">
@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="row font-web">
-                <div class="col-6 bg-primary-subtle rounded-4 me-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-6 bg-primary-subtle rounded-2 me-3">
                     <div class="p-3">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Appointment
@@ -81,7 +81,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-5 ms-5 bg-primary-subtle rounded-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-5 ms-5 bg-primary-subtle rounded-2">
                     <div class="text-center mt-2">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Consultation
