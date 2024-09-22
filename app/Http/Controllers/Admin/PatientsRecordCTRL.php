@@ -5,16 +5,33 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PatientsRecordCTRL extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $patient = Appointment::all();
-        return view('Admin.Patients-Record.patients-record',  compact('patient'));
+        // Define the number of items per page
+        $perPage = 10;
+
+        // Fetch unique patient details and counts
+        $patients = Appointment::select(
+            DB::raw('BINARY name as name'),
+            'phone',
+            'address',
+            DB::raw('count(*) as total')
+        )
+            ->groupBy(DB::raw('BINARY name'), 'phone', 'address')
+            ->paginate($perPage);
+
+        // Fetch all appointments for patients in one query
+        $allAppointments = Appointment::all();
+
+        return view('Admin.Patients-Record.patients-record', compact('patients', 'allAppointments'));
     }
 
     /**
