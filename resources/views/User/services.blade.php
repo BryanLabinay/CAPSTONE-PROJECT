@@ -3,7 +3,7 @@
         <div class="container" data-aos="fade-up">
             <header class="section-header p-1">
                 <h2 class="text-danger">Services</h2>
-                <h3 class="font-web fw-bold" style="color: #012970;">Add an Appointment now</h3>
+                <h3 class="font-web fw-bold" style="color: #012970;">Our clinic services</h3>
 
             </header>
 
