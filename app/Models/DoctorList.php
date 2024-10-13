@@ -11,7 +11,13 @@ class DoctorList extends Model
 
     protected $fillable = [
         'name',
+        'admin_id',
         'position',
         'image',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

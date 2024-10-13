@@ -14,6 +14,7 @@ class Event extends Model
 
     protected $fillable = [
         'title',
+        'admin_id',
         'description',
         'img'
     ];
@@ -22,5 +23,10 @@ class Event extends Model
         return LogOptions::defaults()
             ->logOnly(['title']);
         // Chain fluent methods for configuration options
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
