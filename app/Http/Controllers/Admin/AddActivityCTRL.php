@@ -13,6 +13,7 @@ use App\Http\Requests\BlogFormRequest;
 use App\Http\Requests\EventFormRequest;
 use App\Http\Requests\ContactFormRequest;
 use App\Http\Requests\ServiceFormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AddActivityCTRL extends Controller
 {
@@ -33,6 +34,7 @@ class AddActivityCTRL extends Controller
     public function storeEvent(EventFormRequest $request)
     {
         $data = new Event();
+        $data->admin_id = Auth::id();
         $data->title = $request->title;
         $data->description = $request->description;
         if ($request->hasFile('img')) {
@@ -71,7 +73,7 @@ class AddActivityCTRL extends Controller
     public function uploadDoctor(Request $request)
     {
         $doctor = new DoctorList();
-
+        $doctor->admin_id = Auth::id();
         $doctor->name = $request->name;
         $doctor->position = $request->position;
         if ($request->hasFile('image')) {

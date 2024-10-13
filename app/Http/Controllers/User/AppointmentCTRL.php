@@ -56,12 +56,33 @@ class AppointmentCTRL extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AppointmentFormRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string',
+            'date' => 'required|date',
+            'appointment' => 'required|string',
+            'message' => 'nullable|string'
+        ]);
 
-        $appointment = Auth::user()->appointments()->create($data);
-        return redirect('/Appointment')->with('status', 'Your Appointment has been added.');
+        Appointment::create([
+            'user_id' => Auth::user()->id, // Adding the authenticated user's ID
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'date' => $request->input('date'),
+            'appointment' => $request->input('appointment'),
+            'message' => $request->input('message'),
+        ]);
+        return redirect()->back()->with('status', 'Your Appointment has been added.');
+        // $data = $request->validated();
+
+        // $appointment = Auth::user()->appointments()->create($data);
+        // return redirect('/Appointment')->with('status', 'Your Appointment has been added.');
     }
 
 

@@ -25,6 +25,9 @@ class AppointmentFormRequest extends FormRequest
             'name' => [
                 'required'
             ],
+            'email' => [
+                'required'
+            ],
             'address' => [
                 'required'
             ],
