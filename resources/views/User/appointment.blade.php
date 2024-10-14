@@ -34,9 +34,31 @@
                             Form</h4>
                         <form action="{{ route('Add-Appointment') }}" method="post">
                             @csrf
+                            <div class="d-flex">
+                                <div class="mb-3 d-inline">
+                                    <h5 class="mt-2 me-3">Who's appointment?</h5>
+                                </div>
+                                <div class="mb-3 d-inline me-2">
+                                    <input type="radio" class="btn-check" name="options" id="option1" value="1"
+                                        autocomplete="off" onclick="fillDetails('me')">
+                                    <label class="btn btn-outline-primary" for="option1">Me</label>
+                                </div>
+
+                                <div class="mb-3 d-inline">
+                                    <input type="radio" class="btn-check" name="options" id="option2" value="2"
+                                        autocomplete="off" checked onclick="fillDetails('others')">
+                                    <label class="btn btn-outline-primary" for="option2">Others</label>
+                                </div>
+                            </div>
+
                             <div class="form-group mb-2">
                                 <label for="fullName" class="fw-semibold mb-1">Full Name</label>
                                 <input type="text" class="form-control py-2" name="name" id="fullName" required>
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="email" class="fw-semibold mb-1">Email</label>
+                                <input type="email" class="form-control py-2" name="email" id="email" required>
                             </div>
                             <div class="form-group mb-2">
                                 <label for="email" class="fw-semibold mb-1">Address</label>
@@ -115,6 +137,23 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function fillDetails(option) {
+                    const fullNameInput = document.getElementById('fullName');
+                    const emailInput = document.getElementById('email');
 
+                    if (option === 'me') {
+                        fullNameInput.value = '{{ Auth::user()->name }}'; // Autofill with user's name
+                        emailInput.value = '{{ Auth::user()->email }}'; // Autofill with user's email
+                        fullNameInput.readOnly = true; // Make full name input read-only (instead of disabled)
+                        emailInput.readOnly = true; // Make email input read-only (instead of disabled)
+                    } else {
+                        fullNameInput.value = ''; // Reset the full name field
+                        emailInput.value = ''; // Reset the email field
+                        fullNameInput.readOnly = false; // Allow full name input
+                        emailInput.readOnly = false; // Allow email input
+                    }
+                }
+            </script>
     </section>
 </x-app-layout>

@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('doctor_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('name');
             $table->enum('position', ['Doctor', 'Staff'])->default('Staff');
             $table->string('image')->default('');
             $table->timestamps();
+            $table->foreign('admin_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

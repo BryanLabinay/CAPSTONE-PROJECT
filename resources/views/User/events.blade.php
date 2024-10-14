@@ -2,7 +2,7 @@
     <section id="team" class="mt-3 team">
         <div class="container" data-aos="fade-up">
             <header class="section-header p-1">
-                <h2 class="text-danger">Events</h2>
+                <h2 class="text-danger">News & Updates</h2>
                 <h3 class="font-web fw-bold" style="color: #012970;">Daily Events</h3>
             </header>
 

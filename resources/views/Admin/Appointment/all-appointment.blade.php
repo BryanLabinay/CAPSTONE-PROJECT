@@ -63,7 +63,7 @@
 @stop
 
 @section('content_header')
-    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>All Appointment</h5>
+    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>All Appointments</h5>
     <hr class="mt-0 text-secondary">
     <div class="d-flex justify-content-end">
         @if (session('delete'))
@@ -188,6 +188,7 @@
                     <tr class="text-center">
                         <th scope="col">No.</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Date</th>
                         <th scope="col">Appointment</th>
                         {{-- <th scope="col">Message</th> --}}
@@ -206,7 +207,9 @@
                     @forelse ($appointments as $data)
                         <tr class="text-center">
                             <td class="">{{ $counter++ }}</td>
-                            <td class="fw-bold text-start">{{ $data->name }}</td>
+                            <td class="fw-bold text-start">{{ $data->user->name }}</td>
+                            {{-- <td>{{ $data->user_id }}</td> --}}
+                            <td>{{ $data->user->email }}</td>
                             <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
                             <td class="fw-bold">{{ $data->appointment }}</td>
                             <td class="fw-bold"

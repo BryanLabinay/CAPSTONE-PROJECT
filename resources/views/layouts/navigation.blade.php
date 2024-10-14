@@ -38,8 +38,7 @@
                         href="{{ route('user-calendar') }}">Calendar</a></li>
                 {{-- <li><a href="#" class="text-decoration-none">Blog</a></li> --}}
                 <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
-                        href="{{ route('events') }}">Events</a></li>
-                <li><a class="text-decoration-none" href="#">News & Updates</a></li>
+                        href="{{ route('events') }}">News & Updates</a></li>
 
                 <!--  Dropdown Button -->
             </ul>

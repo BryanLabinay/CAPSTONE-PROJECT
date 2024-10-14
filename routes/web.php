@@ -13,6 +13,7 @@ use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\ActivityListCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
@@ -157,6 +158,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Medical Certificate
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
     Route::post('/Medical-Certificatei-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
+    Route::get('/Message', [MessageController::class, 'index']);
 });
 
 

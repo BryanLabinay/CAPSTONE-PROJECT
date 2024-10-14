@@ -27,7 +27,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="p-3 bg-primary bg-opacity-25 rounded-3">
+        <div class="p-2 bg-primary bg-opacity-25 rounded-2  ">
             <table class="table table-bordered">
                 <thead class="table-danger">
                     <tr class="text-center">

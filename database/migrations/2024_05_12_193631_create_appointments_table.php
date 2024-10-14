@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
+            $table->string('email');
             $table->string('address');
             $table->string('phone');
             $table->string('date');
@@ -22,6 +24,8 @@ return new class extends Migration
             $table->enum('status', ['Pending', 'Approved', 'Cancelled'])->default('Pending');
             $table->string('reason')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
