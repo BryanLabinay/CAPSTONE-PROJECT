@@ -53,16 +53,53 @@
                         <form action="{{ route('register') }}" method="post">
                             @csrf
                             <div class="mb-2">
-                                <label for="name" class="form-label fw-medium">Name</label>
-                                <input type="text" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Enter your Full Name" value="{{ old('name') }}" required>
-                                @error('name')
+                                <label for="fname" class="form-label fw-medium">First Name</label>
+                                <input type="text" name="fname"
+                                    class="form-control @error('fname') is-invalid @enderror" id="fname"
+                                    placeholder="Enter your First Name" value="{{ old('fname') }}" required>
+                                @error('fname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="mb-2">
+                                <label for="mname" class="form-label fw-medium">Middle Name</label>
+                                <input type="text" name="mname"
+                                    class="form-control @error('mname') is-invalid @enderror" id="mname"
+                                    placeholder="Enter your Middle Name" value="{{ old('mname') }}" required>
+                                @error('mname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="lname" class="form-label fw-medium">Last Name</label>
+                                <input type="text" name="lname"
+                                    class="form-control @error('lname') is-invalid @enderror" id="lname"
+                                    placeholder="Enter your Full Name" value="{{ old('lname') }}" required>
+                                @error('lname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="suffix" class="form-label fw-medium">Suffix</label>
+                                <input type="text" name="suffix"
+                                    class="form-control @error('suffix') is-invalid @enderror" id="suffix"
+                                    placeholder="Enter your Full Name" value="{{ old('suffix') }}" required>
+                                @error('suffix')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                             <div class="mb-2">
                                 <label for="email" class="form-label fw-medium">Email address</label>
                                 <input type="email" name="email"

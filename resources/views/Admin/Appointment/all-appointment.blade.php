@@ -207,9 +207,9 @@
                     @forelse ($appointments as $data)
                         <tr class="text-center">
                             <td class="">{{ $counter++ }}</td>
-                            <td class="fw-bold text-start">{{ $data->user->name }}</td>
-                            {{-- <td>{{ $data->user_id }}</td> --}}
-                            <td>{{ $data->user->email }}</td>
+                            <td class="fw-bold text-start">{{ $data->name }}
+                            </td>
+                            <td>{{ $data->email }}</td>
                             <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
                             <td class="fw-bold">{{ $data->appointment }}</td>
                             <td class="fw-bold"
