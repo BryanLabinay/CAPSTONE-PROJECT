@@ -418,6 +418,12 @@ return [
             'icon' => 'fas fa-fw fa-plus',
             'submenu' => [
                 [
+                    'text' => 'Service',
+                    'icon' => 'fa-solid fa-hand-holding-heart',
+                    'icon_color' => 'success',
+                    'url' => 'Add-Activity/Service',
+                ],
+                [
                     'text' => 'Event',
                     'icon' => 'fas fa-fw fa-calendar-plus',
                     'icon_color' => 'blue',
@@ -435,12 +441,7 @@ return [
                     'icon_color' => 'blue',
                     'url' => 'Add-Activity/Blog',
                 ],
-                [
-                    'text' => 'Service',
-                    'icon' => 'fa-solid fa-hand-holding-heart',
-                    'icon_color' => 'success',
-                    'url' => 'Add-Activity/Service',
-                ],
+
                 [
                     'text' => 'Contact',
                     'icon' => 'fa-solid fa-address-book',

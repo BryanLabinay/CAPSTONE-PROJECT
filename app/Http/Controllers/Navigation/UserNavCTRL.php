@@ -28,7 +28,8 @@ class UserNavCTRL extends Controller
     // Appointment
     public function appointment()
     {
-        return view('User.appointment');
+        $service = Service::all();
+        return view('User.appointment', compact('service'));
     }
 
     // Calendar

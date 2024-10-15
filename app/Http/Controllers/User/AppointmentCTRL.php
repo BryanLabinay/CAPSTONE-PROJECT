@@ -37,15 +37,7 @@ class AppointmentCTRL extends Controller
 
         // Find the appointment record by ID
         $approved = Appointment::findOrFail($id);
-
         $approved->status = 'Cancelled';
-
-
-        // $request->validate([
-        //     'reason' => 'required|string',
-        // ]);
-        // Insert the selected reason into the 'message' column
-        // $approved->user_id = $request->user_id;
         $approved->reason = $request->reason;
         $approved->updated_at = now();
         $approved->save();
@@ -79,10 +71,6 @@ class AppointmentCTRL extends Controller
             'message' => $request->input('message'),
         ]);
         return redirect()->back()->with('status', 'Your Appointment has been added.');
-        // $data = $request->validated();
-
-        // $appointment = Auth::user()->appointments()->create($data);
-        // return redirect('/Appointment')->with('status', 'Your Appointment has been added.');
     }
 
 

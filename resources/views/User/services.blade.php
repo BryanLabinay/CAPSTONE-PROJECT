@@ -12,13 +12,14 @@
                         <div class="d-flex flex-column flex-md-row h-100">
                             <!-- Image Section -->
                             <div class="service-image" style="flex: 0 0 150px; flex-md: 0 0 100px;">
-                                <img src="{{ URL('uploads/service/' . $data->img) }}" class="img-fluid"
-                                    alt="{{ $data->service }}" style="width: 100%; object-fit: cover; height: auto;">
+                                <img src="{{ URL('uploads/service/' . $data->img) }}" class="img-fluid rounded-1"
+                                    alt="{{ $data->service }}" style="width: 150px; height: 150px; object-fit: cover;">
                             </div>
+
                             <!-- Text Section -->
                             <div class="service-content ms-md-3 mt-3 mt-md-0" style="flex-grow: 1;">
-                                <h5 class="fw-bolder">{{ $data->service }}</h5>
-                                <p class="card-text">{{ $data->description }}</p>
+                                <h5 class="fw-bolder text-black">{{ $data->service }}</h5>
+                                <p class="card-text text-black">• {{ $data->description }}</p>
                             </div>
                         </div>
                     </div>

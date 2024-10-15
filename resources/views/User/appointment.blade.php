@@ -83,15 +83,13 @@
                             <div class="form-group mb-2">
                                 <label for="dropdown" class="fw-semibold mb-1">Choose an option:</label>
                                 <select class="form-control py-2" id="dropdown" name="appointment">
-                                    <option value="" class="text-muted"">Select Appointment</option>
-                                    <option value="Check-Up">X-Ray</option>
-                                    <option value="Ultrasound">Labaratory</option>
-                                    <option value="Xray">Ultrasound</option>
-                                    <option value="2D Echo with Doppler">2D Echo with Doppler</option>
-                                    <option value="ECG">ECG</option>
-                                    <option value="NST">NST</option>
-                                    <option value="Consultation">Consultation</option>
-                                    <option value="Drug Test">Drug Test</option>
+                                    <option selected disabled hidden>Select Appointment</option>
+                                    @forelse ($service as $data)
+                                        <option value="{{ $data->service }}">{{ $data->service }}
+                                        </option>
+                                    @empty
+                                        <option disabled>No Service</option>
+                                    @endforelse
                                 </select>
                             </div>
                             <div class="form-group mb-2">

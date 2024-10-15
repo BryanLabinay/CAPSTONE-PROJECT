@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SummernoteController;
 use App\Http\Controllers\User\AppointmentCTRL;
 use App\Http\Controllers\Admin\ActivityLogCTRL;
 use App\Http\Controllers\Admin\AddActivityCTRL;
@@ -118,9 +117,6 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     // Contact
     Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
     Route::post('/Contact', [AddActivityCTRL::class, 'contactStore'])->name('contact.store');
-
-    // Summernote 
-    Route::get('/Summernote', [SummernoteController::class, 'summernote'])->name('summernote');
 });
 
 // Activity List

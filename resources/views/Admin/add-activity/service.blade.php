@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <label for="">Service:</label>
                             <input name="service" type="text" required class="form-control"
-                                placeholder="Enter the name here...">
+                                placeholder="Enter the name here..." autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
@@ -148,8 +148,8 @@
                 @empty
                     <div class="row d-flex justify-content-center">
                         <div class="col-5">
-                            <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Blog</h5>
+                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                <h5 class="text-center text-black">No Service</h5>
                             </div>
                         </div>
                     </div>
