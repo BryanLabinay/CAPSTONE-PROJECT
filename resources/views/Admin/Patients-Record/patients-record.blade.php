@@ -4,7 +4,6 @@
 @section('css')
     {{-- Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
-
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ url('Css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ url('Css/all.min.css') }}">
@@ -67,58 +66,31 @@
                             <th scope="col">Contact</th>
                             <th scope="col">Address</th>
                             <th scope="col">Total Appointment</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $counter = 1; @endphp
 
                         @foreach ($patients as $patient)
-                            <tr class="text-center clickable-row" data-bs-toggle="modal"
-                                data-bs-target="#detailsModal{{ $loop->index }}">
+                            <tr class="text-center clickable-row">
                                 <td>{{ $counter++ }}</td>
-                                <td class="fw-bold text-start">{{ $patient->name }}</td>
+                                <td class="fw-bold text-start">{{ $patient->fname }}
+                                    @if (!empty($patient->mname))
+                                        {{ substr($patient->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
+                                    @endif
+                                    {{ $patient->lname }}
+                                    @if (!empty($patient->suffix))
+                                        {{ $patient->suffix }}
+                                    @endif
+
+                                </td>
                                 <td>{{ $patient->phone }}</td>
                                 <td class="fw-bold">{{ $patient->address }}</td>
                                 <td class="fw-bold">{{ $patient->total }}</td>
+                                <td> <a href="{{ route('patient.show', $patient->id) }}" class="btn btn-primary">View</a>
+                                </td>
                             </tr>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="detailsModal{{ $loop->index }}" tabindex="-1"
-                                aria-labelledby="detailsModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="detailsModalLabel">Appointment Details for
-                                                <b class="text-primary">{{ $patient->name }}</b>
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p><strong>Name:</strong> {{ $patient->name }}</p>
-                                            <p><strong>Contact:</strong> {{ $patient->phone }}</p>
-                                            <p><strong>Address:</strong> {{ $patient->address }}</p>
-                                            <p><strong>Total Appointments:</strong> <b
-                                                    class="text-danger">{{ $patient->total }}</b></p>
-
-                                            <h6 class="fw-bold">Types of Appointments:</h6>
-                                            <ul class="py-0">
-                                                @foreach ($allAppointments->where('name', $patient->name) as $appointment)
-                                                    <li class="mt-0 p-0">
-                                                        <p><b class="text-danger">{{ $appointment->appointment }}</b>-<b
-                                                                class="text-primary">{{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</b>
-                                                        </p>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -128,6 +100,59 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    {{-- <div class="modal fade" id="detailsModal{{ $loop->index }}" tabindex="-1" aria-labelledby="detailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Appointment Details for
+                        <b class="text-primary">
+                            {{ $patient->fname }}
+                            @if (!empty($patient->mname))
+                                {{ $patient->mname }}
+                            @endif
+                            {{ $patient->lname }}
+                            @if (!empty($patient->suffix))
+                                {{ $patient->suffix }}
+                            @endif
+                        </b>
+                    </h5>
+                    <button type="button" class="btn-close" patient-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Name:</strong>
+                        {{ $patient->fname }}
+                        @if (!empty($patient->mname))
+                            {{ $patient->mname }}
+                        @endif
+                        {{ $patient->lname }}
+                        @if (!empty($patient->suffix))
+                            {{ $patient->suffix }}
+                        @endif
+                    </p>
+                    <p><strong>Contact:</strong> {{ $patient->phone }}</p>
+                    <p><strong>Address:</strong> {{ $patient->address }}</p>
+                    <p><strong>Total Appointments:</strong> <b class="text-danger">{{ $patient->total }}</b></p>
+
+                    <h6 class="fw-bold">Types of Appointments:</h6>
+                    <ul class="py-0">
+                        @foreach ($allAppointments->where('name', $patient->name) as $appointment)
+                            <li class="mt-0 p-0">
+                                <p><b class="text-danger">{{ $appointment->appointment }}</b>-<b
+                                        class="text-primary">{{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</b>
+                                </p>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 @stop
 
 @section('js')

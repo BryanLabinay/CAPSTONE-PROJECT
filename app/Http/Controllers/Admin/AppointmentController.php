@@ -11,9 +11,14 @@ class AppointmentController extends Controller
     // All User Appointment List
     public function appointmentlist()
     {
-        $appointments = Appointment::with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $appointments = Appointment::with('user')
+            ->orderByRaw("CASE WHEN status = 'pending' THEN 1 ELSE 2 END")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('Admin.Appointment.all-appointment', compact('appointments'));
     }
+
 
     // Pending Appointment
     public function pending()

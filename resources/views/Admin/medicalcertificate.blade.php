@@ -51,21 +51,23 @@
                     <form method="post" action="{{ route('medical-certificate-pdf') }}" enctype="multipart/form-data"
                         target="_blank">
                         @csrf
-                        <!-- Patient Name Input -->
+                        <!-- Patient Name Input with Suggestions -->
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="title">Patient Name:</label>
-                                    <input type="text" class="form-control" id="title"
-                                        placeholder="Enter the Patient Name..." name="title" required>
+                                    <label for="patient_name">Patient Name:</label>
+                                    <input type="text" class="form-control" id="patient_name" name="patient_name"
+                                        placeholder="Enter the Patient Name..." autocomplete="off">
+                                    <datalist id="patientNameList"></datalist> <!-- Suggestions will appear here -->
                                 </div>
                             </div>
+
                             <div class="col-6">
-                                <!-- Additional Medical Information -->
                                 <div class="form-group">
-                                    <label for="heart">Address:</label>
-                                    <input type="text" class="form-control" name="address"
-                                        placeholder="Patient Address..." required>
+                                    <label for="address">Address:</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        placeholder="Patient Address..." autocomplete="off">
+                                    <datalist id="addressList"></datalist> <!-- Suggestions will appear here -->
                                 </div>
                             </div>
                         </div>
@@ -233,6 +235,7 @@
             </div>
         </div>
     </div>
+
 @stop
 
 

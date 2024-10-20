@@ -172,9 +172,16 @@
                         @endphp
                         @forelse ($pendings->sortByDesc('created_at') as $data)
                             <tr class="text-center">
-
                                 <td class="">{{ $counter++ }}</td>
-                                <td class="fw-bold text-start">{{ $data->name }}</td>
+                                <td class="fw-bold text-start">{{ $data->fname }}
+                                    @if (!empty($data->mname))
+                                        {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
+                                    @endif
+                                    {{ $data->lname }}
+                                    @if (!empty($data->suffix))
+                                        {{ $data->suffix }}
+                                    @endif
+                                </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
                                 <td class="fw-bold">{{ $data->appointment }}</td>
@@ -263,7 +270,15 @@
                         </div>
                         <div class="modal-body">
                             {{-- Add your appointment details here --}}
-                            <p><b>Name:</b> {{ $data->name }}</p>
+                            <p><b>Name:</b> {{ $data->fname }}
+                                @if (!empty($data->mname))
+                                    {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
+                                @endif
+                                {{ $data->lname }}
+                                @if (!empty($data->suffix))
+                                    {{ $data->suffix }}
+                                @endif
+                            </p>
                             <p><b>Address:</b> {{ $data->address }}</p>
                             <p><b>Phone:</b> {{ $data->phone }}</p>
                             <p><b>Date:</b>

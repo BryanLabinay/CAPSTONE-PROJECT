@@ -75,9 +75,18 @@
                             @forelse ($appointments->sortByDesc('created_at') as $data)
                                 <tr>
                                     <td>{{ $counter++ }}</td>
-                                    <td class="fw-bold text-start">{{ $data->name }}</td>
-                                    <td>
-                                        {{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
+                                    <td class="fw-bold text-start">
+                                        {{ $data->fname }}
+                                        @if (!empty($data->mname))
+                                            {{ strtoupper(substr($data->mname, 0, 1)) }}.
+                                        @endif
+                                        {{ $data->lname }}
+                                        @if (!empty($data->suffix))
+                                            {{ $data->suffix }}
+                                        @endif
+                                    </td>
+
+                                    <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
                                     <td class="fw-bold">{{ $data->appointment }}</td>
                                     <td class="fw-bold"
                                         style="color: 
@@ -126,7 +135,15 @@
                                             </div>
                                             <div class="modal-body">
                                                 {{-- Add your appointment details here --}}
-                                                <p><b>Name:</b> {{ $data->name }}</p>
+                                                <p><b>Name:</b> {{ $data->fname }}
+                                                    @if (!empty($data->mname))
+                                                        {{ $data->mname }}
+                                                    @endif
+                                                    {{ $data->lname }}
+                                                    @if (!empty($data->suffix))
+                                                        {{ $data->suffix }}
+                                                    @endif
+                                                </p>
                                                 <p><b>Address:</b> {{ $data->address }}</p>
                                                 <p><b>Phone:</b> {{ $data->phone }}</p>
                                                 <p><b>Date:</b>

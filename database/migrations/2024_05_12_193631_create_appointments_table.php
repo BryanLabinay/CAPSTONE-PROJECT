@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('name');
+            $table->string('fname'); // Change 'default_value' as needed
+            $table->string('mname')->nullable();
+            $table->string('lname');;
+            $table->string('suffix')->nullable();
             $table->string('email');
             $table->string('address');
             $table->string('phone');

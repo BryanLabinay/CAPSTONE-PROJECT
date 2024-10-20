@@ -15,9 +15,14 @@ class AppointmentCTRL extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(10);
+        $appointments = Appointment::where('user_id', Auth::id())
+            ->orderByRaw("CASE WHEN status = 'Pending' THEN 1 ELSE 2 END")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('User.appointment-list', compact('appointments'));
     }
+
 
     public function approvedStatus($id)
     {
@@ -51,27 +56,36 @@ class AppointmentCTRL extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'fname' => 'required|string|max:255',
+            'mname' => 'nullable|string|max:255',  // Made mname optional
+            'lname' => 'required|string|max:255',
+            'suffix' => 'nullable|string|max:255',  // Made suffix optional
             'email' => 'required|email|max:255',
             'address' => 'required|string|max:255',
-            'phone' => 'required|string',
+            'phone' => 'required|string|min:10|max:15',  // Adjust based on your requirements
             'date' => 'required|date',
             'appointment' => 'required|string',
             'message' => 'nullable|string'
         ]);
-
+        // dd($request);
         Appointment::create([
-            'user_id' => Auth::user()->id, // Adding the authenticated user's ID
-            'name' => $request->input('name'),
+            'user_id' => Auth::user()->id,
+            'fname' => $request->input('fname'),
+            'mname' => $request->input('mname') ?: null,  // Store null if empty
+            'lname' => $request->input('lname'),
+            'suffix' => $request->input('suffix') ?: null,  // Store null if empty
             'email' => $request->input('email'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'date' => $request->input('date'),
             'appointment' => $request->input('appointment'),
-            'message' => $request->input('message'),
+            'message' => $request->input('message') ?: null,  // Store null if empty
         ]);
+
+
         return redirect()->back()->with('status', 'Your Appointment has been added.');
     }
+
 
 
     public function edit($appointment_id)

@@ -19,18 +19,27 @@ class AppointmentSeeder extends Seeder
         for ($i = 0; $i < 30; $i++) {
             DB::table('appointments')->insert([
                 'user_id' => $faker->numberBetween(2, 4),
-                'name' => $faker->name(),
+                'fname' => $faker->firstName(),
+                'mname' => $faker->optional()->firstName(),  // Changed to optional for middle name
+                'lname' => $faker->lastName(),
+                'suffix' => $faker->optional()->suffix(),  // Made suffix optional
                 'email' => $faker->unique()->safeEmail(),
                 'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
                 'date' => $faker->date('Y-m-d'),
                 'appointment' => $faker->randomElement([
-                    'Check-Up', 'Ultrasound', 'Xray', '2D Echo with Doppler',
-                    'ECG', 'NST', 'Consultation', 'Drug Test'
+                    'Check-Up',
+                    'Ultrasound',
+                    'Xray',
+                    '2D Echo with Doppler',
+                    'ECG',
+                    'NST',
+                    'Consultation',
+                    'Drug Test'
                 ]),
                 'message' => $faker->sentence(),
                 'status' => $faker->randomElement(['Pending', 'Approved', 'Cancelled']),
-                'reason' => $faker->optional()->sentence(),
+                'reason' => $faker->optional()->sentence(),  // Optional reason
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

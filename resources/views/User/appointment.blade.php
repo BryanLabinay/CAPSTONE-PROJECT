@@ -26,13 +26,13 @@
                     </script>
                 @endif
             </div>
-            <div class="row font-web">
-                <div class="col-6 bg-primary-subtle rounded-2 me-3">
+            <div class="row p-2 font-web">
+                <div class="col-7 bg-primary-subtle rounded-2">
                     <div class="p-3">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Appointment
                             Form</h4>
-                        <form action="{{ route('Add-Appointment') }}" method="post">
+                        <form action="{{ route('Add-Appointment') }}" method="post" id="appointmentForm">
                             @csrf
                             <div class="d-flex">
                                 <div class="mb-3 d-inline">
@@ -43,17 +43,43 @@
                                         autocomplete="off" onclick="fillDetails('me')">
                                     <label class="btn btn-outline-primary" for="option1">Me</label>
                                 </div>
-
                                 <div class="mb-3 d-inline">
                                     <input type="radio" class="btn-check" name="options" id="option2" value="2"
                                         autocomplete="off" checked onclick="fillDetails('others')">
                                     <label class="btn btn-outline-primary" for="option2">Others</label>
                                 </div>
                             </div>
-
-                            <div class="form-group mb-2">
-                                <label for="fullName" class="fw-semibold mb-1">Full Name</label>
-                                <input type="text" class="form-control py-2" name="name" id="fullName" required>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="firstName" class="fw-semibold mb-1">First Name</label>
+                                        <input type="text" class="form-control py-2" name="fname" id="firstName"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="middleName" class="fw-semibold mb-1">Middle Name</label>
+                                        <input type="text" class="form-control py-2" name="mname" id="middleName"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="lastName" class="fw-semibold mb-1">Last Name</label>
+                                        <input type="text" class="form-control py-2" name="lname" id="lastName"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="suffix" class="fw-semibold mb-1">Suffix</label>
+                                        <input type="text" class="form-control py-2" name="suffix" id="suffix"
+                                            placeholder="(e.g., Jr., Sr., III)">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group mb-2">
@@ -85,8 +111,7 @@
                                 <select class="form-control py-2" id="dropdown" name="appointment">
                                     <option selected disabled hidden>Select Appointment</option>
                                     @forelse ($service as $data)
-                                        <option value="{{ $data->service }}">{{ $data->service }}
-                                        </option>
+                                        <option value="{{ $data->service }}">{{ $data->service }}</option>
                                     @empty
                                         <option disabled>No Service</option>
                                     @endforelse
@@ -96,13 +121,15 @@
                                 <label for="message" class="fw-semibold mb-1">Additional Message (optional)</label>
                                 <textarea class="form-control expanding-textarea" id="message" name="message" rows="1"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary px-5 py-2 mt-2 fw-semibold ">Request
+                            <button type="submit" class="btn btn-primary px-5 py-2 mt-2 fw-semibold">Request
                                 Appointment</button>
                         </form>
+
+
                     </div>
                 </div>
-                <div class="col-5 ms-5 bg-primary-subtle rounded-2">
-                    <div class="text-center mt-2">
+                <div class="col-5 bg-primary-subtle rounded-2">
+                    <div class="text-center mt-3">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Consultation
                     </div>
@@ -137,21 +164,49 @@
             </div>
             <script>
                 function fillDetails(option) {
-                    const fullNameInput = document.getElementById('fullName');
-                    const emailInput = document.getElementById('email');
-
                     if (option === 'me') {
-                        fullNameInput.value = '{{ Auth::user()->name }}'; // Autofill with user's name
-                        emailInput.value = '{{ Auth::user()->email }}'; // Autofill with user's email
-                        fullNameInput.readOnly = true; // Make full name input read-only (instead of disabled)
-                        emailInput.readOnly = true; // Make email input read-only (instead of disabled)
+                        // Auto-fill with user data and make fields readonly
+                        document.getElementById('firstName').value = "{{ auth()->user()->fname }}";
+                        document.getElementById('middleName').value = "{{ auth()->user()->mname }}";
+                        document.getElementById('lastName').value = "{{ auth()->user()->lname }}";
+                        document.getElementById('suffix').value =
+                            "{{ auth()->user()->suffix ?? '' }}"; // if no suffix, leave it blank
+                        document.getElementById('email').value = "{{ auth()->user()->email }}";
+
+                        // Make fields readonly
+                        document.getElementById('firstName').readOnly = true;
+                        document.getElementById('middleName').readOnly = true;
+                        document.getElementById('lastName').readOnly = true;
+                        document.getElementById('suffix').readOnly = true;
+                        document.getElementById('email').readOnly = true;
+
                     } else {
-                        fullNameInput.value = ''; // Reset the full name field
-                        emailInput.value = ''; // Reset the email field
-                        fullNameInput.readOnly = false; // Allow full name input
-                        emailInput.readOnly = false; // Allow email input
+                        // Clear the fields for 'Others' and make them editable again
+                        document.getElementById('firstName').value = '';
+                        document.getElementById('middleName').value = '';
+                        document.getElementById('lastName').value = '';
+                        document.getElementById('suffix').value = '';
+                        document.getElementById('email').value = '';
+
+                        // Make fields editable again
+                        document.getElementById('firstName').readOnly = false;
+                        document.getElementById('middleName').readOnly = false;
+                        document.getElementById('lastName').readOnly = false;
+                        document.getElementById('suffix').readOnly = false;
+                        document.getElementById('email').readOnly = false;
                     }
                 }
+
+                // Make sure readonly fields are submitted
+                document.getElementById('appointmentForm').addEventListener('submit', function() {
+                    document.getElementById('firstName').removeAttribute('readonly');
+                    document.getElementById('middleName').removeAttribute('readonly');
+                    document.getElementById('lastName').removeAttribute('readonly');
+                    document.getElementById('suffix').removeAttribute('readonly');
+                    document.getElementById('email').removeAttribute('readonly');
+                });
             </script>
+
+
     </section>
 </x-app-layout>

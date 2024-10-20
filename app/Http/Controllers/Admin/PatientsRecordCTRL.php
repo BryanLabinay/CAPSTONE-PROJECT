@@ -20,12 +20,15 @@ class PatientsRecordCTRL extends Controller
 
         // Fetch unique patient details and counts
         $patients = Appointment::select(
-            DB::raw('BINARY name as name'),
+            DB::raw('BINARY fname as fname'),
+            'mname',
+            'lname',
             'phone',
             'address',
+            DB::raw('MIN(id) as id'), // Fetch the first ID for each group
             DB::raw('count(*) as total')
         )
-            ->groupBy(DB::raw('BINARY name'), 'phone', 'address')
+            ->groupBy(DB::raw('BINARY fname'),  'mname', 'lname', 'phone', 'address')
             ->paginate($perPage);
 
         // Fetch all appointments for patients in one query
@@ -33,6 +36,7 @@ class PatientsRecordCTRL extends Controller
 
         return view('Admin.Patients-Record.patients-record', compact('patients', 'allAppointments'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,14 +57,15 @@ class PatientsRecordCTRL extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show() {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $patient = Appointment::findOrFail($id);
+        return view('Admin.Patients-Record.patient-show', compact('patient'));
     }
 
     /**

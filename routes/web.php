@@ -94,8 +94,10 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
     Route::get('/appointments/today', [AppointmentController::class, 'showTodayAppointments'])->name('appointments.today');
 });
 
+// Patient Record
 Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function () {
-    Route::get('/List', [PatientsRecordCTRL::class, 'index']);
+    Route::get('/List', [PatientsRecordCTRL::class, 'index'])->name('patient-index');
+    Route::get('/patient/{id}', [PatientsRecordCTRL::class, 'edit'])->name('patient.show');
 });
 
 
@@ -153,7 +155,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
     // Medical Certificate
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
-    Route::post('/Medical-Certificatei-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
+    Route::post('/Medical-Certificate-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
+    // Search Patient
+    // Route::get('/search/patient', [MedicalCertCTRL::class, 'searchPatient'])->name('search.patient');
+    // Message
     Route::get('/Message', [MessageController::class, 'index']);
 });
 
