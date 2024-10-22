@@ -18,18 +18,19 @@ class PatientsRecordCTRL extends Controller
         // Define the number of items per page
         $perPage = 10;
 
+        $patients = Appointment::orderBy('fname', 'asc') ->paginate($perPage);
         // Fetch unique patient details and counts
-        $patients = Appointment::select(
-            DB::raw('BINARY fname as fname'),
-            'mname',
-            'lname',
-            'phone',
-            'address',
-            DB::raw('MIN(id) as id'), // Fetch the first ID for each group
-            DB::raw('count(*) as total')
-        )
-            ->groupBy(DB::raw('BINARY fname'),  'mname', 'lname', 'phone', 'address')
-            ->paginate($perPage);
+        // $patients = Appointment::select(
+        //     DB::raw('BINARY fname as fname'),
+        //     'mname',
+        //     'lname',
+        //     'phone',
+        //     'address',
+        //     DB::raw('MIN(id) as id'), // Fetch the first ID for each group
+        //     DB::raw('count(*) as total')
+        // )
+        //     ->groupBy(DB::raw('BINARY fname'),  'mname', 'lname', 'phone', 'address', 'user_id')
+        //     ->paginate($perPage);
 
         // Fetch all appointments for patients in one query
         $allAppointments = Appointment::all();
@@ -65,7 +66,9 @@ class PatientsRecordCTRL extends Controller
     public function edit($id)
     {
         $patient = Appointment::findOrFail($id);
-        return view('Admin.Patients-Record.patient-show', compact('patient'));
+        $allAppointments = Appointment::all();
+
+        return view('Admin.Patients-Record.patient-show', compact('patient', 'allAppointments'));
     }
 
     /**

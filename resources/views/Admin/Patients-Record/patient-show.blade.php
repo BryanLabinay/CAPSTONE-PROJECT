@@ -79,6 +79,7 @@
                     </thead>
                     <tbody>
                         @php $counter = 1; @endphp
+
                         <tr class="text-center">
                             <td>{{ $counter++ }}</td>
                             <td>{{ $patient->appointment }}</td>

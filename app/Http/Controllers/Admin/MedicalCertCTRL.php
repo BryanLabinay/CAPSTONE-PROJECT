@@ -17,6 +17,29 @@ class MedicalCertCTRL extends Controller
         return view('Admin.medicalcertificate');
     }
 
+    public function fetchPatientNames(Request $request)
+    {
+        $query = $request->get('query'); // Get the query string from the request
+
+        // Fetch patient records matching the query
+        $patients = Appointment::where(function($q) use ($query) {
+            $q->where('fname', 'LIKE', "%{$query}%")
+              ->orWhere('mname', 'LIKE', "%{$query}%")
+              ->orWhere('lname', 'LIKE', "%{$query}%");
+        })->get(['fname', 'mname', 'lname', 'address']); // Include address in the selection
+
+        // Create an array of patient details
+        $patientDetails = $patients->map(function($patient) {
+            return [
+                'fullName' => trim("{$patient->fname} {$patient->mname} {$patient->lname}"),
+                'address' => $patient->address,
+            ];
+        });
+
+        return response()->json($patientDetails); // Return matching names and addresses as JSON
+
+    }
+
     // Generate the PDF for medical certificate
     public function MedicalCertificatePDF(Request $request)
     {
