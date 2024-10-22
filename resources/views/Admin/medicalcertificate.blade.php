@@ -54,11 +54,20 @@
                         <!-- Patient Name Input with Suggestions -->
                         <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group position-relative">
                                     <label for="patient_name">Patient Name:</label>
                                     <input type="text" class="form-control" id="patient_name" name="patient_name"
                                         placeholder="Enter the Patient Name..." autocomplete="off">
-                                    <datalist id="patientNameList"></datalist> <!-- Suggestions will appear here -->
+
+                                    <!-- Spinner for loading -->
+                                    <div id="loading-spinner" class="spinner-border text-primary position-absolute"
+                                        style="top: 35%; left: 10%; display: none;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+
+                                    <!-- Suggestions container -->
+                                    <div id="suggestions-container" class="list-group position-absolute w-100"
+                                        style="z-index: 1000;"></div>
                                 </div>
                             </div>
 
@@ -235,6 +244,72 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#patient_name').on('input', function() {
+                var query = $(this).val();
+
+                if (query.length > 0) {
+                    // Show loading spinner
+                    $('#loading-spinner').show();
+                    $('#suggestions-container').empty();
+
+                    $.ajax({
+                        url: '{{ route('fetch.patient.names') }}',
+                        method: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
+                            // Hide loading spinner
+                            $('#loading-spinner').hide();
+
+                            // Clear the suggestions container
+                            $('#suggestions-container').empty();
+
+                            // Append new suggestions with highlighting
+                            if (data.length > 0) {
+                                data.forEach(function(patient) {
+                                    var highlightedName = patient.fullName.replace(
+                                        new RegExp(query, 'gi'), match =>
+                                        `<strong>${match}</strong>`);
+                                    $('#suggestions-container').append(
+                                        '<a href="#" class="list-group-item list-group-item-action suggestion-item" data-address="' +
+                                        patient.address + '">' + highlightedName +
+                                        '</a>');
+                                });
+                            } else {
+                                $('#suggestions-container').append(
+                                    '<div class="list-group-item disabled">No matches found</div>'
+                                );
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                } else {
+                    // Clear suggestions if input is empty
+                    $('#loading-spinner').hide();
+                    $('#suggestions-container').empty();
+                }
+            });
+
+            // Handle click on suggestion item
+            $(document).on('click', '.suggestion-item', function(e) {
+                e.preventDefault();
+                var patientName = $(this).text();
+                var address = $(this).data('address'); // Get the address from data attribute
+
+                $('#patient_name').val(patientName);
+                $('#address').val(address); // Fill the address input
+                $('#suggestions-container').empty(); // Clear suggestions
+            });
+        });
+    </script>
+
 
 @stop
 

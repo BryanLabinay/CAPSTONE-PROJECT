@@ -155,6 +155,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/Activity-Logs', [ActivityLogCTRL::class, 'index'])->name('admin-activity-logs');
     // Medical Certificate
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
+    // web.php
+Route::get('/fetch-patient-names', [MedicalCertCTRL::class, 'fetchPatientNames'])->name('fetch.patient.names');
+
     Route::post('/Medical-Certificate-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
     // Search Patient
     // Route::get('/search/patient', [MedicalCertCTRL::class, 'searchPatient'])->name('search.patient');

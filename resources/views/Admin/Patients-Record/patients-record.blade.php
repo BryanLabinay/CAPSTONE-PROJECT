@@ -65,7 +65,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Contact</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Total Appointment</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -87,7 +87,7 @@
                                 </td>
                                 <td>{{ $patient->phone }}</td>
                                 <td class="fw-bold">{{ $patient->address }}</td>
-                                <td class="fw-bold">{{ $patient->total }}</td>
+                                <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
                                 <td> <a href="{{ route('patient.show', $patient->id) }}" class="btn btn-primary">View</a>
                                 </td>
                             </tr>
