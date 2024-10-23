@@ -120,7 +120,8 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item fw-semibold " href="{{ route('profile.edit') }}" style="color:#012970;"> <b
-                            class="fw-semibold">{{ auth()->user()->name }}</b></a></li>
+                            class="fw-semibold">{{ auth()->user()->fname }} {{ auth()->user()->mname }}
+                            {{ auth()->user()->lname }}</b></a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
