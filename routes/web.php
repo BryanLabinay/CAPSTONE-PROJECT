@@ -88,7 +88,7 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
 
     Route::post('/approvedStatus/{id}', [AppointmentCTRL::class, 'approvedStatus']);
     Route::post('/canceledStatus/{id}', [AppointmentCTRL::class, 'canceledStatus']);
-
+    // Search
     Route::get('/appointments/search', [AppointmentController::class, 'searchByName'])->name('appointments.search');
     Route::get('/appointments/filter', [AppointmentController::class, 'filterByDate'])->name('appointments.filter');
     Route::get('/appointments/today', [AppointmentController::class, 'showTodayAppointments'])->name('appointments.today');
@@ -98,6 +98,10 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
 Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function () {
     Route::get('/List', [PatientsRecordCTRL::class, 'index'])->name('patient-index');
     Route::get('/patient/{id}', [PatientsRecordCTRL::class, 'edit'])->name('patient.show');
+    // Search
+    Route::get('/patients/filter', [PatientsRecordCTRL::class, 'patientsFilter'])->name('patients.filter');
+    Route::get('/patients/today', [PatientsRecordCTRL::class, 'showTodaypatients'])->name('patients.today');
+    Route::get('/patients/search', [PatientsRecordCTRL::class, 'searchByName'])->name('patients.search');
 });
 
 
@@ -121,22 +125,6 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::post('/Contact', [AddActivityCTRL::class, 'contactStore'])->name('contact.store');
 });
 
-// Activity List
-Route::middleware(['auth', 'admin'])->prefix('Activity-List')->group(function () {
-    Route::get('/Event', [ActivityListCTRL::class, 'eventlist'])->name('event-list');
-    Route::get('/events/{event_id}/edit', [ActivityListCTRL::class, 'eventEdit'])->name('event.edit');
-    Route::put('/events/{event_id}/update', [ActivityListCTRL::class, 'eventUpdate'])->name('event.update');
-    Route::delete('/Delete-Event/{event_id}', [ActivityListCTRL::class, 'deleteEvent'])->name('delete-event');
-    // Employee List
-    Route::get('/Employee/Doctor-List', [ActivityListCTRL::class, 'doctorList'])->name('doctor.list');
-    Route::get('/Employee/Staff-List', [ActivityListCTRL::class, 'staffList'])->name('staff.list');
-    // Blog List
-    Route::get('/Blog-List', [ActivityListCTRL::class, 'blogList'])->name('blog.list');
-    // Service List
-    Route::get('/Service-List', [ActivityListCTRL::class, 'serviceList'])->name('service.list');
-    // Contact List
-    Route::get('/Contact-List', [ActivityListCTRL::class, 'contactList'])->name('contact.list');
-});
 
 // Export Excel
 Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
@@ -147,6 +135,8 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::get('/Export-Approved-Appointment-Pdf', [ExportAppointmentController::class, 'ExportApprovedAppointmentPdf'])->name('export.approvedrecord.pdf');
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');
     Route::get('/Reports-Appointment-Pdf', [ExportAppointmentController::class, 'reports'])->name('export.reports.pdf');
+    // Patient Record
+    Route::get('/Patients-Records.Pdf', [ExportAppointmentController::class, 'patientsRecordPdf'])->name('patients.record.pdf');
 });
 
 // Other Navigation
@@ -156,7 +146,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Medical Certificate
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
     // web.php
-Route::get('/fetch-patient-names', [MedicalCertCTRL::class, 'fetchPatientNames'])->name('fetch.patient.names');
+    Route::get('/fetch-patient-names', [MedicalCertCTRL::class, 'fetchPatientNames'])->name('fetch.patient.names');
 
     Route::post('/Medical-Certificate-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
     // Search Patient
