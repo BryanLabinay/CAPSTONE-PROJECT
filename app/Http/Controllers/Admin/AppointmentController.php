@@ -50,7 +50,18 @@ class AppointmentController extends Controller
     public function searchByName(Request $request)
     {
         $searchName = $request->input('name');
-        $appointments = Appointment::where('name', 'like', '%' . $searchName . '%')->paginate(10);
+
+        if (empty($searchName)) {
+            // Fetch all patients if no search term is provided
+            $appointments = Appointment::paginate(10);
+        } else {
+            // Perform the search
+            $appointments = Appointment::where('fname', 'like', '%' . $searchName . '%')
+                ->orWhere('mname', 'like', '%' . $searchName . '%')
+                ->orWhere('lname', 'like', '%' . $searchName . '%')
+                ->paginate(10);
+        }
+
         return view('Admin.Appointment.all-appointment', compact('appointments'));
     }
 
