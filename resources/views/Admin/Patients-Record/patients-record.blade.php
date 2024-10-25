@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
-                <form action="">
+                <form action="{{ route('patients.record.pdf') }}" target="_blank">
                     <button type="submit" class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export
                         PDF</button>
                 </form>
@@ -44,18 +44,32 @@
         </div>
         <hr class="mt-0">
         <div class="row mb-2">
-            <div class="col-12 d-flex justify-content-end">
-                <form action="" method="GET" class="form-inline">
+            <div class="col-6 d-flex justify-content-start">
+                <form method="GET" action="{{ route('patients.filter') }}" class="form-inline mb-2">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control me-2" placeholder="Enter Patient Name"
-                            value="">
+                        <label for="filter_date" class="mr-2">Select Date:</label>
+                        <input type="date" id="filter_date" name="filter_date" class="form-control border border-1 me-1"
+                            onchange="this.form.submit()" required>
+                    </div>
+                </form>
+
+                <form action="{{ route('patients.today') }}" method="GET" class="form-inline mb-2">
+                    <button type="submit" class="btn btn-primary">Today</button>
+                </form>
+            </div>
+
+            <div class="col-6 d-flex justify-content-end">
+                <form action="{{ route('patients.search') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control me-2" placeholder="Enter Name"
+                            value="{{ request('name') }}">
                     </div>
                     <button type="submit" class="btn btn-primary"><i
                             class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
                 </form>
             </div>
         </div>
-
         <div class="row font-web">
             <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
                 <table class="table table-striped mb-0 table-bordered">
@@ -66,37 +80,41 @@
                             <th scope="col">Contact</th>
                             <th scope="col">Address</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $counter = 1; @endphp
 
-                        @foreach ($patients as $patient)
-                            <tr class="text-center clickable-row">
-                                <td>{{ $counter++ }}</td>
-                                <td class="fw-bold text-start">{{ $patient->fname }}
-                                    @if (!empty($patient->mname))
-                                        {{ substr($patient->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
-                                    @endif
-                                    {{ $patient->lname }}
-                                    @if (!empty($patient->suffix))
-                                        {{ $patient->suffix }}
-                                    @endif
-
-                                </td>
-                                <td>{{ $patient->phone }}</td>
-                                <td class="fw-bold">{{ $patient->address }}</td>
-                                <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
-                                <td> <a href="{{ route('patient.show', $patient->id) }}" class="btn btn-primary">View</a>
-                                </td>
+                        @if ($patients->isEmpty())
+                            <tr>
+                                <td colspan="5" class="text-center fw-bold text-danger">No data found</td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach ($patients as $patient)
+                                <tr class="text-center clickable-row">
+                                    <td>{{ $counter++ }}</td>
+                                    <td class="fw-bold text-start">{{ $patient->fname }}
+                                        @if (!empty($patient->mname))
+                                            {{ substr($patient->mname, 0, 1) }}. {{-- First letter of middle name --}}
+                                        @endif
+                                        {{ $patient->lname }}
+                                        @if (!empty($patient->suffix))
+                                            {{ $patient->suffix }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $patient->phone }}</td>
+                                    <td class="fw-bold">{{ $patient->address }}</td>
+                                    <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
+
                 <div>
                     {{ $patients->links('pagination::bootstrap-5') }}
                 </div>
+
             </div>
         </div>
     </div>
