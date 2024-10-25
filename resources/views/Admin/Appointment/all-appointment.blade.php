@@ -271,8 +271,8 @@
                     @empty
                         <tr>
                             <td colspan="9">
-                                <div class="h5 text-center alert alert-warning">
-                                    No Appointment
+                                <div class="h5 text-center alert alert-primary">
+                                    No Record
                                 </div>
                             </td>
                         </tr>
