@@ -81,7 +81,10 @@ class ExportAppointmentController extends Controller
     }
     // Pass data to the view
 
-
-
-
+    public function patientsRecordPdf()
+    {
+        $patients = Appointment::orderBy('fname', 'asc')->get(); // Sorts alphabetically by 'name'
+        $pdf = PDF::loadView('Admin.Patients-Record.export-patients-record', compact('patients'));
+        return $pdf->stream('Download-Record.pdf');
+    }
 }
