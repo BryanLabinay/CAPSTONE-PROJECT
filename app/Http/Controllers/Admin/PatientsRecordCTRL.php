@@ -18,7 +18,7 @@ class PatientsRecordCTRL extends Controller
         // Define the number of items per page
         $perPage = 10;
 
-        $patients = Appointment::orderBy('fname', 'asc') ->paginate($perPage);
+        $patients = Appointment::orderBy('fname', 'asc')->paginate($perPage);
         // Fetch unique patient details and counts
         // $patients = Appointment::select(
         //     DB::raw('BINARY fname as fname'),
@@ -38,6 +38,43 @@ class PatientsRecordCTRL extends Controller
         return view('Admin.Patients-Record.patients-record', compact('patients', 'allAppointments'));
     }
 
+    // Search Function
+    public function patientsFilter(Request $request)
+    {
+        $filterDate = $request->input('filter_date');
+        $patients = Appointment::whereDate('date', $filterDate)->paginate(10);
+
+        return view('Admin.Patients-Record.patients-record', compact('patients'));
+    }
+
+    public function searchByName(Request $request)
+    {
+        $searchName = $request->input('name');
+
+        if (empty($searchName)) {
+            // Fetch all patients if no search term is provided
+            $patients = Appointment::paginate(10);
+        } else {
+            // Perform the search
+            $patients = Appointment::where('fname', 'like', '%' . $searchName . '%')
+                ->orWhere('mname', 'like', '%' . $searchName . '%')
+                ->orWhere('lname', 'like', '%' . $searchName . '%')
+                ->paginate(10);
+        }
+
+        return view('Admin.Patients-Record.patients-record', compact('patients'));
+    }
+
+
+
+    public function showTodaypatients()
+    {
+        // Filter appointments for today's date
+        $todayDate = now()->toDateString();
+        $patients = Appointment::whereDate('date', $todayDate)->paginate(10);
+
+        return view('Admin.Patients-Record.patients-record', compact('patients'));
+    }
 
     /**
      * Show the form for creating a new resource.
