@@ -135,8 +135,38 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col d-flex justify-content-end">
+                <form action="{{ route('export.cancelledrecord.pdf') }}" method="get" target="_blank">
+                    @csrf
+                    <button class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export PDF</button>
+                </form>
+                <form action="{{ route('export.rejected.excel') }}" method="post">
+                    @csrf
+                    <button class="btn btn-success">
+                        <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
+                    </button>
+                </form>
+            </div>
+        </div>
+        <hr class="mt-0 mb-3">
         <div class="row mb-2">
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-6 d-flex justify-content-start">
+                <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2" target="_blank">
+                    @csrf
+                    <div class="form-group">
+                        <label for="filter_date" class="mr-2">Select Date:</label>
+                        <input type="date" id="filter_date" name="filter_date" class="form-control border border-1 me-1"
+                            onchange="this.form.submit()" required>
+                    </div>
+                </form>
+
+                <form action="{{ route('appointments.today') }}" method="GET" class="form-inline mb-2">
+                    <button type="submit" class="btn btn-primary">Today</button>
+                </form>
+            </div>
+
+            <div class="col-6 d-flex justify-content-end">
                 <form action="{{ route('appointments.search') }}" method="GET" class="form-inline">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control me-2" placeholder="Enter Name"
@@ -239,7 +269,7 @@
                         @empty
                             <tr>
                                 <td colspan="9">
-                                    <div class="h5 text-center alert alert-warning">
+                                    <div class="h5 text-center alert alert-primary">
                                         No Pending Appointment
                                     </div>
                                 </td>
@@ -259,14 +289,15 @@
 
         {{-- Modal --}}
         @foreach ($pendings as $data)
-            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title fw-semibold " id="exampleModalLabel">Appointment
                                 Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             {{-- Add your appointment details here --}}
