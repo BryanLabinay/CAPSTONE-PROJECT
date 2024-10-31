@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 class AddActivityCTRL extends Controller
 {
 
+    // Event
     public function addEvent()
     {
         $eventlist = Event::latest()->get();
@@ -26,7 +27,7 @@ class AddActivityCTRL extends Controller
             $event->formattedTimestamp = $event->created_at->diffForHumans();
         }
 
-        return view('Admin.add-activity.add-event', compact('eventlist'));
+        return view('Admin.add-activity.Event.add-event', compact('eventlist'));
         // return view('Admin.add-activity.add-event');
     }
 
@@ -40,7 +41,7 @@ class AddActivityCTRL extends Controller
         if ($request->hasFile('img')) {
             $img = $request->file('img');
             $imgName = time() . '_' . $img->getClientOriginalName();
-            $img->move(public_path('uploads'), $imgName);
+            $img->move(public_path('uploads/events'), $imgName);
             $data->img = $imgName;
         }
 
@@ -48,18 +49,52 @@ class AddActivityCTRL extends Controller
         return redirect()->back()->with('data', $data)->with('statusevent', 'Event Added');
     }
 
-    // Edit Event
-    public function eventEdit($event_id)
+    // View Event
+    public function viewEvent($id)
     {
-        $event = Event::findOrFail($event_id);
-        return view('Admin.activity-list.event-update', compact('event'));
+        $eventShow = Event::findOrFail($id);
+        $events = Event::all();
+        return view('Admin.add-activity.Event.event-view', compact('eventShow', 'events'));
+    }
+
+    // Edit Event 
+    public function editEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $events = Event::all();
+        return view('Admin.add-activity.Event.event-edit', compact('event', 'events'));
+    }
+
+
+    // Update Event
+    public function updateEvent(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $event = Event::findOrFail($id);
+        $event->title = $request->title;
+        $event->description = $request->description;
+
+        if ($request->hasFile('img')) {
+            $imageName = time() . '.' . $request->img->extension();
+            $request->img->move(public_path('uploads/events'), $imageName);
+            $event->img = $imageName;
+        }
+
+        $event->save();
+
+        return redirect()->back()->with('update', 'Event updated');
     }
 
     // Delete Event
-    public function deleteEvent($event_id)
+    public function deleteEvent($id)
     {
-        $event = Event::find($event_id)->delete();
-        return redirect()->back()->with('eventdelete', 'Event Deleted');
+        $event = Event::find($id)->delete();
+        return redirect()->route('add.event')->with('eventdelete', 'Event Deleted');
     }
 
     // Add Employee
@@ -97,7 +132,7 @@ class AddActivityCTRL extends Controller
     public function blog()
     {
         $blogs = Blog::latest()->get();
-        return view('Admin.add-activity.blog', compact('blogs'));
+        return view('Admin.add-activity.Blog.blog', compact('blogs'));
     }
 
     // Store Blog 
@@ -117,11 +152,57 @@ class AddActivityCTRL extends Controller
         return redirect()->back()->with('blog', $blog)->with('statusblog', 'Blog Uploaded');
     }
 
+    // View Blog
+    public function viewBlog($id)
+    {
+        $blogView = Blog::findOrFail($id);
+        $blogs = Blog::all();
+        return view('Admin.add-activity.Blog.blog-view', compact('blogView', 'blogs'));
+    }
+
+    // Edit Blog 
+    public function editBlog($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blogs = Blog::all();
+        return view('Admin.add-activity.Blog.blog-edit', compact('blog', 'blogs'));
+    }
+    // Update Blog
+    public function updateBlog(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $blog = Blog::findOrFail($id);
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+
+        if ($request->hasFile('img')) {
+            $imageName = time() . '.' . $request->img->extension();
+            $request->img->move(public_path('uploads/blogs'), $imageName);
+            $blog->img = $imageName;
+        }
+
+        $blog->save();
+
+        return redirect()->back()->with('update', 'Blog updated');
+    }
+
+    // Blog Delete
+    public function deleteBlog($id)
+    {
+        $blog = Blog::find($id)->delete();
+        return redirect()->url('Add-Activity/Blog')->with('blogdelete', 'Blog deleted');
+    }
+
     // Add Services
     public function service()
     {
         $services = Service::latest()->get();
-        return view('Admin.add-activity.service', compact('services'));
+        return view('Admin.add-activity.Service.service', compact('services'));
     }
 
     // Service Store
@@ -141,21 +222,124 @@ class AddActivityCTRL extends Controller
         return redirect()->back()->with('service', $service)->with('serviceStatus', 'Service Added');
     }
 
-    // Add Contact
-    public function contact()
+    // Service View
+    public function serviceView($id)
     {
-        return view('Admin.add-activity.contact');
+        $serviceShow = Service::findOrFail($id);
+        $services = Service::all();
+        return view('Admin.add-activity.Service.service-view', compact('serviceShow', 'services'));
+    }
+
+    // Service Edit
+    public function serviceEdit($id)
+    {
+        $service = Service::findOrFail($id);
+        $services = Service::all();
+        return view('Admin.add-activity.Service.service-edit', compact('service', 'services'));
+    }
+
+    // Service Update
+    public function ServiceUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'service' => 'required|string|max:255',
+            'description' => 'required|string',
+            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $service = Service::findOrFail($id);
+        $service->service = $request->service;
+        $service->description = $request->description;
+
+        if ($request->hasFile('img')) {
+            $imageName = time() . '.' . $request->img->extension();
+            $request->img->move(public_path('uploads/service'), $imageName);
+            $service->img = $imageName;
+        }
+
+        $service->save();
+
+        return redirect()->back()->with('update', 'Service updated');
+    }
+
+    // Service Delete
+    public function serviceDelete($id)
+    {
+        $service = Service::find($id)->delete();
+        return redirect()->route('add.service')->with('servicedelete', 'Service deleted');
     }
 
 
-    // Contact Store
-    public function contactStore(ContactFormRequest $request)
+    // Add Contact
+    public function contact()
     {
+        $footer = Contact::all();
+        return view('Admin.add-activity.Contact.contact', compact('footer'));
+    }
+
+    // Contact Store
+    public function contactStore(Request $request)
+    {
+        $request->validate([
+            'cpnumber' => 'required|string|max:15',
+            'email' => 'required|email',
+            'address' => 'required|string|max:255',
+            'open_hour' => 'required|string|max:50',
+        ]);
+
         $contact = new Contact;
         $contact->cpnumber = $request->cpnumber;
         $contact->email = $request->email;
+        $contact->address = $request->address;
+        $contact->open_hour = $request->open_hour;
         $contact->save();
+
         return redirect()->back()->with('contact', $contact)->with('contactStatus', 'Contact Added');
+    }
+
+    // Contact View
+    public function contactView($id)
+    {
+        $view = Contact::findOrFail($id);
+        $footer = Contact::all();
+        return view('Admin.add-activity.Contact.contact-view', compact('view', 'footer'));
+    }
+
+    // Contact Edit
+    public function contactEdit($id)
+    {
+        $edit = Contact::findOrFail($id);
+        $footer = Contact::all();
+        return view('Admin.add-activity.Contact.contact-edit', compact('edit', 'footer'));
+    }
+
+    // Service Update
+    public function contactUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'cpnumber' => 'required|string|max:50',
+            'email' => 'required|string|max:50',
+            'address' => 'required|string|max:255',
+            'open_hour' => 'required|string|max:50',
+
+        ]);
+
+        $edit = Contact::findOrFail($id);
+        $edit->cpnumber = $request->cpnumber;
+        $edit->email = $request->email;
+        $edit->address = $request->address;
+        $edit->open_hour = $request->open_hour;
+
+        $edit->save();
+
+        return redirect()->back()->with('update', 'Contact updated');
+    }
+
+    // Service Delete
+    public function contactDelete($id)
+    {
+        $delete = Contact::find($id)->delete();
+        return redirect()->route('add-contact')->with('contactdelete', 'Contact deleted');
     }
 
 

@@ -14,7 +14,9 @@ class Contact extends Model
 
     protected $fillable = [
         'cpnumber',
-        'email'
+        'email',
+        'address',
+        'open_hour'
     ];
     public function getActivitylogOptions(): LogOptions
     {

@@ -27,6 +27,12 @@ class ContactFormRequest extends FormRequest
             ],
             'email' => [
                 'required'
+            ],
+            'address' => [
+                'required'
+            ],
+            'open_hour' => [
+                'required'
             ]
         ];
     }
