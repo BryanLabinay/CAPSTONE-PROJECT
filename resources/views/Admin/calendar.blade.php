@@ -212,7 +212,16 @@
                         @foreach ($appointments as $appointment)
                             @if ($appointment->date === $selectedDate)
                                 <tr>
-                                    <td>{{ $appointment->name }}</td>
+                                    <td class="fw-bold text-start">{{ $appointment->fname }}
+                                        @if (!empty($appointment->mname))
+                                            {{ substr($appointment->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
+                                        @endif
+                                        {{ $appointment->lname }}
+                                        @if (!empty($appointment->suffix))
+                                            {{ $appointment->suffix }}
+                                        @endif
+
+                                    </td>
                                     <td>{{ $appointment->address }}</td>
                                     <td>{{ $appointment->appointment }}</td>
                                     <td>{{ $appointment->status }}</td>
