@@ -110,19 +110,53 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     // Events
     Route::get('/Event', [AddActivityCTRL::class, 'addevent'])->name('add.event');
     Route::post('/Event', [AddActivityCTRL::class, 'storeevent'])->name('store.event');
+    // View Event
+    Route::get('/Event/{id}/view', [AddActivityCTRL::class, 'viewEvent'])->name('view.event');
+    // Edit Event
+    Route::get('/Event/{id}/edit', [AddActivityCTRL::class, 'editEvent'])->name('edit.event');
+    // Event Update
+    Route::put('/Event/{id}', [AddActivityCTRL::class, 'updateEvent'])->name('update.event');
+    // Event Delete
+    Route::delete('/Event/delete/{id}', [AddActivityCTRL::class, 'deleteEvent'])->name('delete.event');
+
     // Employee
     Route::get('/Employee/Doctor', [AddActivityCTRL::class, 'addDoctor'])->name('add.doctor');
     Route::get('/Employee/Staff', [AddActivityCTRL::class, 'addStaff'])->name('add.staff');
     Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
+
     // Blog
     Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
     Route::post('/Blog', [AddActivityCTRL::class, 'storeBlog'])->name('store.blog');
+    // View Blog
+    Route::get('/Blog/{id}/view', [AddActivityCTRL::class, 'viewBlog'])->name('view.blog');
+    // Edit Blog
+    Route::get('/Blog/{id}/edit', [AddActivityCTRL::class, 'editBlog'])->name('edit.blog');
+    //  Update Blog 
+    Route::put('/Blog/{id}', [AddActivityCTRL::class, 'updateBlog'])->name('update.blog');
+    // Delete Blog
+    Route::delete('/Blog/delete/{id}', [AddActivityCTRL::class, 'deleteBlog'])->name('delete.blog');
+
     // Service
     Route::get('/Service', [AddActivityCTRL::class, 'service'])->name('add.service');
     Route::post('/Service', [AddActivityCTRL::class, 'serviceStore'])->name('service.store');
+    Route::get('/Service-view/{id}', [AddActivityCTRL::class, 'serviceView'])->name('service.view');
+    // Service Edit
+    Route::get('/Service/{id}/edit', [AddActivityCTRL::class, 'serviceEdit'])->name('service.edit');
+    // Service Update
+    Route::put('/Service/{id}', [AddActivityCTRL::class, 'serviceUpdate'])->name('service.update');
+    // Service Delete
+    Route::delete('/Service/delete/{id}', [AddActivityCTRL::class, 'serviceDelete'])->name('service.delete');
+
     // Contact
     Route::get('/Contact', [AddActivityCTRL::class, 'contact'])->name('add-contact');
     Route::post('/Contact', [AddActivityCTRL::class, 'contactStore'])->name('contact.store');
+    Route::get('/Contact-view/{id}', [AddActivityCTRL::class, 'contactView'])->name('contact.view');
+    // Contact Edit
+    Route::get('/Contact/{id}/edit', [AddActivityCTRL::class, 'contactEdit'])->name('contact.edit');
+    // Contact Update
+    Route::put('/Contact/{id}', [AddActivityCTRL::class, 'contactUpdate'])->name('contact.update');
+    // Contact Delete
+    Route::delete('/Contact/delete/{id}', [AddActivityCTRL::class, 'contactDelete'])->name('contact.delete');
 });
 
 
