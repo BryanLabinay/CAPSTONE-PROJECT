@@ -2,6 +2,14 @@
 
 @section('adminlte_css')
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="{{ url('Css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('Css/all.min.css') }}">
+
+    {{-- Add here extra stylesheets --}}
+    <link rel="stylesheet" href="{{ url('vendor/adminlte/dist/css/custom-admin.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
@@ -9,6 +17,10 @@
         body {
             font-family: "Poppins", sans-serif;
             overflow: hidden;
+        }
+
+        .font {
+            font-family: "Nunito";
         }
 
         @keyframes zoomOut {
@@ -37,19 +49,22 @@
         <div class="login-box zoom-out bg-light shadow" style="width: 55rem; border-radius: 10px;">
             <div class="row g-0 p-0 rounded-2">
                 <!-- Image Carousel Section -->
-                <div class="col-6 bg-navy bg-opacity-10 d-flex flex-column align-items-center justify-content-center"
-                    style="border-radius: 10px;">
-                    <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="120" height="120" />
-                    <h1 class="text-white text-center mt-1 fw-bold">Welcome to <br>
-                        <b class="text-danger">DR.</b> MENDOZA<br>
-                        <b class="text-danger">MULTI-SPECIALIST</b> CLINIC
-                    </h1>
+                <div class="col-6">
+                    <div
+                        class="bg-navy border border-danger border-3 rounded-3 d-flex flex-column align-items-center justify-content-center h-100">
+                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="150" height="150" />
+                        <h2 class="text-white text-center mt-1 fw-bold">Welcome to <br>
+                            DR. MENDOZA<br>
+                            MULTI-SPECIALIST CLINIC
+                        </h2>
+                    </div>
                 </div>
+
 
                 <!-- Login Form Section -->
                 <div class="col-6 d-flex align-items-center">
                     <div class="p-4 w-100">
-                        <h4 class="text-center mb-4 fw-semibold">Login to your Account</h4>
+                        <h4 class="text-center mb-4 fw-semibold font">Login to your Account</h4>
                         <form action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="mb-3">
