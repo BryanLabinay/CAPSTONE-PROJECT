@@ -3,12 +3,25 @@
 
 @section('adminlte_css')
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="{{ url('Css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url('Css/all.min.css') }}">
+
+    {{-- Add here extra stylesheets --}}
+    <link rel="stylesheet" href="{{ url('vendor/adminlte/dist/css/custom-admin.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: "Nunito", sans-serif;
+            font-family: "Poppins", sans-serif;
             overflow: hidden;
+        }
+
+        .font {
+            font-family: "Nunito";
         }
 
         @keyframes zoomOut {
@@ -37,74 +50,86 @@
         <div class="login-box zoom-out bg-light shadow" style="width: 55rem; border-radius: 10px;">
             <div class="row p-0 g-0 rounded-2">
                 <!-- Image Carousel Section -->
-                <div class="col-6 bg-navy bg-opacity-10 d-flex flex-column align-items-center justify-content-center p-4"
-                    style="border-radius: 10px;">
-                    <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="120" height="120" />
-                    <h1 class="text-white text-center mt-0 fw-bold">Welcome to <br>
-                        <b class="text-danger">DR. MENDOZA</b> <br>
-                        <b class="text-danger">MULTI-SPECIALIST</b> CLINIC
-                    </h1>
+                <div class="col-6">
+                    <div
+                        class="bg-navy border border-danger border-3 rounded-3 d-flex flex-column align-items-center justify-content-center h-100">
+                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="150" height="150" />
+                        <h2 class="text-white text-center mt-1 fw-bold">Welcome to <br>
+                            DR. MENDOZA<br>
+                            MULTI-SPECIALIST CLINIC
+                        </h2>
+                    </div>
                 </div>
 
                 <!-- Login Form Section -->
                 <div class="col-6 d-flex align-items-center p-4">
                     <div class="w-100">
-                        <h4 class="text-center mb-2 fw-semibold">Register your Account</h4>
+                        <h4 class="text-center mb-2 fw-semibold font">Register your Account</h4>
                         <form action="{{ route('register') }}" method="post">
                             @csrf
-                            <div class="mb-2">
-                                <label for="fname" class="form-label fw-medium">First Name</label>
-                                <input type="text" name="fname"
-                                    class="form-control @error('fname') is-invalid @enderror" id="fname"
-                                    placeholder="Enter your First Name" value="{{ old('fname') }}" required>
-                                @error('fname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="fname" class="form-label fw-medium">First Name</label>
+                                        <input type="text" name="fname"
+                                            class="form-control @error('fname') is-invalid @enderror" id="fname"
+                                            value="{{ old('fname') }}" required>
+                                        @error('fname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="mname" class="form-label fw-medium">Middle Name</label>
+                                        <input type="text" name="mname"
+                                            class="form-control @error('mname') is-invalid @enderror" id="mname"
+                                            value="{{ old('mname') }}" required>
+                                        @error('mname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="mb-2">
-                                <label for="mname" class="form-label fw-medium">Middle Name</label>
-                                <input type="text" name="mname"
-                                    class="form-control @error('mname') is-invalid @enderror" id="mname"
-                                    placeholder="Enter your Middle Name" value="{{ old('mname') }}" required>
-                                @error('mname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label for="lname" class="form-label fw-medium">Last Name</label>
-                                <input type="text" name="lname"
-                                    class="form-control @error('lname') is-invalid @enderror" id="lname"
-                                    placeholder="Enter your Full Name" value="{{ old('lname') }}" required>
-                                @error('lname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2">
-                                <label for="suffix" class="form-label fw-medium">Suffix</label>
-                                <input type="text" name="suffix"
-                                    class="form-control @error('suffix') is-invalid @enderror" id="suffix"
-                                    placeholder="Enter your Full Name" value="{{ old('suffix') }}" required>
-                                @error('suffix')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="lname" class="form-label fw-medium">Last Name</label>
+                                        <input type="text" name="lname"
+                                            class="form-control @error('lname') is-invalid @enderror" id="lname"
+                                            value="{{ old('lname') }}" required>
+                                        @error('lname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-2">
+                                        <label for="suffix" class="form-label fw-medium">Suffix</label>
+                                        <input type="text" name="suffix"
+                                            class="form-control @error('suffix') is-invalid @enderror" id="suffix"
+                                            value="{{ old('suffix') }}" required>
+                                        @error('suffix')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="mb-2">
                                 <label for="email" class="form-label fw-medium">Email address</label>
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror" id="email"
-                                    placeholder="Enter your email" value="{{ old('email') }}" required>
+                                    value="{{ old('email') }}" required>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -145,113 +170,6 @@
         </div>
     </div>
 
-    {{-- <div class="d-flex align-items-center justify-content-center" style="min-height: 92vh;">
-        <div class="register-box zoom-out" style="width: 30rem;">
-            <a href="/"
-                class="register-logo d-flex align-items-center justify-content-center text-decoration-none mb-3">
-                <img src="{{ url('assets/img/mendoza.png') }}" height="60" alt="Mendoza Logo" />
-                <span style="font-weight: 500;">
-                    <b class="text-danger">DR</b><b style="color:#012970;">. MENDOZA</b>
-                </span>
-            </a>
-
-            <div class="card">
-                <div class="card-body register-card-body">
-                    <p class="login-box-msg" style="font-weight: 900; color:#012970;">Register a New Account</p>
-
-                    <form action="{{ route('register') }}" method="post">
-                        @csrf
-
-                        <div class="input-group mb-3">
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Full name" value="{{ old('name') }}" required autofocus>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                placeholder="Email" value="{{ old('email') }}" required>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                required>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="password" name="password_confirmation" class="form-control"
-                                placeholder="Retype password" required>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
-                            @error('password_confirmation')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" name="terms" id="terms"
-                                        {{ old('terms') ? 'checked' : '' }}>
-                                    <label for="terms">
-                                        I agree to the <a href="#">terms and Conditions</a>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-block text-light fw-bold"
-                                    style="background-color:#012970; font-weight: 700;">Register</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <p class="mt-3 mb-1">
-                                <a href="{{ route('login') }}" style="font-weight: 800;">I already have an Account</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="copyright zoom-out" style="color:#012970;">
         &copy; Copyright <strong><span><b class="text-danger">DR</b>. MENDOZA</span></strong>. All Rights Reserved
     </div>
