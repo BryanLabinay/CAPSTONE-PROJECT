@@ -75,9 +75,9 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group mb-2">
-                                        <label for="suffix" class="fw-semibold mb-1">Suffix</label>
-                                        <input type="text" class="form-control py-2" name="suffix" id="suffix"
-                                            placeholder="(e.g., Jr., Sr., III)">
+                                        <label for="suffix" class="fw-semibold mb-1">Suffix <small>(e.g., Jr., Sr.,
+                                                III)</small></label>
+                                        <input type="text" class="form-control py-2" name="suffix" id="suffix">
                                     </div>
                                 </div>
                             </div>

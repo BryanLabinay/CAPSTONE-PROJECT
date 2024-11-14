@@ -13,10 +13,6 @@
                 <li><a class="nav-link scrollto {{ Route::is('dashboard') ? 'active' : '' }}"
                         href="{{ route('dashboard') }}">Home</a></li>
 
-                {{-- Team --}}
-                <li><a class="nav-link scrollto {{ Route::is('doctor.staff') ? 'active' : '' }}"
-                        href="{{ route('doctor.staff') }}">Doctor & Staff</a></li>
-
                 {{-- Services --}}
                 <li><a class="nav-link scrollto {{ Route::is('services') ? 'active' : '' }}"
                         href="{{ route('services') }}">Services</a></li>
@@ -34,6 +30,10 @@
                                 class="{{ Route::is('Appointment-List') ? 'active' : '' }}">Appointment List</a></li>
                     </ul>
                 </li>
+                {{-- Messenger --}}
+                {{-- <li><a class="nav-link scrollto {{ Route::is('user.chat') ? 'active' : '' }}"
+                        href="{{ route('user.chat') }}">Messenger</a></li> --}}
+                {{-- Calendar --}}
                 <li><a class="nav-link scrollto {{ Route::is('user-calendar') ? 'active' : '' }}"
                         href="{{ route('user-calendar') }}">Calendar</a></li>
                 {{-- <li><a href="#" class="text-decoration-none">Blog</a></li> --}}
@@ -47,7 +47,13 @@
 
         <div class="d-flex align-items-center">
             {{-- Message --}}
-            <i class="fa-solid fa-comment fa-lg mx-3" style="color:#012970;"></i>
+            {{-- <i class="fa-solid fa-comment fa-lg mx-3" style="color:#012970;"></i> --}}
+            <a class="{{ Route::is('user.chat') ? 'active' : '' }}" href="{{ route('user.chat') }}">
+                <i class="fa-solid fa-comment fa-lg mx-3"
+                    style="{{ Route::is('user.chat') ? 'color: #dc3545;' : 'color: navy;' }}"></i>
+            </a>
+
+
 
             {{-- Notification --}}
             <div class="dropdown position-relative" id="notificationIcon">

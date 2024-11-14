@@ -22,14 +22,14 @@ class MedicalCertCTRL extends Controller
         $query = $request->get('query'); // Get the query string from the request
 
         // Fetch patient records matching the query
-        $patients = Appointment::where(function($q) use ($query) {
+        $patients = Appointment::where(function ($q) use ($query) {
             $q->where('fname', 'LIKE', "%{$query}%")
-              ->orWhere('mname', 'LIKE', "%{$query}%")
-              ->orWhere('lname', 'LIKE', "%{$query}%");
+                ->orWhere('mname', 'LIKE', "%{$query}%")
+                ->orWhere('lname', 'LIKE', "%{$query}%");
         })->get(['fname', 'mname', 'lname', 'address']); // Include address in the selection
 
         // Create an array of patient details
-        $patientDetails = $patients->map(function($patient) {
+        $patientDetails = $patients->map(function ($patient) {
             return [
                 'fullName' => trim("{$patient->fname} {$patient->mname} {$patient->lname}"),
                 'address' => $patient->address,
@@ -47,7 +47,7 @@ class MedicalCertCTRL extends Controller
 
         $data = [
             'date' => $formattedDate,
-            'patient_name' => $request->input('title'),
+            'patient_name' => $request->input('patient_name'),
             'address' => $request->input('address'),
             'heart' => $request->input('heart'),
             'lung' => $request->input('lung'),
