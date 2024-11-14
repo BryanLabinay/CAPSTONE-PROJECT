@@ -115,7 +115,7 @@
                                         <label for="suffix" class="form-label fw-medium">Suffix</label>
                                         <input type="text" name="suffix"
                                             class="form-control @error('suffix') is-invalid @enderror" id="suffix"
-                                            value="{{ old('suffix') }}" required>
+                                            value="{{ old('suffix') }}">
                                         @error('suffix')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

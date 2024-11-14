@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\User\AppointmentCTRL;
 use App\Http\Controllers\Admin\ActivityLogCTRL;
 use App\Http\Controllers\Admin\AddActivityCTRL;
 use App\Http\Controllers\Admin\MedicalCertCTRL;
 use App\Http\Controllers\User\NotificationCTRL;
-use App\Http\Controllers\Admin\ActivityListCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
 use App\Http\Controllers\Admin\MessageController;
@@ -24,12 +24,20 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'auth'])
     ->middleware(['auth'])->name('home');
 
+// Chat system
+Route::get('/chat', [ChatController::class, 'auth'])->middleware(['auth'])->name('chat.auth');
+// Admin Chat
+Route::get('/Admin/Chat', [ChatController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.chat');
+// 
+Route::get('/Message', [ChatController::class, 'userChat'])->name('user.chat');
 
 // User profile
 Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/Profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/Profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/Profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Edit Profile
+    // Route::get('/Profile-Update/{id}', [ProfileController::class, 'updateProfile'])->name('update.prof');
 });
 
 
@@ -186,7 +194,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Search Patient
     // Route::get('/search/patient', [MedicalCertCTRL::class, 'searchPatient'])->name('search.patient');
     // Message
-    Route::get('/Message', [MessageController::class, 'index']);
 });
 
 

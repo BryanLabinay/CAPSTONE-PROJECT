@@ -7,6 +7,7 @@
 
             </header>
 
+
             <div class="row gy-4 mt-1">
                 @foreach ($doctorStaff as $data)
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">

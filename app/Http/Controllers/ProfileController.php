@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,13 @@ class ProfileController extends Controller
         ]);
     }
 
+    // public function updateProfile($id)
+    // {
+    //     $profile = User::findOrFail($id);
+    //     $user = User::all();
+    //     return view('profile.edit', compact('profile', 'user'))->with('updated', 'Profile Picture changed');
+    // }
+
     /**
      * Update the user's profile information.
      */
@@ -32,28 +40,26 @@ class ProfileController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = time() . '_' . $user->id . '.' . $image->getClientOriginalExtension(); // Added user ID for uniqueness
             $image->move(public_path('images'), $imageName);
 
-            // Alternatively, you can use Storage facade to store in 'public/images'
-            // $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-            // $imagePath = $image->storeAs('public/images', $imageName);
-        } else {
-            $imageName = null; // If no image is uploaded, set imageName to null or specify a default image path
+            // Only update the image attribute if a new image is uploaded
+            $user->image = $imageName;
         }
 
-        // Update user record
-        $user->image = $imageName; // Save the image path or filename
-
+        // Clear email verification if the email is updated
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
+        // Save user record
         $user->save();
 
+        // Flash success message and redirect
         session()->flash('status', 'Profile updated successfully.');
-        return redirect()->route('profile.edit');
+        return redirect()->route('profile.edit')->with('updated', 'Profile Picture Changed');
     }
+
 
     /**
      * Delete the user's account.
