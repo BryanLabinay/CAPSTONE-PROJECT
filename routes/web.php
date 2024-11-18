@@ -25,10 +25,22 @@ Route::get('/home', [HomeController::class, 'auth'])
     ->middleware(['auth'])->name('home');
 
 // Chat system
-Route::get('/chat', [ChatController::class, 'auth'])->middleware(['auth'])->name('chat.auth');
-// Admin Chat
-Route::get('/Admin/Chat', [ChatController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.chat');
-// 
+
+Route::get('/chat/admin', [ChatController::class, 'chatWithAdmin'])->name('chat.admin');
+Route::get('/chat/list', [ChatController::class, 'showchat'])->name('chat.list');
+Route::get('/chat/user/{userId}', [ChatController::class, 'chatWithUser'])->name('chat.user');
+Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+
+
+Route::get('/chat/fetch/{admin_id}', [ChatController::class, 'fetchMessages'])->name('chat.fetch');
+Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+
+Route::get('/admin/chat/fetch/{userId}', [ChatController::class, 'fetchMessages'])->name('admin.chat.fetch');
+Route::post('/admin/chat/send', [ChatController::class, 'sendMessage'])->name('admin.chat.send');
+// Route::get('/chat', [ChatController::class, 'auth'])->middleware(['auth'])->name('chat.auth');
+// // Admin Chat
+// Route::get('/Admin/Chat', [ChatController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.chat');
+// //
 Route::get('/Message', [ChatController::class, 'userChat'])->name('user.chat');
 
 // User profile
@@ -139,7 +151,7 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/Blog/{id}/view', [AddActivityCTRL::class, 'viewBlog'])->name('view.blog');
     // Edit Blog
     Route::get('/Blog/{id}/edit', [AddActivityCTRL::class, 'editBlog'])->name('edit.blog');
-    //  Update Blog 
+    //  Update Blog
     Route::put('/Blog/{id}', [AddActivityCTRL::class, 'updateBlog'])->name('update.blog');
     // Delete Blog
     Route::delete('/Blog/delete/{id}', [AddActivityCTRL::class, 'deleteBlog'])->name('delete.blog');

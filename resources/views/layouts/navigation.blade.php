@@ -40,6 +40,9 @@
                 <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
                         href="{{ route('events') }}">News & Updates</a></li>
 
+                <li><a class="text-decoration-none {{ Route::is('chat.admin') ? 'active' : '' }}"
+                        href="{{ route('chat.admin') }}">Chat</a></li>
+
                 <!--  Dropdown Button -->
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -80,9 +83,9 @@
                                     <div class="col mb-1">
                                         <div class="notification-title">
                                             <h6 class="fw-bolder"
-                                                style="color: 
-                                                    @if ($notification->status === 'Approved') green 
-                                                    @elseif($notification->status === 'Cancelled') red 
+                                                style="color:
+                                                    @if ($notification->status === 'Approved') green
+                                                    @elseif($notification->status === 'Cancelled') red
                                                     @else #ffffff @endif;">
                                                 {{ $notification->status }}
                                             </h6>

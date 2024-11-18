@@ -64,4 +64,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class);
     }
+
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Messages::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Messages::class, 'receiver_id');
+    }
+
 }
