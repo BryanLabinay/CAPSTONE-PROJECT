@@ -26,29 +26,6 @@
                 </div>
             @endforeach
 
-
-
-
-
-
-            {{-- @foreach ($service as $data)
-                <div class="row gy-4">
-                    <div class="col-12">
-                        <div class="col-lg-4 col-md-6 " data-aos="fade-up" data-aos-delay="100">
-                            <div class="w-100">
-                                <div class="d-flex justify-content-center">
-                                    <img src="{{ URL('uploads/service/' . $data->img) }}" class="img-fluid"
-                                        alt="{{ $data->service }}" style="height: 250px; object-fit: cover;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <h5 class="card-title fw-bolder">{{ $data->service }}</h5>
-                            <p class="card-text">{{ $data->description }}</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach --}}
         </div>
     </section>
 </x-app-layout>
