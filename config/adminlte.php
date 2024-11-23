@@ -316,14 +316,14 @@ return [
             'id' => 'my-messenger',
             'icon' => 'fa-solid fa-comment',
             'icon_color' => 'navy',
-            'url' => '/Message',
+            'url' => '/chat/list',
             'topnav_right' => true,
-            'dropdown_mode' => true,
-            'dropdown_flabel' => 'All messages',
-            'update_cfg' => [
-                'url' => '/Message',
-                'period' => 30,
-            ],
+            // 'dropdown_mode' => true,
+            // 'dropdown_flabel' => 'All messages',
+            // 'update_cfg' => [
+            //     'url' => '/Message',
+            //     'period' => 30,
+            // ],
         ],
         [
             'type' => 'navbar-notification',

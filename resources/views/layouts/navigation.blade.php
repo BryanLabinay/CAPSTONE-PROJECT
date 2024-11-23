@@ -40,8 +40,8 @@
                 <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
                         href="{{ route('events') }}">News & Updates</a></li>
 
-                <li><a class="text-decoration-none {{ Route::is('chat.admin') ? 'active' : '' }}"
-                        href="{{ route('chat.admin') }}">Chat</a></li>
+                {{-- <li><a class="text-decoration-none {{ Route::is('chat.admin') ? 'active' : '' }}"
+                        href="{{ route('chat.admin') }}">Chat</a></li> --}}
 
                 <!--  Dropdown Button -->
             </ul>
@@ -51,9 +51,9 @@
         <div class="d-flex align-items-center">
             {{-- Message --}}
             {{-- <i class="fa-solid fa-comment fa-lg mx-3" style="color:#012970;"></i> --}}
-            <a class="{{ Route::is('user.chat') ? 'active' : '' }}" href="{{ route('user.chat') }}">
+            <a class="{{ Route::is('chat.admin') ? 'active' : '' }}" href="{{ route('chat.admin') }}">
                 <i class="fa-solid fa-comment fa-lg mx-3"
-                    style="{{ Route::is('user.chat') ? 'color: #dc3545;' : 'color: navy;' }}"></i>
+                    style="{{ Route::is('chat.admin') ? 'color: #dc3545;' : 'color: navy;' }}"></i>
             </a>
 
 
