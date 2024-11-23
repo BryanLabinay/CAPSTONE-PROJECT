@@ -1,33 +1,41 @@
 <x-app-layout>
     <section id="team" class="mt-3 team">
-        <h3>Chat with Admin: {{ $admin->fname }}</h3>
+        <div class="container" data-aos="fade-up">
+            <header class="section-header p-1">
+                <h2 class="text-danger">Chat here</h2>
+                <h3 class="font-web fw-bold" style="color: #012970;">Ask here</h3>
+            </header>
 
-        <div id="chat-box"
-            style="max-height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            @forelse ($messages as $message)
-                <div
-                    style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
+            {{-- <h3>Chat with Admin: {{ $admin->fname }}</h3> --}}
+
+            <div id="chat-box"
+                style="height: calc(85vh - 200px); overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                @forelse ($messages as $message)
                     <div
-                        style="max-width: 70%; padding: 10px; border-radius: 15px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
-                        <strong>{{ $message->sender_id === auth()->id() ? 'You' : $admin->fname }}:</strong>
-                        <div>{{ $message->message }}</div>
+                        style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
+                        <div
+                            style="max-width: 70%; padding: 5px; border-radius: 1px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
+                            <strong>{{ $message->sender_id === auth()->id() ? 'You' : $admin->fname }}:</strong>
+                            <div>{{ $message->message }}</div>
+                        </div>
                     </div>
-                </div>
-            @empty
-                <p id="no-messages">No messages yet. Start the conversation!</p>
-            @endforelse
-        </div>
-
-        <form id="chat-form" style="margin-top: 15px;">
-            @csrf
-            <input type="hidden" id="receiver_id" value="{{ $admin->id }}">
-            <div style="display: flex; align-items: center;">
-                <textarea id="message" placeholder="Type your message..." required
-                    style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
-                <button type="submit"
-                    style="margin-left: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
+                @empty
+                    <p id="no-messages">No messages yet. Start the conversation!</p>
+                @endforelse
             </div>
-        </form>
+
+
+            <form id="chat-form" style="margin-top: 15px;">
+                @csrf
+                <input type="hidden" id="receiver_id" value="{{ $admin->id }}">
+                <div style="display: flex; align-items: center;">
+                    <textarea id="message" placeholder="Type your message..." required
+                        style="flex: 1; padding: 5px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
+                    <button type="submit"
+                        style="margin-left: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
+                </div>
+            </form>
+        </div>
     </section>
 
     <script>

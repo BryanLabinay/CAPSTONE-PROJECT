@@ -23,39 +23,122 @@
         }
     </style>
 @stop
-
-@section('content')
+@section('content_header')
     <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Chat</h5>
     <hr class="mt-0 text-secondary">
+@stop
+@section('content')
+    <div class="container-fluid">
+        <div class="row bg-secondary bg-opacity-25" style="height: 80vh">
+            <!-- Left Column: Messages List -->
+            <div class="col-4 p-0">
+                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                    <h5 class="text-center">All Messages</h5>
+                </div>
+                @forelse ($list as $data)
+                    <div class="clickable-container position-relative border border-1">
+                        <a href="{{ route('chat.user', $data->sender->id) }}" class="stretched-link text-decoration-none">
+                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                                <div class="me-3">
+                                    <img src="{{ asset($data->sender->image) }}" class="border border-1 border-secondary"
+                                        height="50" width="50" alt="{{ $data->sender->fname }}"
+                                        style="border-radius:50%; object-fit:cover;">
+                                </div>
+                                <div class="list-group">
+                                    <div class="p-2">
+                                        <div class="flex-grow-1">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}</h6>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p class="mb-0 text-muted">
+                                                        {{ strlen($data->message) > 30 ? substr($data->message, 0, 30) . '...' : $data->message }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5">
+                            <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
+                                <h5 class="text-center text-black">No Message</h5>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
 
-    <h3>Chat with {{ $user->fname }}</h3>
+            <!-- Right Column: Chat Area -->
+            <div class="col-8 bg-secondary bg-opacity-25" style="display: flex; flex-direction: column; height: 80vh;">
+                <!-- User Info Section -->
+                <div class="row mt-1 mb-2">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1">
+                            <div class="me-3">
+                                <img src="{{ asset($user->image) }}" class="border border-1 border-secondary" height="50"
+                                    width="50" alt="" style="border-radius:50%; object-fit:cover;">
+                            </div>
+                            <div class="list-group">
+                                <div class="p-2">
+                                    <div class="flex-grow-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h6 class="mb-0 text-dark fw-bold">{{ $user->fname }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div id="chat-box"
-        style="max-height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-        @forelse ($messages as $message)
-            <div
-                style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
-                <div
-                    style="max-width: 70%; padding: 10px; border-radius: 15px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
-                    <strong>{{ $message->sender_id === auth()->id() ? 'You' : $message->sender->fname }}:</strong>
-                    <div>{{ $message->message }}</div>
+                <!-- Chat Messages Section -->
+                <div class="row flex-grow-1" style="overflow-y: auto;">
+                    <div class="col-12">
+                        <div id="chat-box" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            @forelse ($messages as $message)
+                                <div
+                                    style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
+                                    <div
+                                        style="max-width: 70%; padding: 5px; border-radius: 5px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
+                                        <small>{{ $message->sender_id === auth()->id() ? 'You' : $message->sender->fname }}</small>
+                                        <div>{{ $message->message }}</div>
+                                    </div>
+                                </div>
+                            @empty
+                                <p id="no-messages">No messages yet. Start the conversation!</p>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Form Section -->
+                <div class="row">
+                    <div class="col-12">
+                        <form id="chat-form"
+                            style="display: flex; padding: 5px; border-top: 1px solid #ddd; background: #fff; position: sticky; bottom: 0;">
+                            @csrf
+                            <input type="hidden" id="receiver_id" value="{{ $user->id }}">
+                            <textarea id="message" placeholder="Type your message..." required
+                                style="flex: 1; padding: 5px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
+                            <button type="submit"
+                                style="margin-left: 10px; padding: 5px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        @empty
-            <p id="no-messages">No messages yet. Start the conversation!</p>
-        @endforelse
+
+
+        </div>
     </div>
 
-    <form id="chat-form" style="margin-top: 15px;">
-        @csrf
-        <input type="hidden" id="receiver_id" value="{{ $user->id }}">
-        <div style="display: flex; align-items: center;">
-            <textarea id="message" placeholder="Type your message..." required
-                style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
-            <button type="submit"
-                style="margin-left: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
-        </div>
-    </form>
 
     <script>
         // Fetch new messages periodically
@@ -79,12 +162,12 @@
 
                         const contentDiv = document.createElement('div');
                         contentDiv.style.maxWidth = '70%';
-                        contentDiv.style.padding = '10px';
-                        contentDiv.style.borderRadius = '15px';
+                        contentDiv.style.padding = '5px';
+                        contentDiv.style.borderRadius = '5px';
                         contentDiv.style.backgroundColor = message.sender_id === {{ auth()->id() }} ?
                             '#007bff' : '#f1f1f1';
                         contentDiv.style.color = message.sender_id === {{ auth()->id() }} ? '#fff' : '#000';
-                        contentDiv.innerHTML = `<strong>${message.sender_id === {{ auth()->id() }} ? 'You' : '{{ $user->fname }}'}:</strong>
+                        contentDiv.innerHTML = `<small>${message.sender_id === {{ auth()->id() }} ? 'You' : '{{ $user->fname }}'}</small>
                                             <div>${message.message}</div>`;
                         messageDiv.appendChild(contentDiv);
                         chatBox.appendChild(messageDiv);

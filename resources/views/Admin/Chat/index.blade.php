@@ -30,9 +30,62 @@
 @stop
 
 @section('content')
-    <h3>Latest Messages</h3>
+    {{-- <h3>Latest Messages</h3> --}}
+    <div class="container-fluid">
+        <div class="row bg-secondary bg-opacity-25" style="height: 80vh">
+            <!-- Left Column: Messages List -->
+            <div class="col-4 p-0">
+                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                    <h5 class="text-center">All Messages</h5>
+                </div>
+                @forelse ($list as $data)
+                    <div class="clickable-container position-relative border border-1">
+                        <a href="{{ route('chat.user', $data->sender->id) }}" class="stretched-link text-decoration-none">
+                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                                <div class="me-3">
+                                    <img src="{{ asset($data->sender->image) }}" class="border border-1 border-secondary"
+                                        height="50" width="50" alt="{{ $data->sender->fname }}"
+                                        style="border-radius:50%; object-fit:cover;">
+                                </div>
+                                <div class="list-group">
+                                    <div class="p-2">
+                                        <div class="flex-grow-1">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}</h6>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p class="mb-0 text-muted">
+                                                        {{ strlen($data->message) > 30 ? substr($data->message, 0, 30) . '...' : $data->message }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5">
+                            <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
+                                <h5 class="text-center text-black">No Message</h5>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
 
-    <ul>
+            <!-- Right Column: Chat Area -->
+            <div class="col-8 d-flex justify-content-center align-items-center bg-secondary bg-opacity-25">
+                <h1><i class="fa-solid fa-comment text-navy"></i></h1>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- <ul>
         @forelse ($list as $data)
             <li>
                 <strong>{{ $data->sender->fname }}</strong>:
@@ -43,7 +96,7 @@
         @empty
             <li>No messages available.</li>
         @endforelse
-    </ul>
+    </ul> --}}
 
 @stop
 

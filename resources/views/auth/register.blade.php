@@ -86,7 +86,7 @@
                                         <label for="mname" class="form-label fw-medium">Middle Name</label>
                                         <input type="text" name="mname"
                                             class="form-control @error('mname') is-invalid @enderror" id="mname"
-                                            value="{{ old('mname') }}" required>
+                                            value="{{ old('mname') }}">
                                         @error('mname')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
