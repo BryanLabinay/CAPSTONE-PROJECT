@@ -32,10 +32,30 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
-                <form action="{{ route('patients.record.pdf') }}" target="_blank">
-                    <button type="submit" class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export
-                        PDF</button>
-                </form>
+                <div class="dropdown">
+                    <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                        <i class="fa-solid fa-file-export me-1"></i> Export PDF
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="{{ route('patients.record.pdf') }}" method="GET">
+                                <div class="form-group px-2">
+                                    <label for="start_date">Start Date:</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control" required>
+                                </div>
+                                <div class="form-group px-2">
+                                    <label for="end_date">End Date:</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control" required>
+                                </div>
+                                <div class="form-group px-2 py-2">
+                                    <input type="submit" value="Export PDF" class="btn btn-danger w-100">
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
                 <form action="">
                     <button type="submit" class="btn btn-success"> <i class="fa-solid fa-file-arrow-down me-1"></i> Export
                         Excel</button>
@@ -87,7 +107,7 @@
 
                         @if ($patients->isEmpty())
                             <tr>
-                                <td colspan="5" class="text-center fw-bold text-danger">No data found</td>
+                                <td colspan="5" class="text-center fw-bold text-dangexr">No data found</td>
                             </tr>
                         @else
                             @foreach ($patients as $patient)
