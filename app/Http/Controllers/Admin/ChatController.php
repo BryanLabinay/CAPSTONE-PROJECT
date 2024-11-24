@@ -62,6 +62,20 @@ class ChatController extends Controller
         return view('Admin.chat.index', compact('list'));
     }
 
+    public function showchatLatest()
+    {
+        $data = Messages::latest()->first();
+
+        return response()->json([
+            'sender' => [
+                'image' => asset($data->sender->image),
+                'fname' => $data->sender->fname,
+            ],
+            'message' => $data->message,
+        ]);
+    }
+
+
     public function chatWithUser($userId)
     {
         $user = User::findOrFail($userId);

@@ -31,6 +31,7 @@ Route::get('/chat/list', [ChatController::class, 'showchat'])->name('chat.list')
 Route::get('/chat/user/{userId}', [ChatController::class, 'chatWithUser'])->name('chat.user');
 Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 
+Route::get('chat/list/latest', [ChatController::class, 'showchatLatest'])->name('chat.list.latest');
 
 Route::get('/chat/fetch/{admin_id}', [ChatController::class, 'fetchMessages'])->name('chat.fetch');
 Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
