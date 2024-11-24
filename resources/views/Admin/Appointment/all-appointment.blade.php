@@ -141,10 +141,37 @@
                 @csrf
                 <button class="btn btn-primary me-2"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
             </form>
-            <form action="{{ route('export.allrecord.pdf') }}" method="get" target="_blank">
-                @csrf
-                <button class="btn btn-danger me-2"><i class="fa-solid fa-file-pdf me-1"></i>Export PDF</button>
-            </form>
+            <div class="dropdown">
+                <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="true">
+                    <i class="fa-solid fa-file-export me-1"></i> Export PDF
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form action="{{ route('export.allrecord.pdf') }}" method="get" target="_blank">
+                            @csrf
+
+                            <!-- Start Date -->
+                            <div class="form-group px-2">
+                                <label for="start_date">Start Date:</label>
+                                <input type="date" name="start_date" id="start_date" class="form-control" required>
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="form-group px-2">
+                                <label for="end_date">End Date:</label>
+                                <input type="date" name="end_date" id="end_date" class="form-control" required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group px-2 py-2">
+                                <input type="submit" value="Export PDF" class="btn btn-danger w-100">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
             <form action="{{ route('export.excel') }}" method="post" target="_blank">
                 @csrf
                 <button class="btn btn-success">
@@ -240,7 +267,8 @@
                                     </form>
 
                                     {{-- Reject --}}
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#newModal{{ $data->id }}">
+                                    <a href="#" data-bs-toggle="modal"
+                                        data-bs-target="#newModal{{ $data->id }}">
                                         <button class="btn btn-danger py-1 my-0"
                                             @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.1;" @endif>
                                             Reject
