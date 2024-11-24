@@ -38,7 +38,8 @@
                 @forelse ($list as $data)
                     <div class="clickable-container position-relative border border-1">
                         <a href="{{ route('chat.user', $data->sender->id) }}" class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                            <div id="user-message"
+                                class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
                                 <div class="me-3">
                                     <img src="{{ asset($data->sender->image) }}" class="border border-1 border-secondary"
                                         height="50" width="50" alt="{{ $data->sender->fname }}"
@@ -49,10 +50,11 @@
                                         <div class="flex-grow-1">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}</h6>
+                                                    <h6 class="mb-0 text-dark fw-bold" id="sender-name">
+                                                        {{ $data->sender->fname }}</h6>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p class="mb-0 text-muted">
+                                                    <p class="mb-0 text-muted" id="message-preview">
                                                         {{ strlen($data->message) > 30 ? substr($data->message, 0, 30) . '...' : $data->message }}
                                                     </p>
                                                 </div>
@@ -61,6 +63,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </a>
                     </div>
                 @empty
@@ -82,6 +85,35 @@
     </div>
 
 
+    <script>
+        // Function to fetch data and update the DOM
+        async function updateMessage() {
+            try {
+                const response = await fetch('/chat/list/latest'); // Replace with your endpoint
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const data = await response.json();
+
+                // Update sender image
+                document.querySelector('#user-message img').src = data.sender.image;
+                document.querySelector('#user-message img').alt = data.sender.fname;
+
+                // Update sender name
+                document.getElementById('sender-name').textContent = data.sender.fname;
+
+                // Update message preview (truncate if needed)
+                const messagePreview = data.message.length > 30 ?
+                    data.message.substring(0, 30) + '...' :
+                    data.message;
+                document.getElementById('message-preview').textContent = messagePreview;
+            } catch (error) {
+                console.error('Error fetching latest message:', error);
+            }
+        }
+
+        // Call the function periodically (e.g., every 5 seconds)
+        setInterval(updateMessage, 1000);
+    </script>
 @stop
 
 
