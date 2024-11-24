@@ -23,13 +23,10 @@
         }
     </style>
 @stop
-@section('content_header')
-    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Chat</h5>
-    <hr class="mt-0 text-secondary">
-@stop
+
 @section('content')
     <div class="container-fluid">
-        <div class="row bg-secondary bg-opacity-25" style="height: 80vh">
+        <div class="row bg-secondary bg-opacity-25" style="height: 90vh; overflow: hidden;">
             <!-- Left Column: Messages List -->
             <div class="col-4 p-0">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
@@ -49,7 +46,8 @@
                                         <div class="flex-grow-1">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}</h6>
+                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}
+                                                        {{ $data->sender->lname }}</h6>
                                                 </div>
                                                 <div class="col-12">
                                                     <p class="mb-0 text-muted">
@@ -75,46 +73,61 @@
             </div>
 
             <!-- Right Column: Chat Area -->
-            <div class="col-8 bg-secondary bg-opacity-25" style="display: flex; flex-direction: column; height: 80vh;">
+            <div class="col-8 bg-secondary bg-opacity-25" style="display: flex; flex-direction: column; height: 87vh;">
                 <!-- User Info Section -->
-                <div class="row mt-1 mb-2">
+                <div class="row mt-1 mb-1">
                     <div class="col-12">
                         <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1">
                             <div class="me-3">
-                                <img src="{{ asset($user->image) }}" class="border border-1 border-secondary" height="50"
-                                    width="50" alt="" style="border-radius:50%; object-fit:cover;">
+                                <img src="{{ asset($user->image) }}" class="border border-1 border-secondary"
+                                    height="50" width="50" alt=""
+                                    style="border-radius:50%; object-fit:cover;">
                             </div>
                             <div class="list-group">
                                 <div class="p-2">
                                     <div class="flex-grow-1">
                                         <div class="row">
                                             <div class="col-12">
-                                                <h6 class="mb-0 text-dark fw-bold">{{ $user->fname }}</h6>
+                                                <h6 class="mb-0 text-dark fw-bold">{{ $user->fname }} {{ $user->mname }}
+                                                    {{ $user->lname }} {{ $user->suffix }}</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <button class="btn btn-outline-danger ms-auto py-0 px-2 me-2" type="button" aria-label="Close"
+                                onclick="window.location.href='{{ route('chat.list') }}'">
+                                <span aria-hidden="true" class="h4">&times;</span>
+                            </button>
+
                         </div>
                     </div>
+
+
                 </div>
 
                 <!-- Chat Messages Section -->
-                <div class="row flex-grow-1" style="overflow-y: auto;">
+                <div class="row flex-grow-1">
                     <div class="col-12">
-                        <div id="chat-box" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                            @forelse ($messages as $message)
-                                <div
-                                    style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
+                        <div id="chat-box" class="card border-secondary h-100">
+                            <div class="card-body p-1" style="max-height: 67vh; overflow-y: auto;">
+                                @forelse ($messages as $message)
                                     <div
-                                        style="max-width: 70%; padding: 5px; border-radius: 5px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
-                                        <small>{{ $message->sender_id === auth()->id() ? 'You' : $message->sender->fname }}</small>
-                                        <div>{{ $message->message }}</div>
+                                        class="d-flex mb-1 {{ $message->sender_id === auth()->id() ? 'justify-content-end' : 'justify-content-start' }}">
+                                        <div class="p-1 rounded
+                                                    {{ $message->sender_id === auth()->id() ? 'bg-primary text-white' : 'bg-light text-dark' }}"
+                                            style="max-width: 70%; border: 1px solid #ddd;">
+                                            <small class="d-block fw-bold">
+                                                {{ $message->sender_id === auth()->id() ? '' : '' }}
+                                            </small>
+                                            <div>{{ $message->message }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                            @empty
-                                <p id="no-messages">No messages yet. Start the conversation!</p>
-                            @endforelse
+                                @empty
+                                    <p id="no-messages" class="text-center text-muted">No messages yet. Start the
+                                        conversation!</p>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,30 +136,30 @@
                 <div class="row">
                     <div class="col-12">
                         <form id="chat-form"
-                            style="display: flex; padding: 5px; border-top: 1px solid #ddd; background: #fff; position: sticky; bottom: 0;">
+                            style="display: flex; padding: 5px; border-top: 1px solid #ddd; background: #ffffff00; position: sticky; bottom: 0;">
                             @csrf
                             <input type="hidden" id="receiver_id" value="{{ $user->id }}">
-                            <textarea id="message" placeholder="Type your message..." required
-                                style="flex: 1; padding: 5px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
+                            <textarea id="message" placeholder="Type your message..." required rows="1"
+                                style="flex: 1; padding: 5px; border: 1px solid #ddd; border-radius: 5px; resize: none; overflow: hidden;"></textarea>
                             <button type="submit"
                                 style="margin-left: 10px; padding: 5px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
                         </form>
                     </div>
+
                 </div>
             </div>
-
-
         </div>
     </div>
 
 
     <script>
         // Fetch new messages periodically
+        // Fetch new messages periodically
         function fetchMessages() {
             fetch('{{ route('admin.chat.fetch', ['userId' => $user->id]) }}')
                 .then(response => response.json())
                 .then(data => {
-                    const chatBox = document.getElementById('chat-box');
+                    const chatBox = document.getElementById('chat-box').querySelector('.card-body');
                     const noMessages = document.getElementById('no-messages');
 
                     // Clear "No messages" text
@@ -156,7 +169,7 @@
                     data.messages.forEach(message => {
                         const messageDiv = document.createElement('div');
                         messageDiv.style.display = 'flex';
-                        messageDiv.style.marginBottom = '10px';
+                        messageDiv.style.marginBottom = '5px';
                         messageDiv.style.justifyContent = message.sender_id === {{ auth()->id() }} ?
                             'flex-end' : 'flex-start';
 
@@ -167,13 +180,14 @@
                         contentDiv.style.backgroundColor = message.sender_id === {{ auth()->id() }} ?
                             '#007bff' : '#f1f1f1';
                         contentDiv.style.color = message.sender_id === {{ auth()->id() }} ? '#fff' : '#000';
-                        contentDiv.innerHTML = `<small>${message.sender_id === {{ auth()->id() }} ? 'You' : '{{ $user->fname }}'}</small>
-                                            <div>${message.message}</div>`;
+                        contentDiv.innerHTML = `<small>${message.sender_id === {{ auth()->id() }} ? '' : ''}</small>
+                                        <div>${message.message}</div>`;
                         messageDiv.appendChild(contentDiv);
                         chatBox.appendChild(messageDiv);
                     });
 
-                    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
+                    // Auto-scroll to the bottom
+                    chatBox.scrollTop = chatBox.scrollHeight;
                 });
         }
 

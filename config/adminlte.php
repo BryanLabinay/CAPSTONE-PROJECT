@@ -462,11 +462,6 @@ return [
             'url' => '/Activity-Logs',
         ],
 
-        [
-            'text' => 'Chat',
-            'icon' => 'fa-solid fa-list-check',
-            'url' => '/chat/list',
-        ],
     ],
 
     /*

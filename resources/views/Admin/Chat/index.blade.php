@@ -24,15 +24,12 @@
     </style>
 @stop
 
-@section('content_header')
-    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Chat</h5>
-    <hr class="mt-0 text-secondary">
-@stop
 
 @section('content')
     {{-- <h3>Latest Messages</h3> --}}
     <div class="container-fluid">
-        <div class="row bg-secondary bg-opacity-25" style="height: 80vh">
+        <div class="row bg-secondary bg-opacity-25" style="height: 89vh; overflow: hidden;">
+
             <!-- Left Column: Messages List -->
             <div class="col-4 p-0">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
@@ -85,19 +82,6 @@
     </div>
 
 
-    {{-- <ul>
-        @forelse ($list as $data)
-            <li>
-                <strong>{{ $data->sender->fname }}</strong>:
-                {{ Str::limit($data->message, 50) }}
-                <small>({{ $data->created_at->diffForHumans() }})</small>
-                <a href="{{ route('chat.user', $data->sender->id) }}">Reply</a>
-            </li>
-        @empty
-            <li>No messages available.</li>
-        @endforelse
-    </ul> --}}
-
 @stop
 
 
@@ -108,4 +92,4 @@
     {{-- <script>
             console.log("Hi, Welcome to E.A MENDOZA APPOINTMENT SYSTEM!");
         </script> --}}
-@stop)
+@stop
