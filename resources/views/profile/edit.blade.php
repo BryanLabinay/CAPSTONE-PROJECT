@@ -34,8 +34,8 @@
                                 alt="{{ $user->fname }} Profile">
                         @else
                             <img src="{{ asset($user_image->image) }}" height="200" width="200"
-                                class="me-1 border border-1 border-secondary" style="border-radius: 50%;"
-                                alt="{{ $user->fname }} Profile">
+                                class="me-1 border border-1 border-secondary"
+                                style="border-radius: 50%; object-fit:cover;" alt="{{ $user->fname }} Profile">
                         @endif
                         {{-- <img src="{{ asset('images/' . $user->image) }}" height="200" width="200"
                             class="border border-1 border-secondary rounded-circle" alt="Profile Picture"> --}}

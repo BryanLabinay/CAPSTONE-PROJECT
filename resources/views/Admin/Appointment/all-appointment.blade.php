@@ -139,12 +139,12 @@
         <div class="col d-flex justify-content-end">
             <form action="{{ route('export.reports.pdf') }}" method="get" target="_blank">
                 @csrf
-                <button class="btn btn-primary me-2"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
+                <button class="btn btn-primary me-1"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
             </form>
-            <div class="dropdown">
+            <div class="dropdown me-1">
                 <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="true">
-                    <i class="fa-solid fa-file-export me-1"></i> Export PDF
+                    <i class="fa-solid fa-file-export"></i> Export PDF
                 </button>
                 <ul class="dropdown-menu">
                     <li>

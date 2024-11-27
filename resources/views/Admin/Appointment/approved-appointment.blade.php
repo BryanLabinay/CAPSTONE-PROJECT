@@ -92,7 +92,7 @@
 @section('content')
     <div class="row mb-3">
         <div class="col d-flex justify-content-end">
-            <div class="dropdown">
+            <div class="dropdown me-1">
                 <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="true">
                     <i class="fa-solid fa-file-export me-1"></i> Export PDF

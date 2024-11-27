@@ -15,7 +15,7 @@
                         style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
                         <div
                             style="max-width: 70%; padding: 5px; border-radius: 1px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
-                            <strong>{{ $message->sender_id === auth()->id() ? 'You' : $admin->fname }}:</strong>
+                            <strong>{{ $message->sender_id === auth()->id() ? '' : '' }}</strong>
                             <div>{{ $message->message }}</div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         contentDiv.style.backgroundColor = message.sender_id === {{ auth()->id() }} ?
                             '#007bff' : '#f1f1f1';
                         contentDiv.style.color = message.sender_id === {{ auth()->id() }} ? '#fff' : '#000';
-                        contentDiv.innerHTML = `<strong>${message.sender_id === {{ auth()->id() }} ? 'You' : '{{ $admin->fname }}'}:</strong>
+                        contentDiv.innerHTML = `<strong>${message.sender_id === {{ auth()->id() }} ? '' : ''}</strong>
                                                 <div>${message.message}</div>`;
                         messageDiv.appendChild(contentDiv);
                         chatBox.appendChild(messageDiv);
