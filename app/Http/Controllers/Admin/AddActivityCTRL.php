@@ -109,8 +109,12 @@ class AddActivityCTRL extends Controller
     {
         $doctor = new DoctorList();
         $doctor->admin_id = Auth::id();
-        $doctor->name = $request->name;
+        $doctor->fname = $request->fname;
+        $doctor->mname = $request->mname;
+        $doctor->lname = $request->lname;
+        $doctor->suffix = $request->suffix;
         $doctor->position = $request->position;
+        $doctor->district = $request->district;
         if ($request->hasFile('image')) {
             $img = $request->file('image');
             $imgName = time() . '_' . $img->getClientOriginalName();

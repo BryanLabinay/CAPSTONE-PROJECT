@@ -218,20 +218,56 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="">Doctor Name:</label>
-                                <input type="text" class="form-control" name="doctorName" id="doctorName" required>
+                                <label for="doctorName">Doctor Name:</label>
+                                <select name="doctorName" id="doctor" class="form-control" required>
+                                    <option selected disabled hidden>Select a Doctor</option>
+                                    @forelse ($doctor as $data)
+                                        {{-- <option value="" aria-placeholder="select doctor" disabled></option> --}}
+                                        <option
+                                            value="{{ $data->fname }} {{ $data->mname }} {{ $data->lname }} {{ $data->suffix }}"
+                                            data-position="{{ $data->position }}" data-district="{{ $data->district }}">
+                                            {{ $data->id }} {{ $data->fname }} {{ $data->mname }}
+                                            {{ $data->lname }} {{ $data->suffix }}
+                                        </option>
+                                    @empty
+                                        <option disabled>No Doctor</option>
+                                    @endforelse
+                                </select>
+
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="position">Position:</label>
+                                        <input type="text" class="form-control" name="position" id="position"
+                                            required readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="district">District:</label>
+                                        <input type="text" class="form-control" name="district" id="district"
+                                            required readonly>
+                                    </div>
+                                </div>
+
+
+
+
                             </div>
                         </div>
-                        <div class="row mt-2 mb-2">
-                            <div class="col-6">
-                                <label for="">Position:</label>
-                                <input type="text" class="form-control" name="position" id="position" required>
-                            </div>
-                            <div class="col-6">
-                                <label for="">District:</label>
-                                <input type="text" class="form-control" name="district" id="district" required>
-                            </div>
-                        </div>
+
+                        <script>
+                            document.querySelector('select[name="doctorName"]').addEventListener('change', function() {
+                                const selectedOption = this.options[this.selectedIndex];
+                                const position = selectedOption.getAttribute('data-position');
+                                const district = selectedOption.getAttribute('data-district');
+
+                                // Update the position and district inputs
+                                document.querySelector('input[name="position"]').value = position;
+                                document.querySelector('input[name="district"]').value = district;
+                            });
+                        </script>
+
+
+
+
 
 
                         <!-- Submit Button -->

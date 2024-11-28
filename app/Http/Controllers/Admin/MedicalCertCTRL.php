@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\DoctorList;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
-use Carbon\Carbon;
 use App\Models\Patient; // Assuming you have a Patient model
 
 class MedicalCertCTRL extends Controller
@@ -14,7 +15,8 @@ class MedicalCertCTRL extends Controller
     // Render the medical certificate form
     public function medicalcertificate()
     {
-        return view('Admin.medicalcertificate');
+        $doctor = DoctorList::all();
+        return view('Admin.medicalcertificate', compact('doctor'));
     }
 
     public function fetchPatientNames(Request $request)

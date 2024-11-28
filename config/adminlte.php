@@ -116,7 +116,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/mendozalogo.png',
@@ -430,7 +430,7 @@ return [
                     'url' => '/Add-Activity/Event',
                 ],
                 [
-                    'text' => 'Employee',
+                    'text' => 'Doctor',
                     'icon' => 'fas fa-fw fa-users',
                     'icon_color' => 'red',
                     'url' => 'Add-Activity/Employee/Doctor',
