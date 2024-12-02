@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
-
 @section('css')
     {{-- Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
@@ -22,66 +21,12 @@
         body {
             font-family: "Nunito", sans-serif;
         }
-
-        .colored-toast.swal2-icon-success {
-            background-color: #012970 !important;
-        }
-
-        .colored-toast.swal2-icon-error {
-            background-color: #f27474 !important;
-        }
-
-        .colored-toast.swal2-icon-warning {
-            background-color: #DC3545 !important;
-        }
-
-        .colored-toast.swal2-icon-info {
-            background-color: #3fc3ee !important;
-        }
-
-        .colored-toast.swal2-icon-question {
-            background-color: #87adbd !important;
-        }
-
-        .colored-toast .swal2-title {
-            color: white;
-        }
-
-        .colored-toast .swal2-close {
-            color: white;
-        }
-
-        .colored-toast .swal2-html-container {
-            color: white;
-        }
     </style>
 @stop
 
 @section('content_header')
-    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Add Doctor</h5>
+    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Edit Information</h5>
     <hr class="mt-0 text-secondary">
-
-    @if (session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    iconColor: 'white',
-                    customClass: {
-                        popup: 'colored-toast',
-                    },
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Employee Added'
-                });
-            });
-        </script>
-    @endif
 @stop
 
 @section('content')
@@ -89,21 +34,25 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
-                    <form action="{{ route('upload-doctor') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('info.update', ['id' => $employee->id]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <h5 class="fw-semibold text-dark">Form</h5>
                         <hr class="mt-0 text-black">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">First Name:</label>
-                                    <input name="fname" type="text" required class="form-control">
+                                    <input name="fname" type="text" required class="form-control"
+                                        value="{{ old('fname', $employee->fname) }}" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Middle Name:</label>
-                                    <input name="mname" type="text" class="form-control">
+                                    <input name="mname" type="text" class="form-control"
+                                        value="{{ old('mname', $employee->mname) }}" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -111,13 +60,15 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Last Name:</label>
-                                    <input name="lname" type="text" required class="form-control">
+                                    <input name="lname" type="text" required class="form-control"
+                                        value="{{ old('lname', $employee->lname) }}" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">Suffix:</label>
-                                    <input name="suffix" type="text" class="form-control">
+                                    <input name="suffix" type="text" class="form-control"
+                                        value="{{ old('suffix', $employee->suffix) }}" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -125,13 +76,16 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="position">Position:</label>
-                                    <input type="text" class="form-control" name="position" id="position" required>
+                                    <input type="text" class="form-control" name="position" id="position"
+                                        value="{{ old('position', $employee->position) }}" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="">District:</label>
-                                    <input name="district" type="text" id="district" required class="form-control">
+                                    <input name="district" type="text" id="district"
+                                        value="{{ old('district', $employee->district) }}" autocomplete="off" required
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -149,16 +103,16 @@
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
                     <h5 class="text-center">Doctor & Staff List</h5>
                 </div>
-                @foreach ($employees as $employee)
+                @foreach ($employees as $data)
                     <div class="clickable-container position-relative mb-1">
                         <span href="#" class="stretched-link" data-bs-toggle="modal"
-                            data-bs-target="#infoModal{{ $employee->id }} ">
+                            data-bs-target="#infoModal{{ $data->id }} ">
                             <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
                                 <div class="me-3">
-                                    @if ($employee->image)
-                                        <img src="{{ asset('Doctors/' . $employee->image) }}"
+                                    @if ($data->image)
+                                        <img src="{{ asset('Doctors/' . $data->image) }}"
                                             class="border border-1 border-secondary" height="50" width="50"
-                                            alt="{{ $employee->fname }}" style="border-radius:50%; object-fit:cover;">
+                                            alt="{{ $data->fname }}" style="border-radius:50%; object-fit:cover;">
                                     @else
                                         <img src="{{ asset('default.jpg') }}" class="border border-1 border-secondary"
                                             height="50" width="50" alt="Default Image"
@@ -172,12 +126,17 @@
                                         <div class="flex-grow-1">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $employee->fname }}
-                                                        {{ $employee->mname }} {{ $employee->lname }}
-                                                        {{ $employee->suffix }}</h6>
+                                                    <h6 class="mb-0 text-dark fw-bold">
+                                                        {{ $data->fname }}
+                                                        @if ($data->mname)
+                                                            {{ Str::substr($data->mname, 0, 1) }}.
+                                                        @endif
+                                                        {{ $data->lname }}
+                                                        {{ $data->suffix }}
+                                                    </h6>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p class="mb-0 text-muted">{{ $employee->position }}</p>
+                                                    <p class="mb-0 text-muted">{{ $data->position }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,9 +157,10 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="infoModalLabel">Profile Information</h5>
+                                    <h5 class="modal-title" id="infoModalLabel">Doctor Information</h5>
                                     <div class="d-flex align-items-center ms-3">
-                                        <a href="#" class="btn btn-sm btn-outline-primary me-2">
+                                        <a href="{{ route('edit.info', ['id' => $employee->id]) }}"
+                                            class="btn btn-sm btn-outline-primary me-2">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                         <form action="" method="post" class="m-0">
@@ -215,11 +175,20 @@
                                 <div class="modal-body">
                                     <div class="text-center">
                                         <!-- Image inside the modal -->
-                                        <img src="{{ asset('Doctors/' . $employee->image) }}"
-                                            class="img-fluid rounded-circle mb-3" alt="{{ $employee->name }}"
-                                            style="width: 150px; height: 150px; border: 2px solid #6c757d;">
-                                        <h6 class="text-dark fw-bold">{{ $employee->name }}</h6>
-                                        <p class="text-muted">{{ $employee->position }}</p>
+                                        @if ($employee->image)
+                                            <img src="{{ asset('Doctors/' . $employee->image) }}"
+                                                class="img-fluid rounded-circle mb-3" alt="{{ $employee->fname }}"
+                                                style="width: 150px; height: 150px; border: 2px solid #6c757d; object-fit:cover;">
+                                        @else
+                                            <img src="{{ asset('default.jpg') }}" class="img-fluid rounded-circle mb-3"
+                                                alt="Default Image"
+                                                style="width: 150px; height: 150px; border: 2px solid #6c757d;">
+                                        @endif
+
+                                        <h6 class="text-dark fw-bold">{{ $employee->fname }}
+                                            {{ $employee->mname }}{{ $employee->lname }} {{ $employee->suffix }}</h6>
+                                        <p class="text-muted mb-0">{{ $employee->position }}</p>
+                                        <p class="text-muted mt-0">{{ $employee->district }}</p>
                                         <!-- Add more details about the employee if needed -->
                                     </div>
                                 </div>
@@ -229,29 +198,18 @@
                             </div>
                         </div>
                     </div>
-
-                    {{--  @empty
-                    <div class="col-5">
-                        <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                            <h5 class="text-center">No Employee</h5>
-                        </div>
-                    </div>
-                @endforelse  --}}
                 @endforeach
-
-
-
             </div>
         </div>
     </div>
 @stop
 
 
-
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    {{-- Sweetalert --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script>
+            console.log("Hi, Welcome to E.A MENDOZA APPOINTMENT SYSTEM!");
+        </script> --}}
 @stop

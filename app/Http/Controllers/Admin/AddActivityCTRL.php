@@ -14,6 +14,7 @@ use App\Http\Requests\EventFormRequest;
 use App\Http\Requests\ContactFormRequest;
 use App\Http\Requests\ServiceFormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AddActivityCTRL extends Controller
 {
@@ -101,10 +102,10 @@ class AddActivityCTRL extends Controller
     public function addDoctor()
     {
         $employees = DoctorList::all();
-        return view('Admin.add-activity.add-employee', compact('employees'));
+        return view('Admin.add-activity.Employee.add-employee', compact('employees'));
     }
 
-
+    // store employee
     public function uploadDoctor(Request $request)
     {
         $doctor = new DoctorList();
@@ -127,10 +128,52 @@ class AddActivityCTRL extends Controller
         return redirect()->back()->with('success', 'Record Added');
     }
 
-    public function addStaff()
+    // Edit Employee
+    public function editInfo($id)
     {
-        return view('Admin.add-activity.Employee.add-staff');
+        $employee = DoctorList::findOrFail($id);
+        $employees = DoctorList::all();
+        return view('Admin.add-activity.Employee.edit-employee', compact('employee', 'employees'));
     }
+
+    // Update Employee
+    public function infoUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'fname' => 'required|string|max:100',
+            'mname' => 'required|string|max:100',
+            'lname' => 'required|string|max:100',
+            'suffix' => 'required|string|max:100',
+            'position' => 'required|string|max:100',
+            'district' => 'required|string|max:100',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $employee = Blog::findOrFail($id);
+        $employee->fname = $request->fname;
+        $employee->mname = $request->mname;
+        $employee->lname = $request->lname;
+        $employee->suffix = $request->suffix;
+        $employee->position = $request->position;
+        $employee->district = $request->district;
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('Doctors'), $imageName);
+            $employee->image = $imageName;
+        }
+
+        $employee->save();
+
+        return view('Admin.add-activity.Employee.add-employee')->with('updated', 'Information Updated');
+
+        // return redirect()->back()->with('update', 'Information updated');
+    }
+
+    // public function addStaff()
+    // {
+    //     return view('Admin.add-activity.Employee.add-staff');
+    // }
 
     // Blog
     public function blog()

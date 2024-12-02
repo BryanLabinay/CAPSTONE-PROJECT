@@ -144,6 +144,10 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/Employee/Doctor', [AddActivityCTRL::class, 'addDoctor'])->name('add.doctor');
     Route::get('/Employee/Staff', [AddActivityCTRL::class, 'addStaff'])->name('add.staff');
     Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
+    // Edit 
+    Route::get('/edit/{id}/information', [AddActivityCTRL::class, 'editInfo'])->name('edit.info');
+    // Update
+    Route::put('/Info/{id}', [AddActivityCTRL::class, 'infoUpdate'])->name('info.update');
 
     // Blog
     Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
