@@ -14,12 +14,15 @@ class ExportAppointmentData implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return Appointment::select('name', 'address', 'phone', 'appointment', 'created_at')->get();
+        return Appointment::select('fname', 'mname', 'lname', 'suffix', 'address', 'phone', 'appointment', 'created_at')->get();
     }
     public function headings(): array
     {
         return [
-            'Name',
+            'First Name',
+            'Middle Name',
+            'Last Name',
+            'Suffix',
             'Address',
             'Phone',
             'Appointment',
@@ -29,7 +32,10 @@ class ExportAppointmentData implements FromCollection, WithHeadings, WithMapping
     public function map($user): array
     {
         return [
-            $user->name,
+            $user->fname,
+            $user->mname,
+            $user->lname,
+            $user->suffix,
             $user->address,
             $user->phone,
             $user->appointment,

@@ -50,11 +50,17 @@
                                         <div class="flex-grow-1">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold" id="sender-name">
-                                                        {{ $data->sender->fname }}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h6 class="mb-0 text-dark fw-bold">
+                                                            {{ $data->sender->fname }} {{ $data->sender->lname }}
+                                                        </h6>
+                                                        <small class="text-muted">
+                                                            {{ $data->created_at->format('h:i A') }}
+                                                        </small>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p class="mb-0 text-muted" id="message-preview">
+                                                    <p class="mb-0 text-muted">
                                                         {{ strlen($data->message) > 30 ? substr($data->message, 0, 30) . '...' : $data->message }}
                                                     </p>
                                                 </div>

@@ -2,11 +2,21 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
 class AppLayout extends Component
 {
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->user = Auth::user();
+    }
+
+
     /**
      * Get the view / contents that represents the component.
      */

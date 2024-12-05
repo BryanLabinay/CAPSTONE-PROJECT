@@ -127,16 +127,40 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-8 d-flex justify-content-center">
                 <div class="p-3 text-dark rounded-1 bg-secondary bg-opacity-25" style="width: 650px;">
-                    <h4 class="">Event Form</h4>
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-2 rounded-1 text-center" style="color:#012970;">Add <span
+                            class="text-danger">News</span> &
+                        Updates</h5>
                     <hr class="mt-0">
                     <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
                         @csrf
                         <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+                            <input type="text" class="form-control" id="title" name="title"
+                                placeholder="Title of events" required>
+                        </div>
+                        {{-- Date and Time --}}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="title mb-0">Date:</label>
+                                    <input type="date" class="form-control" id="date" name="date" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="title">Time:</label>
+                                    <input type="time" class="form-control" id="time" name="time" required>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Location --}}
+                        <div class="form-group">
+                            <label for="title">Location:</label>
+                            <input type="text" class="form-control" id="location" name="location"
+                                placeholder="Street/Barangay/Municipal/City">
                         </div>
                         <!-- Description -->
                         <div class="form-group">
@@ -145,11 +169,20 @@
                                 style="height: auto; overflow-y: hidden;" required></textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="">Activities Inluded:</label>
+                            <textarea class="form-control" id="activity" name="activity" rows="1" style="height: auto; overflow-y: hidden;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Who can Attend?:</label>
+                            <textarea class="form-control" id="attend" name="attend" rows="1" style="height: auto; overflow-y: hidden;"
+                                required></textarea>
+                        </div>
                         <!-- File Upload -->
                         <div class="form-group">
                             <label for="file">Upload File:</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="img" name="img" required>
+                                <input type="file" class="custom-file-input" id="img" name="img">
                                 <label class="custom-file-label" for="img">Choose file</label>
                             </div>
                         </div>
@@ -158,9 +191,10 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-5 p-0 mb-2">
+            <div class="col-lg-4 p-0 mb-2">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-2 text-black">
-                    <h5 class="text-center">Event List</h5>
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-2 rounded-1 text-center" style="color:#012970;"><span
+                            class="text-danger">List</span></h5>
                 </div>
                 @forelse ($eventlist as $data)
                     <div class="clickable-container position-relative mb-1">

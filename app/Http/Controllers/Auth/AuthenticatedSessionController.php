@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -28,7 +30,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->usertype === 'admin') {
+        $user = $request->user();
+
+        if ($user instanceof User) {
+            activity()
+                ->causedBy($user)
+                ->performedOn($user)
+                ->log('logged in');
+        }
+
+        if ($user->usertype === 'admin') {
             return redirect('admin/dashboard');
         }
 

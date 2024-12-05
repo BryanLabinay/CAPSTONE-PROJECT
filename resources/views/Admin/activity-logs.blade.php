@@ -53,7 +53,6 @@
 
                             if (isset($activity_types[$subjectType])) {
                                 $module = $activity_types[$subjectType];
-
                                 if ($module == 'User Module' && $description == 'created') {
                                     $desc = 'New User Registered';
                                 } elseif ($module == 'User Module' && $description == 'updated') {
@@ -71,13 +70,17 @@
                                 } elseif ($module == 'Event Module' && $description == 'deleted') {
                                     $desc = 'Event Deleted';
                                 } elseif ($description == 'logged in') {
-                                    $desc = 'User ' . optional($log->causer)->name . ' Logged in successfully';
+                                    $desc = 'User ' . optional($log->causer)->fname . ' Logged in';
+                                } elseif ($description == 'logged out') {
+                                    $desc = 'User ' . optional($log->causer)->fname . ' Logged out';
                                 }
                             }
                         @endphp
+
                         <tr class="text-center">
                             <td>{{ $counter++ }}</td>
-                            <td>{{ optional($log->causer)->name }}</td>
+                            <td>{{ optional($log->causer)->fname }} {{ optional($log->causer)->mname }}
+                                {{ optional($log->causer)->lname }} {{ optional($log->causer)->suffix }}</td>
                             <td>{{ $activity_types[$log->subject_type] }}</td>
                             <td>{{ $desc }}</td>
                             {{-- <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td> --}}
