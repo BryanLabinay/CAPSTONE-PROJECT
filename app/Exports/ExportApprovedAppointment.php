@@ -14,14 +14,17 @@ class ExportApprovedAppointment implements FromCollection, WithHeadings, WithMap
      */
     public function collection()
     {
-        return Appointment::select('name', 'address', 'phone', 'appointment', 'status', 'created_at')
+        return Appointment::select('fname', 'mname', 'lname', 'suffix', 'address', 'phone', 'appointment', 'status', 'created_at')
             ->where('status', 'Approved')  // Only get approved appointments
             ->get();
     }
     public function headings(): array
     {
         return [
-            'Name',
+            'First Name',
+            'Middle Name',
+            'Last Name',
+            'Suffix',
             'Address',
             'Phone',
             'Appointment',
@@ -32,7 +35,10 @@ class ExportApprovedAppointment implements FromCollection, WithHeadings, WithMap
     public function map($user): array
     {
         return [
-            $user->name,
+            $user->fname,
+            $user->mname,
+            $user->lname,
+            $user->suffix,
             $user->address,
             $user->phone,
             $user->appointment,

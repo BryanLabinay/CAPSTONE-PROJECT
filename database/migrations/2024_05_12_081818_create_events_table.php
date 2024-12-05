@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->text('title');
             $table->text('description');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');

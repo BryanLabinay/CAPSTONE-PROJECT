@@ -108,7 +108,7 @@
                             </div>
                             <div class="form-group mb-2">
                                 <label for="dropdown" class="fw-semibold mb-1">Choose an option:</label>
-                                <select class="form-control py-2" id="dropdown" name="appointment">
+                                <select class="form-control py-2" id="dropdown" name="appointment" required>
                                     <option selected disabled hidden>Select Appointment</option>
                                     @forelse ($service as $data)
                                         <option value="{{ $data->service }}">{{ $data->service }}</option>

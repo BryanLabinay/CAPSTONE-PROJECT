@@ -46,8 +46,14 @@
                                         <div class="flex-grow-1">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->sender->fname }}
-                                                        {{ $data->sender->lname }}</h6>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h6 class="mb-0 text-dark fw-bold">
+                                                            {{ $data->sender->fname }} {{ $data->sender->lname }}
+                                                        </h6>
+                                                        <small class="text-muted">
+                                                            {{ $data->created_at->format('h:i A') }}
+                                                        </small>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <p class="mb-0 text-muted">
@@ -99,12 +105,11 @@
                                 onclick="window.location.href='{{ route('chat.list') }}'">
                                 <span aria-hidden="true" class="h4">&times;</span>
                             </button>
-
                         </div>
                     </div>
-
-
                 </div>
+
+
 
                 <!-- Chat Messages Section -->
                 <div class="row flex-grow-1">

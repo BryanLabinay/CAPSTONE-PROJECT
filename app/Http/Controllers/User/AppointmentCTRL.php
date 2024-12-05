@@ -5,8 +5,11 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AppointmentFormRequest;
 use App\Models\Appointment;
+use App\Models\User;
+use App\Notifications\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class AppointmentCTRL extends Controller
 {
@@ -26,29 +29,29 @@ class AppointmentCTRL extends Controller
 
     public function approvedStatus($id)
     {
-        // Logic to update the status of the order with the given ID
         $approved = Appointment::find($id);
+        $user = User::find($approved->user_id);
         $approved->status = 'Approved';
+        Notification::send($user, new UserNotification('Your Appointment has been Approved'));
         $approved->save();
-        // Assuming $data->status holds the status of the appointment
-
-
         return redirect()->back()->with('statusApproved', 'Approved status updated successfully');
     }
 
+
     public function canceledStatus(Request $request, $id)
     {
-        // Logic to update the status of the order with the given ID
-
-        // Find the appointment record by ID
         $approved = Appointment::findOrFail($id);
         $approved->status = 'Cancelled';
         $approved->reason = $request->reason;
         $approved->updated_at = now();
         $approved->save();
 
+        $user = User::find($approved->user_id);
+        Notification::send($user, new UserNotification('Your Appointment has been Cancelled'));
+
         return redirect()->back()->with('statusCancelled', 'Cancelled status updated successfully');
     }
+
 
     /**
      * Store a newly created resource in storage.

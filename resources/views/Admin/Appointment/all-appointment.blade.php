@@ -267,15 +267,21 @@
                                     </form>
 
                                     {{-- Reject --}}
-                                    <a href="#" data-bs-toggle="modal"
-                                        data-bs-target="#newModal{{ $data->id }}">
-                                        <button class="btn btn-danger py-1 my-0"
-                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.1;" @endif>
+                                    @if ($data->status !== 'Approved' && $data->status !== 'Cancelled')
+                                        <a href="#" data-bs-toggle="modal"
+                                            data-bs-target="#newModal{{ $data->id }}">
+                                            <button class="btn btn-danger py-1 my-0">
+                                                Reject
+                                            </button>
+                                        </a>
+                                    @else
+                                        <button class="btn btn-danger py-1 my-0" disabled style="opacity: 0.1;">
                                             Reject
                                         </button>
-                                    </a>
+                                    @endif
                                 </div>
                             </td>
+
                             <td>
                                 <div class="d-flex justify-content-center align-items-center mt-0">
                                     {{-- View --}}
@@ -330,6 +336,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="text-center">
+                            <!-- Image inside the modal -->
+                            @if ($data->image === null)
+                                <img src="{{ asset('default.jpg') }}" height="150" width="150"
+                                    class="me-1 border border-1 border-secondary" style="border-radius: 50%;"
+                                    alt="{{ $data->fname }} Profile">
+                            @else
+                                <img src="{{ asset('images/' . $data->image) }}" height="150" width="150"
+                                    class="me-1 border border-1 border-secondary"
+                                    style="border-radius: 50%; object-fit:cover;" alt="{{ $data->fname }} Profile">
+                            @endif
+
+                            {{-- <h6 class="text-dark fw-bold">{{ $employee->fname }}
+                                {{ $employee->mname }}{{ $employee->lname }} {{ $employee->suffix }}</h6>
+                            <p class="text-muted mb-0">{{ $employee->position }}</p>
+                            <p class="text-muted mt-0">{{ $employee->district }}</p>
+                            <!-- Add more details about the employee if needed --> --}}
+                        </div>
                         {{-- Add your appointment details here --}}
                         <p><b>Name:</b> {{ $data->fname }}
                             @if (!empty($data->mname))

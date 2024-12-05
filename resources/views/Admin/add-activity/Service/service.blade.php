@@ -126,7 +126,7 @@
 
                         <div class="form-group">
                             <label for="">Image</label>
-                            <input type="file" name="img" id="" required class="form-control">
+                            <input type="file" name="img" id="img" class="form-control">
                         </div>
                         <div class="d-flex justify-content-start">
                             <button class="btn btn-primary px-5 ">Upload</button>

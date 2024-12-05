@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
-                <div class="dropdown">
+                <div class="dropdown me-1">
                     <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="true">
                         <i class="fa-solid fa-file-export me-1"></i> Export PDF
@@ -138,59 +138,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    {{-- <div class="modal fade" id="detailsModal{{ $loop->index }}" tabindex="-1" aria-labelledby="detailsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Appointment Details for
-                        <b class="text-primary">
-                            {{ $patient->fname }}
-                            @if (!empty($patient->mname))
-                                {{ $patient->mname }}
-                            @endif
-                            {{ $patient->lname }}
-                            @if (!empty($patient->suffix))
-                                {{ $patient->suffix }}
-                            @endif
-                        </b>
-                    </h5>
-                    <button type="button" class="btn-close" patient-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Name:</strong>
-                        {{ $patient->fname }}
-                        @if (!empty($patient->mname))
-                            {{ $patient->mname }}
-                        @endif
-                        {{ $patient->lname }}
-                        @if (!empty($patient->suffix))
-                            {{ $patient->suffix }}
-                        @endif
-                    </p>
-                    <p><strong>Contact:</strong> {{ $patient->phone }}</p>
-                    <p><strong>Address:</strong> {{ $patient->address }}</p>
-                    <p><strong>Total Appointments:</strong> <b class="text-danger">{{ $patient->total }}</b></p>
-
-                    <h6 class="fw-bold">Types of Appointments:</h6>
-                    <ul class="py-0">
-                        @foreach ($allAppointments->where('name', $patient->name) as $appointment)
-                            <li class="mt-0 p-0">
-                                <p><b class="text-danger">{{ $appointment->appointment }}</b>-<b
-                                        class="text-primary">{{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</b>
-                                </p>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @stop
 
 @section('js')

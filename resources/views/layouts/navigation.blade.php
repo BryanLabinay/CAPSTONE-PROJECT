@@ -1,4 +1,24 @@
 <!-- Navbar -->
+<style>
+    /* Style for unread notifications */
+    .notification-item.bg-lightblue {
+        background-color: #e0f7fa !important;
+        /* Light blue background */
+        color: #000;
+        /* Dark text color */
+        font-weight: bold;
+        /* Bold text */
+    }
+
+    /* Style for read notifications */
+    .notification-item.bg-light {
+        background-color: #f5f5f5 !important;
+        /* Light gray background */
+        color: #888;
+        /* Lighter text color */
+    }
+</style>
+
 <header id="header" class="header fixed-top py-1 font-web shadow-sm">
     <div class="container-fluid px-5 d-flex align-items-center justify-content-between">
         <!-- Logo -->
@@ -17,7 +37,6 @@
                 <li><a class="nav-link scrollto {{ Route::is('services') ? 'active' : '' }}"
                         href="{{ route('services') }}">Services</a></li>
 
-
                 {{-- Appointment --}}
                 <li class="dropdown">
                     <a href="#"
@@ -30,23 +49,78 @@
                                 class="{{ Route::is('Appointment-List') ? 'active' : '' }}">Appointment List</a></li>
                     </ul>
                 </li>
-                {{-- Messenger --}}
-                {{-- <li><a class="nav-link scrollto {{ Route::is('user.chat') ? 'active' : '' }}"
-                        href="{{ route('user.chat') }}">Messenger</a></li> --}}
+
                 {{-- Calendar --}}
                 <li><a class="nav-link scrollto {{ Route::is('user-calendar') ? 'active' : '' }}"
                         href="{{ route('user-calendar') }}">Calendar</a></li>
-                {{-- <li><a href="#" class="text-decoration-none">Blog</a></li> --}}
+
+                {{-- News & Updates --}}
                 <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
                         href="{{ route('events') }}">News & Updates</a></li>
 
-                {{-- <li><a class="text-decoration-none {{ Route::is('chat.admin') ? 'active' : '' }}"
-                        href="{{ route('chat.admin') }}">Chat</a></li> --}}
+                {{-- Notification Bell --}}
+                @php
+                    $unreadCount = $user->notifications->whereNull('read_at')->count();
+                @endphp
 
-                <!--  Dropdown Button -->
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdownMenuLink1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link messages-toggle">
+                        <i style="font-size: 19px" class="fa-solid fa-bell"></i>
+                        <span id="notificationBadge"
+                            class="position-absolute top-3 start-100 translate-middle badge rounded-pill bg-danger
+                        @if ($unreadCount === 0) disabled
+                        aria-disabled="true"
+                        style="pointer-events: none; opacity: 0;" @endif">
+                            {{ $unreadCount }}
+                        </span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+                        style="max-height: 300px; overflow-y: auto;">
+                        @php
+                            $notifications = $user->notifications ?? collect(); // Avoid errors if $user or notifications are null
+                            $unreadNotifications = $notifications->where('read_at', null);
+                            $readNotifications = $notifications->where('read_at', '!=', null);
+                        @endphp
+
+                        {{-- Unread Notifications --}}
+                        @if ($unreadNotifications->isNotEmpty())
+                            @foreach ($unreadNotifications as $notification)
+                                <a class="dropdown-item notification-item bg-lightblue"
+                                    style="color: black; font-weight: bold;" href="javascript:void(0)"
+                                    onclick="markAsRead('{{ $notification->id }}')">
+                                    {{ $notification->data['message'] }}
+                                </a>
+                            @endforeach
+
+                        @endif
+
+                        {{-- Read Notifications --}}
+                        @if ($readNotifications->isNotEmpty())
+                            @foreach ($readNotifications as $notification)
+                                <a class="dropdown-item bg-light notification-item" style="color: black;"
+                                    href="#">
+                                    {{ $notification->data['message'] }}
+                                </a>
+                            @endforeach
+
+                        @endif
+                    </div>
+
+                </li>
+
+
+
+
+
+
+
+                {{-- Mobile Nav Toggle --}}
+                <i class="bi bi-list mobile-nav-toggle"></i>
             </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
+
 
         <div class="d-flex align-items-center">
             {{-- Message --}}
@@ -76,17 +150,19 @@
                     style="background-color: #1a2b4d; width: 500px; max-height: 300px; overflow-y: auto;">
                     <!-- Notification items -->
                     @forelse ($notifications->sortByDesc('created_at') as $notification)
-                        <li class="px-0 mb-1 {{ $notification->read ? '' : 'unread' }}">
+                        <li class="px-0 mb-1 {{ $notification->read_at ? '' : 'unread' }}"
+                            id="notification_{{ $notification->id }}">
                             <a class="dropdown-item bg-primary-subtle px-3 rounded-2" href="#"
+                                onclick="markAsRead({{ $notification->id }})"
                                 style="background-color: #2d3e5d; color: #ffffff;">
                                 <div class="row">
                                     <div class="col mb-1">
                                         <div class="notification-title">
                                             <h6 class="fw-bolder"
                                                 style="color:
-                                                    @if ($notification->status === 'Approved') green
-                                                    @elseif($notification->status === 'Cancelled') red
-                                                    @else #ffffff @endif;">
+                                                @if ($notification->status === 'Approved') green
+                                                @elseif($notification->status === 'Cancelled') red
+                                                @else #ffffff @endif;">
                                                 {{ $notification->status }}
                                             </h6>
                                         </div>
@@ -109,6 +185,7 @@
                     <!-- End of notification items -->
                 </ul>
             </div>
+
         </div>
 
 
@@ -123,13 +200,14 @@
                         class="me-1 border border-1 border-secondary" style="border-radius: 50%;" alt="User Profile">
                 @else
                     <img src="{{ asset($user_image->image) }}" height="40" width="40"
-                        class="me-1 border border-1 border-secondary" style="border-radius: 50%;" alt="User Profile">
+                        class="me-1 border border-1 border-secondary" style="border-radius: 50%; object-fit:cover;"
+                        alt="User Profile">
                 @endif
 
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item fw-semibold " href="{{ route('profile.edit') }}" style="color:#012970;"> <b
-                            class="fw-semibold">{{ auth()->user()->fname }} {{ auth()->user()->mname }}
+                <li><a class="dropdown-item fw-semibold " href="{{ route('profile.edit') }}" style="color:#012970;">
+                        <b class="fw-semibold">{{ auth()->user()->fname }} {{ auth()->user()->mname }}
                             {{ auth()->user()->lname }}</b></a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
@@ -143,5 +221,46 @@
         <!-- .navbar -->
     </div>
 </header>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Ensure dropdown opens on click
+    $(document).ready(function() {
+        $('#navbarDropdown').on('click', function(e) {
+            e.preventDefault();
+            $(this).next('.dropdown-menu').toggleClass('show');
+        });
+    });
+</script>
+<script>
+    function markAsRead(notificationId) {
+        // Send AJAX request to mark notification as read
+        fetch("{{ url('/notifications') }}/" + notificationId + "/read", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Optionally, you can update the UI to show the notification as read
+                    location.reload();
+                    document.querySelector(`[onclick="markAsRead('${notificationId}')"]`)
+                        .classList.remove('bg-lightblue');
+                }
+            });
+    }
+</script>
+
+
+
+
+
 
 <!-- End Header -->

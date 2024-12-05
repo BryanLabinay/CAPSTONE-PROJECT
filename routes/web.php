@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,6 +53,10 @@ Route::middleware(['auth', 'user'])->group(function () {
     // Edit Profile
     // Route::get('/Profile-Update/{id}', [ProfileController::class, 'updateProfile'])->name('update.prof');
 });
+
+Route::post('/notifications/{id}/read', [NotificationController::class, 'markNotificationAsRead']);
+Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])->name('notifications.unread-count');
+
 
 
 // User Navigation
