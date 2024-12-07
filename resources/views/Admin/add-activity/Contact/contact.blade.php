@@ -108,11 +108,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
-                <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                <div class="bg-secondary p-3 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Add<span
+                            class="text-danger"> Contact</span></h5>
+                    <hr class="mt-0 text-black">
+
                     <form action="{{ route('contact.store') }}" method="post">
                         @csrf
-                        <h5 class="fw-semibold text-dark">Contact Form</h5>
-                        <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="cpnumber">Contact Number:</label>
                             <input name="cpnumber" type="tel" required class="form-control">
@@ -137,47 +139,50 @@
                 </div>
             </div>
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">List</h5>
-                </div>
-                @forelse ($footer as $data)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('contact.view', ['id' => $data->id]) }}"
-                            class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                {{-- <div class="me-3">
+                <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
+                    style="height: 480px">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;"><span
+                            class="text-danger">Contact</span> List</h5>
+                    @forelse ($footer as $data)
+                        <div class="clickable-container position-relative mb-1">
+                            <a href="{{ route('contact.view', ['id' => $data->id]) }}"
+                                class="stretched-link text-decoration-none">
+                                <div class="d-flex align-items-center bg-white rounded-1 px-3">
+                                    {{-- <div class="me-3">
                                     <img src="{{ asset('uploads/service/' . $service->img) }}"
                                         class="border border-1 border-secondary object-fit" height="50" width="50"
                                         alt="{{ $service->service }}" style="border-radius:50%; object-fit: cover;">
                                 </div> --}}
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->open_hour }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($data->email) > 40 ? substr($data->email, 0, 40) . '...' : $data->email }}
-                                                    </p>
+                                    <div class="list-group">
+                                        <div class="p-2">
+                                            <div class="flex-grow-1">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6 class="mb-0 text-dark fw-bold">{{ $data->open_hour }}</h6>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="mb-0 text-muted">
+                                                            {{ strlen($data->email) > 40 ? substr($data->email, 0, 40) . '...' : $data->email }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Service</h5>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"><span
+                                            class="text-danger">No Contact</span></h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforelse
+                    @endforelse
+                </div>
             </div>
 
         </div>

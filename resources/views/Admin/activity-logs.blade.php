@@ -12,6 +12,10 @@
     {{-- Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
+
+    {{-- Table Data --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
     <style>
         body {
             font-family: "Nunito", sans-serif;
@@ -27,11 +31,11 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="p-2 bg-primary bg-opacity-25 rounded-2  ">
-            <table class="table table-bordered">
+        <div class="bg-white p-2 text-black rounded-1 shadow-lg">
+            <table id="myTable" class="table table-light table-bordered table-striped">
                 <thead class="table-danger">
-                    <tr class="text-center">
-                        <th>No.</th>
+                    <tr>
+                        {{-- <th>No.</th> --}}
                         <th>User</th>
                         <th>Subject Type</th>
                         <th>Description</th>
@@ -40,11 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $perPage = $logs->perPage();
-                        $currentPage = $logs->currentPage();
-                        $counter = ($currentPage - 1) * $perPage + 1;
-                    @endphp
+
                     @forelse ($logs as $log)
                         @php
                             $desc = '';
@@ -76,9 +76,8 @@
                                 }
                             }
                         @endphp
-
-                        <tr class="text-center">
-                            <td>{{ $counter++ }}</td>
+                        <tr>
+                            {{-- <td>{{ $counter++ }}</td> --}}
                             <td>{{ optional($log->causer)->fname }} {{ optional($log->causer)->mname }}
                                 {{ optional($log->causer)->lname }} {{ optional($log->causer)->suffix }}</td>
                             <td>{{ $activity_types[$log->subject_type] }}</td>
@@ -94,17 +93,20 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $logs->links('pagination::bootstrap-5') }}
         </div>
     </div>
 @stop
 
 
 @section('js')
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
-        console.log("Hi, Welcome to E.A MENDOZA APPOINTMENT SYSTEM!");
+        let table = new DataTable('#myTable');
     </script>
 @stop

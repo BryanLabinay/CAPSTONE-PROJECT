@@ -19,14 +19,16 @@
     <!-- Custom CSS  -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
+
+    {{-- Notification --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
     <style>
         body {
             font-family: "Nunito", sans-serif;
         }
-    </style>
-    {{-- Notification --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
+
         .colored-toast.swal2-icon-success {
             background-color: #a5dc86 !important;
         }
@@ -132,7 +134,7 @@
         </div>
     </div>
     <hr class="mt-0 mb-3">
-    <div class="row mb-2">
+    {{-- <div class="row mb-2">
         <div class="col-6 d-flex justify-content-start">
             <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2" target="_blank">
                 @csrf
@@ -158,13 +160,13 @@
                         class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
             </form>
         </div>
-    </div>
+    </div> --}}
     <div class="row gy-4 font-web">
         <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
-            <table class="table table-striped mb-0 table-bordered">
+            <table class="table table-striped mb-0 table-bordered" id="myTable">
                 <thead class="table-danger">
                     <tr class="text-center">
-                        <th scope="col">No.</th>
+                        {{-- <th scope="col">No.</th> --}}
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Appointment</th>
@@ -176,15 +178,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
+                    {{-- @php
                         $perPage = $cancelled->perPage();
                         $currentPage = $cancelled->currentPage();
                         $counter = ($currentPage - 1) * $perPage + 1;
-                    @endphp
+                    @endphp --}}
                     @forelse ($cancelled->sortByDesc('created_at') as $data)
                         <tr class="text-center">
 
-                            <td class="">{{ $counter++ }}</td>
+                            {{-- <td class="">{{ $counter++ }}</td> --}}
                             <td class="fw-bold text-start">{{ $data->fname }}
                                 @if (!empty($data->mname))
                                     {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
@@ -258,9 +260,9 @@
                     @endforelse
                 </tbody>
             </table>
-            <div>
+            {{-- <div>
                 {{ $cancelled->links('pagination::bootstrap-5') }}
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -357,6 +359,12 @@
 
 
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

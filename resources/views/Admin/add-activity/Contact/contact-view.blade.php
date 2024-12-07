@@ -47,13 +47,12 @@
                                     class="btn btn-outline-primary btn-sm"><i
                                         class="fa-solid fa-pen-to-square fa-lg"></i></a>
 
-                                <form action="{{ route('contact.delete', ['id' => $view->id]) }}" method="post"
-                                    style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"> <i
-                                            class="fa-solid fa-trash fa-lg"></i></button>
-                                </form>
+                                <!-- Delete Button to Trigger Modal -->
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteContactModal">
+                                    <i class="fa-solid fa-trash fa-lg"></i>
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -127,6 +126,33 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteContactModal" tabindex="-1" aria-labelledby="confirmDeleteContactModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteContactModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this contact? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <!-- Form to Submit the Deletion -->
+                    <form action="{{ route('contact.delete', ['id' => $view->id]) }}" method="post"
+                        style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 

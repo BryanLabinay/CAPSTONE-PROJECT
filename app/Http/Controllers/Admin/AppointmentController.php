@@ -14,7 +14,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::with('user')
             ->orderByRaw("CASE WHEN status = 'pending' THEN 1 ELSE 2 END")
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
 
         return view('Admin.Appointment.all-appointment', compact('appointments'));
     }
@@ -23,13 +23,13 @@ class AppointmentController extends Controller
     // Pending Appointment
     public function pending()
     {
-        $pendings = Appointment::where('status', 'Pending')->paginate(10);
+        $pendings = Appointment::where('status', 'Pending')->get();
         return view('Admin.Appointment.pending-appointment', compact('pendings'));
     }
     // Approved Appointment
     public function approved()
     {
-        $approved = Appointment::where('status', 'Approved')->paginate(10);
+        $approved = Appointment::where('status', 'Approved')->get();
         return view('Admin.Appointment.approved-appointment', compact('approved'))->with('message', 'Appointment Approved');
     }
     // Cancelled Appointment
@@ -37,7 +37,7 @@ class AppointmentController extends Controller
     {
         $cancelled = Appointment::where('status', 'Cancelled')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
         return view('Admin.Appointment.cancelled-appointment', compact('cancelled'))->with('statusCancelled', 'Appointment Rejected');
     }
     // Delete

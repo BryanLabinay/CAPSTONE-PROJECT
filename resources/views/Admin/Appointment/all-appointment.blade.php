@@ -20,6 +20,9 @@
     <!-- Custom CSS  -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
+
+    {{-- Data Table --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <style>
         body {
             font-family: "Nunito", sans-serif;
@@ -135,53 +138,54 @@
 @stop
 
 @section('content')
-    <div class="row mb-2">
-        <div class="col d-flex justify-content-end">
-            <form action="{{ route('export.reports.pdf') }}" method="get" target="_blank">
-                @csrf
-                <button class="btn btn-primary me-1"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
-            </form>
-            <div class="dropdown me-1">
-                <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="true">
-                    <i class="fa-solid fa-file-export"></i> Export PDF
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <form action="{{ route('export.allrecord.pdf') }}" method="get" target="_blank">
-                            @csrf
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col d-flex justify-content-end">
+                <form action="{{ route('export.reports.pdf') }}" method="get" target="_blank">
+                    @csrf
+                    <button class="btn btn-primary me-1"><i class="fa-solid fa-file-pdf me-1"></i>Make Report</button>
+                </form>
+                <div class="dropdown me-1">
+                    <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                        <i class="fa-solid fa-file-export"></i> Export PDF
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="{{ route('export.allrecord.pdf') }}" method="get" target="_blank">
+                                @csrf
 
-                            <!-- Start Date -->
-                            <div class="form-group px-2">
-                                <label for="start_date">Start Date:</label>
-                                <input type="date" name="start_date" id="start_date" class="form-control" required>
-                            </div>
+                                <!-- Start Date -->
+                                <div class="form-group px-2">
+                                    <label for="start_date">Start Date:</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control" required>
+                                </div>
 
-                            <!-- End Date -->
-                            <div class="form-group px-2">
-                                <label for="end_date">End Date:</label>
-                                <input type="date" name="end_date" id="end_date" class="form-control" required>
-                            </div>
+                                <!-- End Date -->
+                                <div class="form-group px-2">
+                                    <label for="end_date">End Date:</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control" required>
+                                </div>
 
-                            <!-- Submit Button -->
-                            <div class="form-group px-2 py-2">
-                                <input type="submit" value="Export PDF" class="btn btn-danger w-100">
-                            </div>
-                        </form>
-                    </li>
-                </ul>
+                                <!-- Submit Button -->
+                                <div class="form-group px-2 py-2">
+                                    <input type="submit" value="Export PDF" class="btn btn-danger w-100">
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                <form action="{{ route('export.excel') }}" method="post" target="_blank">
+                    @csrf
+                    <button class="btn btn-success">
+                        <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
+                    </button>
+                </form>
             </div>
-
-            <form action="{{ route('export.excel') }}" method="post" target="_blank">
-                @csrf
-                <button class="btn btn-success">
-                    <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
-                </button>
-            </form>
         </div>
-    </div>
-    <hr class="mt-0 mb-3">
-    <div class="row mb-2">
+        <hr class="mt-0 mb-3">
+        {{-- <div class="row mb-2">
         <div class="col-6 d-flex justify-content-start">
             <form method="GET" action="{{ route('appointments.filter') }}" class="form-inline mb-2" target="_blank">
                 @csrf
@@ -207,91 +211,93 @@
                         class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
             </form>
         </div>
-    </div>
-    <div class="row font-web">
-        <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
-            <table class="table table-striped mb-0 table-bordered">
-                <thead class="table-danger">
-                    <tr class="text-center">
-                        <th scope="col">No.</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Appointment</th>
-                        {{-- <th scope="col">Message</th> --}}
-                        <th scope="col">Status</th>
-                        {{-- <th scope="col">Reason</th> --}}
-                        <th scope="col">Approval</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
+    </div> --}}
+        <div class="row font-web">
+            <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
+                <table class="table table-striped mb-0 table-bordered" id="myTable">
+                    <thead class="table-danger">
+                        <tr class="text-center">
+                            {{-- <th scope="col">No.</th> --}}
+                            <th scope="col">Name</th>
+                            {{-- <th scope="col">Email</th> --}}
+                            <th scope="col">Date</th>
+                            <th scope="col">Appointment</th>
+                            {{-- <th scope="col">Message</th> --}}
+                            <th scope="col">Status</th>
+                            {{-- <th scope="col">Reason</th> --}}
+                            <th scope="col">Approval</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @php
                         $perPage = $appointments->perPage();
                         $currentPage = $appointments->currentPage();
                         $counter = ($currentPage - 1) * $perPage + 1;
-                    @endphp
-                    @forelse ($appointments as $data)
-                        <tr class="text-center">
-                            <td class="">{{ $counter++ }}</td>
-                            <td class="fw-bold text-start">{{ $data->fname }}
-                                @if (!empty($data->mname))
-                                    {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
-                                @endif
-                                {{ $data->lname }}
-                                @if (!empty($data->suffix))
-                                    {{ $data->suffix }}
-                                @endif
+                    @endphp --}}
+                        @forelse ($appointments as $data)
+                            <tr class="text-center">
+                                {{-- <td class="">{{ $counter++ }}</td> --}}
+                                <td class="fw-bold text-start text-truncate" style="max-width: 200px;">
+                                    {{ $data->fname }}
+                                    @if (!empty($data->mname))
+                                        {{ substr($data->mname, 0, 1) }}.
+                                    @endif
+                                    {{ $data->lname }}
+                                    @if (!empty($data->suffix))
+                                        {{ $data->suffix }}
+                                    @endif
+                                </td>
 
-                            </td>
-                            <td>{{ $data->email }}</td>
-                            <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
-                            <td class="fw-bold">{{ $data->appointment }}</td>
-                            <td class="fw-bold"
-                                style="color:
+
+                                {{-- <td>{{ $data->email }}</td> --}}
+                                <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>
+                                <td class="fw-bold">{{ $data->appointment }}</td>
+                                <td class="fw-bold"
+                                    style="color:
                                 @if ($data->status === 'Approved') green
                                 @elseif ($data->status === 'Cancelled') red
                                 @else gray @endif">
-                                {{ $data->status }}
-                            </td>
-                            {{-- Approval --}}
-                            <td class="py-0">
-                                <div class="d-flex justify-content-center align-items-center mt-1">
-                                    {{-- Approve --}}
-                                    <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0"
-                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
-                                            Approve
-                                        </button>
-                                    </form>
+                                    {{ $data->status }}
+                                </td>
+                                {{-- Approval --}}
+                                <td class="py-0">
+                                    <div class="d-flex justify-content-center align-items-center mt-1">
+                                        {{-- Approve --}}
+                                        <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary me-2 py-1 my-0"
+                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
+                                                Approve
+                                            </button>
+                                        </form>
 
-                                    {{-- Reject --}}
-                                    @if ($data->status !== 'Approved' && $data->status !== 'Cancelled')
-                                        <a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#newModal{{ $data->id }}">
-                                            <button class="btn btn-danger py-1 my-0">
+                                        {{-- Reject --}}
+                                        @if ($data->status !== 'Approved' && $data->status !== 'Cancelled')
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#newModal{{ $data->id }}">
+                                                <button class="btn btn-danger py-1 my-0">
+                                                    Reject
+                                                </button>
+                                            </a>
+                                        @else
+                                            <button class="btn btn-danger py-1 my-0" disabled style="opacity: 0.1;">
                                                 Reject
                                             </button>
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center mt-0">
+                                        {{-- View --}}
+                                        <a href="#" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal{{ $data->id }}">
+                                            <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
                                         </a>
-                                    @else
-                                        <button class="btn btn-danger py-1 my-0" disabled style="opacity: 0.1;">
-                                            Reject
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
 
-                            <td>
-                                <div class="d-flex justify-content-center align-items-center mt-0">
-                                    {{-- View --}}
-                                    <a href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{ $data->id }}">
-                                        <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
-                                    </a>
-
-                                    {{-- Delete (optional) --}}
-                                    {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
+                                        {{-- Delete (optional) --}}
+                                        {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
                                         method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -299,23 +305,24 @@
                                             <i class="fas fa-fw fa-trash fs-5"></i>
                                         </button>
                                     </form> --}}
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9">
-                                <div class="h5 text-center alert alert-primary">
-                                    No Record
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9">
+                                    <div class="h5 text-center alert alert-primary">
+                                        No Record
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
 
-            </table>
-            <div>
+                </table>
+                {{-- <div>
                 {{ $appointments->links('pagination::bootstrap-5') }}
+            </div> --}}
             </div>
         </div>
     </div>
@@ -430,6 +437,7 @@
         </div>
         </div>
     @endforeach
+
 @stop
 
 
@@ -437,6 +445,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

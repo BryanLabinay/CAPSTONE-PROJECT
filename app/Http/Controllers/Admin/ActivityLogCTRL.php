@@ -21,7 +21,7 @@ class ActivityLogCTRL extends Controller
             'App\Models\Contact' => 'Contact Module',
         ];
 
-        $logs = Activity::with('subject', 'causer')->orderBy('created_at', 'desc')->paginate(10);
+        $logs = Activity::with('subject', 'causer')->orderBy('created_at', 'desc')->get();
         return view('Admin.activity-logs', compact('logs', 'activity_types'));
     }
 }
