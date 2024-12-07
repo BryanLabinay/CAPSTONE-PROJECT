@@ -22,7 +22,7 @@ class AddActivityCTRL extends Controller
     // Event
     public function addEvent()
     {
-        $eventlist = Event::latest()->get();
+        $eventlist = Event::paginate(9);
 
         foreach ($eventlist as $event) {
             $event->formattedTimestamp = $event->created_at->diffForHumans();
@@ -33,12 +33,17 @@ class AddActivityCTRL extends Controller
     }
 
     //    Store Event
-    public function storeEvent(EventFormRequest $request)
+    public function storeEvent(Request $request)
     {
         $data = new Event();
         $data->admin_id = Auth::id();
         $data->title = $request->title;
+        $data->date = $request->date;
+        $data->time = $request->time;
+        $data->location = $request->location;
         $data->description = $request->description;
+        $data->activity = $request->activity;
+        $data->attend = $request->attend;
         if ($request->hasFile('img')) {
             $img = $request->file('img');
             $imgName = time() . '_' . $img->getClientOriginalName();
@@ -54,7 +59,7 @@ class AddActivityCTRL extends Controller
     public function viewEvent($id)
     {
         $eventShow = Event::findOrFail($id);
-        $events = Event::all();
+        $events = Event::paginate(5);
         return view('Admin.add-activity.Event.event-view', compact('eventShow', 'events'));
     }
 
@@ -62,7 +67,7 @@ class AddActivityCTRL extends Controller
     public function editEvent($id)
     {
         $event = Event::findOrFail($id);
-        $events = Event::all();
+        $events = Event::paginate(9);
         return view('Admin.add-activity.Event.event-edit', compact('event', 'events'));
     }
 
@@ -72,14 +77,23 @@ class AddActivityCTRL extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'date' => 'required|string|max:255',
+            'time' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'description' => 'required|string',
+            'activity' => 'required|string',
+            'attend' => 'required|string',
             'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $event = Event::findOrFail($id);
         $event->title = $request->title;
+        $event->date = $request->date;
+        $event->time = $request->time;
+        $event->location = $request->location;
         $event->description = $request->description;
-
+        $event->activity = $request->activity;
+        $event->attend = $request->attend;
         if ($request->hasFile('img')) {
             $imageName = time() . '.' . $request->img->extension();
             $request->img->move(public_path('uploads/events'), $imageName);
@@ -101,7 +115,7 @@ class AddActivityCTRL extends Controller
     // Add Employee
     public function addDoctor()
     {
-        $employees = DoctorList::all();
+        $employees = DoctorList::paginate(5);
         return view('Admin.add-activity.Employee.add-employee', compact('employees'));
     }
 
@@ -132,8 +146,14 @@ class AddActivityCTRL extends Controller
     public function editInfo($id)
     {
         $employee = DoctorList::findOrFail($id);
-        $employees = DoctorList::all();
+        $employees = DoctorList::paginate(5);
         return view('Admin.add-activity.Employee.edit-employee', compact('employee', 'employees'));
+    }
+
+    public function destroyInfo($id)
+    {
+        $test = DoctorList::find($id)->delete();
+        return redirect()->back()->with('test', $test);
     }
 
     // Update Employee
@@ -178,7 +198,7 @@ class AddActivityCTRL extends Controller
     // Blog
     public function blog()
     {
-        $blogs = Blog::latest()->get();
+        $blogs = Blog::paginate(5);
         return view('Admin.add-activity.Blog.blog', compact('blogs'));
     }
 
@@ -203,7 +223,7 @@ class AddActivityCTRL extends Controller
     public function viewBlog($id)
     {
         $blogView = Blog::findOrFail($id);
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(5);
         return view('Admin.add-activity.Blog.blog-view', compact('blogView', 'blogs'));
     }
 
@@ -211,7 +231,7 @@ class AddActivityCTRL extends Controller
     public function editBlog($id)
     {
         $blog = Blog::findOrFail($id);
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(5);
         return view('Admin.add-activity.Blog.blog-edit', compact('blog', 'blogs'));
     }
     // Update Blog
@@ -241,14 +261,23 @@ class AddActivityCTRL extends Controller
     // Blog Delete
     public function deleteBlog($id)
     {
-        $blog = Blog::find($id)->delete();
-        return redirect()->url('Add-Activity/Blog')->with('blogdelete', 'Blog deleted');
+        $blog = Blog::find($id);
+
+        if ($blog) {
+            $blog->delete();
+            // Redirect to the desired route with a success message
+            return redirect()->route('blog')->with('blogdelete', 'Blog deleted');
+        } else {
+            // If the blog doesn't exist
+            return redirect()->route('blog')->with('error', 'Blog not found');
+        }
     }
+
 
     // Add Services
     public function service()
     {
-        $services = Service::latest()->get();
+        $services = Service::paginate(5);
         return view('Admin.add-activity.Service.service', compact('services'));
     }
 
@@ -273,7 +302,7 @@ class AddActivityCTRL extends Controller
     public function serviceView($id)
     {
         $serviceShow = Service::findOrFail($id);
-        $services = Service::all();
+        $services = Service::paginate(5);
         return view('Admin.add-activity.Service.service-view', compact('serviceShow', 'services'));
     }
 
@@ -281,7 +310,7 @@ class AddActivityCTRL extends Controller
     public function serviceEdit($id)
     {
         $service = Service::findOrFail($id);
-        $services = Service::all();
+        $services = Service::paginate(5);
         return view('Admin.add-activity.Service.service-edit', compact('service', 'services'));
     }
 

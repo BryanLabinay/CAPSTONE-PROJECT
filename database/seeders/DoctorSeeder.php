@@ -17,7 +17,7 @@ class DoctorSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('doctor_lists')->insert([
                 'admin_id' => $faker->numberBetween(2, 4),
                 'fname' => $faker->firstName(),

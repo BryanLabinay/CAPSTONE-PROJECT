@@ -93,37 +93,59 @@
         </div>
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
-                <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                <div class="bg-secondary p-3 text-black rounded-1 bg-opacity-25" style="width: 650px;">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Update <span
+                            class="text-danger">Event</span> & Updates</h5>
                     <form action="{{ route('update.event', ['id' => $event->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <h5 class="fw-semibold text-dark">Event Form</h5>
                         <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="">Title:</label>
                             <input type="text" class="form-control" id="title" name="title"
                                 value="{{ old('title', $event->title) }}" autocomplete="off" required>
                         </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Date:</label>
+                                    <input type="date" class="form-control" id="date" name="date"
+                                        value="{{ old('date', $event->date) }}" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Time:</label>
+                                    <input type="time" class="form-control" id="time" name="time"
+                                        value="{{ old('time', $event->time) }}" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Location:</label>
+                            <input type="text" class="form-control" id="location" name="location"
+                                value="{{ old('location', $event->location) }}" autocomplete="off" required>
+                        </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea class="form-control" id="description" name="description" rows="1" required
                                 style="height: auto; overflow-y: hidden;">{{ old('description', $event->description) }} </textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="">Activities Included:</label>
+                            <textarea class="form-control" id="activity" name="activity" rows="1" required
+                                style="height: auto; overflow-y: hidden;">{{ old('activity', $event->activity) }} </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Who can Attend?:</label>
+                            <textarea class="form-control" id="attend" name="attend" rows="1" required
+                                style="height: auto; overflow-y: hidden;">{{ old('attend', $event->attend) }} </textarea>
+                        </div>
 
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-8">
-                                    <label for="">Image</label>
-                                    <input type="file" class="form-control" id="img" name="img">
-                                </div>
-                                <div class="col-4">
-                                    @if ($event->img)
-                                        <img src="{{ asset('uploads/events/' . $event->img) }}" height="100"
-                                            class="rounded-1">
-                                    @endif
-                                </div>
-                            </div>
+                            <label for="">Image</label>
+                            <input type="file" class="form-control" id="img" name="img">
                         </div>
                         <div class="d-flex justify-content-start">
                             <button class="btn btn-primary px-5 ">Update</button>
@@ -133,47 +155,74 @@
             </div>
 
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Event List</h5>
-                </div>
-                @forelse ($events as $data)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('service.view', ['id' => $data->id]) }}"
-                            class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    <img src="{{ asset('uploads/events/' . $data->img) }}"
-                                        class="border border-1 border-secondary" height="50" width="50"
-                                        alt="{{ $data->title }}" style="border-radius:50%; object-fit: cover;">
-                                </div>
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->title }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($data->description) > 40 ? substr($data->description, 0, 40) . '...' : $data->description }}
-                                                    </p>
+                <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 740px">
+                    <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center" style="color:#012970;">
+                            Event
+                            <span class="text-danger">List</span>
+                        </h5>
+                    </div>
+                    <hr class="mt-0 text-black">
+
+                    <!-- Content -->
+                    <div>
+                        @forelse ($events as $data)
+                            <div class="clickable-container position-relative mb-1">
+                                <a href="{{ route('edit.event', ['id' => $data->id]) }}"
+                                    class="stretched-link text-decoration-none">
+                                    <div class="d-flex align-items-center bg-white bg-opacity rounded-1 px-3">
+                                        <div class="me-3">
+                                            @if ($data->img)
+                                                <img src="{{ asset('uploads/events/' . $data->img) }}"
+                                                    class="border border-1 border-secondary object-fit" height="50"
+                                                    width="50" alt="{{ $data->title }}"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('uploads/service/default.png') }}" height="50"
+                                                    width="50" alt="Default Image"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @endif
+                                        </div>
+                                        <div class="list-group">
+                                            <div class="p-2">
+                                                <div class="flex-grow-1">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6 class="mb-0 text-dark fw-bold">
+                                                                {{ strlen($data->title) > 25 ? substr($data->title, 0, 25) . '...' : $data->title }}
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <p class="mb-0 text-muted">
+                                                                {{ strlen($data->description) > 27 ? substr($data->description, 0, 27) . '...' : $data->description }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-5">
+                                    <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
+                                            style="color:#012970;">
+                                            <span class="text-danger">No Service</span>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        @endforelse
                     </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Event</h5>
-                            </div>
-                        </div>
+
+                    <!-- Pagination Links -->
+                    <div class="d-flex justify-content-center align-items-center position-absolute bottom-0 start-0 w-100">
+                        {{ $events->links('pagination::bootstrap-5') }}
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
     </div>

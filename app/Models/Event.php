@@ -15,7 +15,12 @@ class Event extends Model
     protected $fillable = [
         'title',
         'admin_id',
+        'date',
+        'time',
+        'location',
         'description',
+        'activity',
+        'attend',
         'img'
     ];
     public function getActivitylogOptions(): LogOptions

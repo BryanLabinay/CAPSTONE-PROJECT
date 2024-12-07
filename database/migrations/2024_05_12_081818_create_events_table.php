@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->text('title');
+            $table->string('title');
+            $table->date('date');
+            $table->time('time');
+            $table->string('location')->nullable();
             $table->text('description');
+            $table->text('activity')->nullable();
+            $table->text('attend');
             $table->string('img')->nullable();
             $table->timestamps();
 

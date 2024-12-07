@@ -33,14 +33,14 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mb-2">
+        {{-- <div class="row mb-2">
             <div class="col-12 d-flex justify-content-start">
                 <a href="{{ url('Add-Activity/Event') }}" class="btn btn-primary"><i
                         class="fa-solid fa-arrow-left me-1"></i>Back</a>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            {{-- <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-1 bg-opacity-25 rounded-1" style="width: 650px;">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-end">
@@ -75,53 +75,156 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            {{-- Event VIew --}}
+            <div class="col-7 d-flex justify-content-center">
+                <div class="bg-secondary p-1 bg-opacity-25 rounded-1" style="width: 650px;">
+                    <div class="row">
+                        {{-- Back Button --}}
+                        <div class="col-6 d-flex justify-content-start">
+                            <a href="{{ url('Add-Activity/Event') }}" class="btn btn-primary"><i
+                                    class="fa-solid fa-arrow-left me-1"></i>Back</a>
+                        </div>
+                        {{-- Edit and Delete button --}}
+                        <div class="col-6 d-flex justify-content-end">
+                            <div class="d-inline">
+                                <a href="{{ route('edit.event', ['id' => $eventShow->id]) }}"
+                                    class="btn btn-outline-primary btn-sm"><i
+                                        class="fa-solid fa-pen-to-square fa-lg"></i></a>
 
-            <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Event List</h5>
+                                <!-- Delete Button to Trigger Modal -->
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteModal">
+                                    <i class="fa-solid fa-trash fa-lg"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-0 ">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
+                            <div class="">
+                                @if ($eventShow->img)
+                                    <img src="{{ asset('uploads/events/' . $eventShow->img) }}" class="m-2 ms-2 rounded-1"
+                                        height="150" width="150" alt="{{ $eventShow->title }}"
+                                        style="object-fit: cover;">
+                                @else
+                                    <img src="{{ asset('uploads/service/default.png') }}" class="m-2 ms-2 rounded-1"
+                                        height="150" width="150" alt="Default Image" style="object-fit: cover;">
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 ms-2 text-black">
+                            <h4 class="text-center fw-bold">{{ $eventShow->title }}</h4>
+                            <p><small><i class="fa-solid fa-caret-right me-2"></i></small>{{ $eventShow->description }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                @forelse ($events as $data)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('edit.event', ['id' => $data->id]) }}"
-                            class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    <img src="{{ asset('uploads/events/' . $data->img) }}"
-                                        class="border border-1 border-secondary" height="50" width="50"
-                                        alt="{{ $data->title }}" style="border-radius:50%; object-fit: cover;">
-                                </div>
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->title }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($data->description) > 40 ? substr($data->description, 0, 40) . '...' : $data->description }}
-                                                    </p>
+            </div>
+            <div class="col-5 p-0">
+                <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 490px">
+                    <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center" style="color:#012970;">
+                            Event
+                            <span class="text-danger">List</span>
+                        </h5>
+                    </div>
+                    <hr class="mt-0 text-black">
+
+                    <!-- Content -->
+                    <div>
+                        @forelse ($events as $data)
+                            <div class="clickable-container position-relative mb-1">
+                                <a href="{{ route('view.event', ['id' => $data->id]) }}"
+                                    class="stretched-link text-decoration-none">
+                                    <div class="d-flex align-items-center bg-white bg-opacity rounded-1 px-3">
+                                        <div class="me-3">
+                                            @if ($data->img)
+                                                <img src="{{ asset('uploads/events/' . $data->img) }}"
+                                                    class="border border-1 border-secondary object-fit" height="50"
+                                                    width="50" alt="{{ $data->title }}"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('uploads/service/default.png') }}" height="50"
+                                                    width="50" alt="Default Image"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @endif
+                                        </div>
+                                        <div class="list-group">
+                                            <div class="p-2">
+                                                <div class="flex-grow-1">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6 class="mb-0 text-dark fw-bold">
+                                                                {{ strlen($data->title) > 35 ? substr($data->title, 0, 35) . '...' : $data->title }}
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <p class="mb-0 text-muted">
+                                                                {{ strlen($data->description) > 37 ? substr($data->description, 0, 37) . '...' : $data->description }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-5">
+                                    <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
+                                            style="color:#012970;">
+                                            <span class="text-danger">No Service</span>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        @endforelse
                     </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Event</h5>
-                            </div>
-                        </div>
+
+                    <!-- Pagination Links -->
+                    <div class="d-flex justify-content-center align-items-center position-absolute bottom-0 start-0 w-100">
+                        {{ $events->links('pagination::bootstrap-5') }}
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
     </div>
+    </div>
+    {{-- MODAL --}}
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this event? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="{{ route('delete.event', ['id' => $eventShow->id]) }}" method="post"
+                        style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 @section('js')

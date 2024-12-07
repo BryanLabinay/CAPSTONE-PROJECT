@@ -127,11 +127,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8 d-flex justify-content-center">
+            <div class="col-7 d-flex justify-content-center">
                 <div class="p-3 text-dark rounded-1 bg-secondary bg-opacity-25" style="width: 650px;">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-2 rounded-1 text-center" style="color:#012970;">Add <span
-                            class="text-danger">News</span> &
-                        Updates</h5>
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Add <span
+                            class="text-danger">Events</span> & Updates</h5>
                     <hr class="mt-0">
                     <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
                         @csrf
@@ -191,7 +190,76 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-4 p-0 mb-2">
+            <div class="col-5 p-0">
+                <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 740px">
+                    <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center" style="color:#012970;">Event
+                            <span class="text-danger">List</span>
+                        </h5>
+                    </div>
+                    <hr class="mt-0 text-black">
+
+                    <!-- Content -->
+                    <div>
+                        @forelse ($eventlist as $data)
+                            <div class="clickable-container position-relative mb-1">
+                                <a href="{{ route('view.event', ['id' => $data->id]) }}"
+                                    class="stretched-link text-decoration-none">
+                                    <div class="d-flex align-items-center bg-white bg-opacity rounded-1 px-3">
+                                        <div class="me-3">
+                                            @if ($data->img)
+                                                <img src="{{ asset('uploads/events/' . $data->img) }}"
+                                                    class="border border-1 border-secondary object-fit" height="50"
+                                                    width="50" alt="{{ $data->title }}"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('uploads/service/default.png') }}" height="50"
+                                                    width="50" alt="Default Image"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @endif
+                                        </div>
+                                        <div class="list-group">
+                                            <div class="p-2">
+                                                <div class="flex-grow-1">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6 class="mb-0 text-dark fw-bold">
+                                                                {{ strlen($data->title) > 35 ? substr($data->title, 0, 35) . '...' : $data->title }}
+                                                            </h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <p class="mb-0 text-muted">
+                                                                {{ strlen($data->description) > 35 ? substr($data->description, 0, 35) . '...' : $data->description }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-5">
+                                    <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
+                                            style="color:#012970;">
+                                            <span class="text-danger">No Service</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    <!-- Pagination Links -->
+                    <div class="d-flex justify-content-center align-items-center position-absolute bottom-0 start-0 w-100">
+                        {{ $eventlist->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-lg-4 p-0 mb-2">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-2 text-black">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-2 rounded-1 text-center" style="color:#012970;"><span
                             class="text-danger">List</span></h5>
@@ -234,7 +302,7 @@
                         </div>
                     </div>
                 @endforelse
-            </div>
+            </div> --}}
         </div>
     </div>
 @stop

@@ -94,12 +94,14 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Update <span
+                            class="text-danger">Service</span></h5>
+                    <hr class="mt-0 text-black">
+
                     <form action="{{ route('service.update', ['id' => $service->id]) }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <h5 class="fw-semibold text-dark">Service Form</h5>
-                        <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="">Service:</label>
                             <input type="text" class="form-control" id="service" name="service"
@@ -113,15 +115,9 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <label for="">Image</label>
                                     <input type="file" class="form-control" id="img" name="img">
-                                </div>
-                                <div class="col-4">
-                                    @if ($service->img)
-                                        <img src="{{ asset('uploads/service/' . $service->img) }}" height="100"
-                                            class="rounded-1" style="object-fit: cover;">
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -133,47 +129,71 @@
             </div>
 
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Service List</h5>
-                </div>
-                @forelse ($services as $service)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('service.view', ['id' => $service->id]) }}"
-                            class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    <img src="{{ asset('uploads/service/' . $service->img) }}"
-                                        class="border border-1 border-secondary object-fit" height="50" width="50"
-                                        alt="{{ $service->service }}" style="border-radius:50%; object-fit: cover;">
-                                </div>
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $service->service }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($service->description) > 40 ? substr($service->description, 0, 40) . '...' : $service->description }}
-                                                    </p>
+                <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 460px">
+                    <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Service
+                            <span class="text-danger">List</span>
+                        </h5>
+                    </div>
+                    <hr class="mt-0 text-black">
+
+                    <!-- Content -->
+                    <div>
+                        @forelse ($services as $data)
+                            <div class="clickable-container position-relative mb-1">
+                                <a href="{{ route('service.edit', ['id' => $data->id]) }}"
+                                    class="stretched-link text-decoration-none">
+                                    <div class="d-flex align-items-center bg-white bg-opacity rounded-1 px-3">
+                                        <div class="me-3">
+                                            @if ($data->img)
+                                                <img src="{{ asset('uploads/service/' . $data->img) }}"
+                                                    class="border border-1 border-secondary object-fit" height="50"
+                                                    width="50" alt="{{ $data->service }}"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('uploads/service/default.png') }}" height="50"
+                                                    width="50" alt="Default Image"
+                                                    style="border-radius:50%; object-fit: cover;">
+                                            @endif
+                                        </div>
+                                        <div class="list-group">
+                                            <div class="p-2">
+                                                <div class="flex-grow-1">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <h6 class="mb-0 text-dark fw-bold">{{ $data->service }}</h6>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <p class="mb-0 text-muted">
+                                                                {{ strlen($data->description) > 37 ? substr($data->description, 0, 37) . '...' : $data->description }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-5">
+                                    <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
+                                            style="color:#012970;">
+                                            <span class="text-danger">No Service</span>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
-                        </a>
+                        @endforelse
                     </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Service</h5>
-                            </div>
-                        </div>
+
+                    <!-- Pagination Links -->
+                    <div class="d-flex justify-content-center align-items-center position-absolute bottom-0 start-0 w-100">
+                        {{ $services->links('pagination::bootstrap-5') }}
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
     </div>

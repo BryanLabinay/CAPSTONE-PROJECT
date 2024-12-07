@@ -107,10 +107,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
-                <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                <div class="bg-secondary p-3 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Upload <span
+                            class="text-danger">Blog</span></h5>
                     <form action="{{ route('store.blog') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <h5 class="fw-semibold text-dark">Blog Form</h5>
                         <hr class="mt-0 text-black">
                         <div class="form-group">
                             <label for="">Title:</label>
@@ -125,7 +126,7 @@
 
                         <div class="form-group">
                             <label for="">Image</label>
-                            <input type="file" name="img" id="" required class="form-control">
+                            <input type="file" name="img" id="img" required class="form-control">
                         </div>
                         <div class="d-flex justify-content-start">
                             <button class="btn btn-primary px-5 ">Upload</button>
@@ -135,47 +136,61 @@
             </div>
 
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Blog List</h5>
-                </div>
-                @forelse ($blogs as $blog)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('view.blog', ['id' => $blog->id]) }}" class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    <img src="{{ asset('uploads/blogs/' . $blog->img) }}"
-                                        class="border border-1 border-secondary" height="50" width="50"
-                                        alt="{{ $blog->title }}" style="border-radius:50%; object-fit:cover;">
-                                </div>
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $blog->title }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($blog->description) > 40 ? substr($blog->description, 0, 40) . '...' : $blog->description }}
-                                                    </p>
+                <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
+                    style="height: 460px">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">
+                        Blog <span class="text-danger">List</span>
+                    </h5>
+                    <hr class="mt-0 text-black">
+
+                    @forelse ($blogs as $blog)
+                        <div class="clickable-container position-relative mb-1">
+                            <a href="{{ route('view.blog', ['id' => $blog->id]) }}"
+                                class="stretched-link text-decoration-none">
+                                <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                                    <div class="me-3">
+                                        <img src="{{ asset('uploads/blogs/' . $blog->img) }}"
+                                            class="border border-1 border-secondary" height="50" width="50"
+                                            alt="{{ $blog->title }}" style="border-radius:50%; object-fit:cover;">
+                                    </div>
+                                    <div class="list-group">
+                                        <div class="p-2">
+                                            <div class="flex-grow-1">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6 class="mb-0 text-dark fw-bold">{{ $blog->title }}</h6>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="mb-0 text-muted">
+                                                            {{ strlen($blog->description) > 40 ? substr($blog->description, 0, 40) . '...' : $blog->description }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Blog</h5>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <div class="bg-secondary bg-opacity-50 rounded-1 shadow-sm">
+                                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center">
+                                        <span class="text-danger">No Blog</span>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
+                    @endforelse
+
+                    <!-- Pagination Links (stick to bottom) -->
+                    <div class="mt-auto d-flex justify-content-center">
+                        {{ $blogs->links('pagination::bootstrap-5') }}
                     </div>
-                @endforelse
+                </div>
             </div>
+
         </div>
     </div>
 @stop

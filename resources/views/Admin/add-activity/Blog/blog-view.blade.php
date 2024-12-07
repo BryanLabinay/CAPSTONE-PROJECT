@@ -33,29 +33,26 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-12 d-flex justify-content-start">
-                <a href="{{ url('Add-Activity/Blog') }}" class="btn btn-primary"><i
-                        class="fa-solid fa-arrow-left me-1"></i>Back</a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-1 bg-opacity-25 rounded-1" style="width: 650px;">
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-end">
+                        <div class="col-6 d-flex justify-content-start">
+                            <a href="{{ url('Add-Activity/Blog') }}" class="btn btn-outline-primary"><i
+                                    class="fa-solid fa-arrow-left me-1"></i>Back</a>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
                             <div class="d-inline">
                                 <a href="{{ route('edit.blog', ['id' => $blogView->id]) }}"
                                     class="btn btn-outline-primary btn-sm"><i
                                         class="fa-solid fa-pen-to-square fa-lg"></i></a>
 
-                                <form action="{{ route('delete.blog', ['id' => $blogView->id]) }}" method="post"
-                                    style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"> <i
-                                            class="fa-solid fa-trash fa-lg"></i></button>
-                                </form>
+                                <!-- Delete Button to Trigger Modal -->
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteBlogModal">
+                                    <i class="fa-solid fa-trash fa-lg"></i>
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -76,52 +73,88 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Blog List</h5>
-                </div>
-                @forelse ($blogs as $data)
-                    <div class="clickable-container position-relative mb-1">
-                        <a href="{{ route('view.blog', ['id' => $data->id]) }}"
-                            class="stretched-link text-decoration-none">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    <img src="{{ asset('uploads/blogs/' . $data->img) }}"
-                                        class="border border-1 border-secondary" height="50" width="50"
-                                        alt="{{ $data->title }}" style="border-radius:50%; object-fit: cover;">
-                                </div>
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">{{ $data->title }}</h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">
-                                                        {{ strlen($data->description) > 40 ? substr($data->description, 0, 40) . '...' : $data->description }}
-                                                    </p>
+                <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
+                    style="height: 460px">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">
+                        Blog <span class="text-danger">List</span>
+                    </h5>
+                    <hr class="mt-0 text-black">
+
+                    @forelse ($blogs as $data)
+                        <div class="clickable-container position-relative mb-1">
+                            <a href="{{ route('view.blog', ['id' => $data->id]) }}"
+                                class="stretched-link text-decoration-none">
+                                <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
+                                    <div class="me-3">
+                                        <img src="{{ asset('uploads/blogs/' . $data->img) }}"
+                                            class="border border-1 border-secondary" height="50" width="50"
+                                            alt="{{ $data->title }}" style="border-radius:50%; object-fit: cover;">
+                                    </div>
+                                    <div class="list-group">
+                                        <div class="p-2">
+                                            <div class="flex-grow-1">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6 class="mb-0 text-dark fw-bold">{{ $data->title }}</h6>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="mb-0 text-muted">
+                                                            {{ strlen($data->description) > 40 ? substr($data->description, 0, 40) . '...' : $data->description }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @empty
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-5">
-                            <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
-                                <h5 class="text-center text-black">No Blog</h5>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-5">
+                                <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
+                                    <h5 class="text-center text-black">No Blog</h5>
+                                </div>
                             </div>
                         </div>
+                    @endforelse
+
+                    <!-- Pagination Links (stick to bottom) -->
+                    <div class="mt-auto d-flex justify-content-center">
+                        {{ $blogs->links('pagination::bootstrap-5') }}
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteBlogModal" tabindex="-1" aria-labelledby="confirmDeleteBlogModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteBlogModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this blog post? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <!-- Form to Submit the Deletion -->
+                    <form action="{{ route('delete.blog', ['id' => $blogView->id]) }}" method="post"
+                        style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 

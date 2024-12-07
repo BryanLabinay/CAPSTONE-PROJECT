@@ -89,9 +89,12 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Service
+                        <span class="text-danger">List</span>
+                    </h5>
                     <form action="{{ route('upload-doctor') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <h5 class="fw-semibold text-dark">Form</h5>
+                        {{-- <h5 class="fw-semibold text-dark">Form</h5> --}}
                         <hr class="mt-0 text-black">
                         <div class="row">
                             <div class="col-6">
@@ -146,108 +149,139 @@
                 </div>
             </div>
             <div class="col-5 p-0">
-                <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                    <h5 class="text-center">Doctor & Staff List</h5>
-                </div>
-                @foreach ($employees as $employee)
-                    <div class="clickable-container position-relative mb-1">
-                        <span href="#" class="stretched-link" data-bs-toggle="modal"
-                            data-bs-target="#infoModal{{ $employee->id }} ">
-                            <div class="d-flex align-items-center bg-secondary bg-opacity-25 rounded-1 px-3">
-                                <div class="me-3">
-                                    @if ($employee->image)
-                                        <img src="{{ asset('Doctors/' . $employee->image) }}"
-                                            class="border border-1 border-secondary" height="50" width="50"
-                                            alt="{{ $employee->fname }}" style="border-radius:50%; object-fit:cover;">
-                                    @else
-                                        <img src="{{ asset('default.jpg') }}" class="border border-1 border-secondary"
-                                            height="50" width="50" alt="Default Image"
-                                            style="border-radius:50%; object-fit:cover;">
-                                    @endif
-                                </div>
+                <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative d-flex flex-column"
+                    style="height: 460px">
+                    <div class="p-0 rounded-1 text-black">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">
+                            Doctor <span class="text-danger">List</span>
+                        </h5>
+                    </div>
+                    <hr class="mt-0 text-black">
 
-
-                                <div class="list-group">
-                                    <div class="p-2">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h6 class="mb-0 text-dark fw-bold">
-                                                        {{ $employee->fname }}
-                                                        @if ($employee->mname)
-                                                            {{ Str::substr($employee->mname, 0, 1) }}.
-                                                        @endif
-                                                        {{ $employee->lname }}
-                                                        {{ $employee->suffix }}
-                                                    </h6>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="mb-0 text-muted">{{ $employee->position }}</p>
+                    @foreach ($employees as $data)
+                        <div class="clickable-container position-relative mb-1">
+                            <span href="#" class="stretched-link" data-bs-toggle="modal"
+                                data-bs-target="#infoModal{{ $data->id }}">
+                                <div class="d-flex align-items-center bg-white rounded-1 px-3">
+                                    <div class="me-3">
+                                        @if ($data->image)
+                                            <img src="{{ asset('Doctors/' . $data->image) }}"
+                                                class="border border-1 border-secondary" height="50" width="50"
+                                                alt="{{ $data->fname }}" style="border-radius:50%; object-fit:cover;">
+                                        @else
+                                            <img src="{{ asset('default.jpg') }}" class="border border-1 border-secondary"
+                                                height="50" width="50" alt="Default Image"
+                                                style="border-radius:50%; object-fit:cover;">
+                                        @endif
+                                    </div>
+                                    <div class="list-group">
+                                        <div class="p-2">
+                                            <div class="flex-grow-1">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6 class="mb-0 text-dark fw-bold">
+                                                            {{ $data->fname }}
+                                                            @if ($data->mname)
+                                                                {{ Str::substr($data->mname, 0, 1) }}.
+                                                            @endif
+                                                            {{ $data->lname }} {{ $data->suffix }}
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p class="mb-0 text-muted">{{ $data->position }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Repeat the above block for more notifications -->
                                 </div>
-                            </div>
-                        </span>
-                    </div>
+                            </span>
+                        </div>
 
-
-                    {{--  @foreach ($employees as $employee)  --}}
-                    <!-- Modal Trigger -->
-
-                    <!-- Modal Structure -->
-                    <div class="modal fade" id="infoModal{{ $employee->id }}" tabindex="-1"
-                        aria-labelledby="infoModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="infoModalLabel">Doctor Information</h5>
-                                    <div class="d-flex align-items-center ms-3">
-                                        <a href="{{ route('edit.info', ['id' => $employee->id]) }}"
-                                            class="btn btn-sm btn-outline-primary me-2">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <form action="" method="post" class="m-0">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                        {{-- Modal for Doctor Info --}}
+                        <div class="modal fade" id="infoModal{{ $data->id }}" tabindex="-1"
+                            aria-labelledby="infoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="infoModalLabel">Doctor Information</h5>
+                                        <div class="d-flex align-items-center ms-3">
+                                            <a href="{{ route('edit.info', $data->id) }}"
+                                                class="btn btn-sm btn-outline-primary me-2">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirmDeleteModal{{ $data->id }}">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
-                                        </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="text-center">
-                                        <!-- Image inside the modal -->
-                                        @if ($employee->image)
-                                            <img src="{{ asset('Doctors/' . $employee->image) }}"
-                                                class="img-fluid rounded-circle mb-3" alt="{{ $employee->fname }}"
-                                                style="width: 150px; height: 150px; border: 2px solid #6c757d; object-fit:cover;">
-                                        @else
-                                            <img src="{{ asset('default.jpg') }}" class="img-fluid rounded-circle mb-3"
-                                                alt="Default Image"
-                                                style="width: 150px; height: 150px; border: 2px solid #6c757d;">
-                                        @endif
-
-                                        <h6 class="text-dark fw-bold">{{ $employee->fname }}
-                                            {{ $employee->mname }}{{ $employee->lname }} {{ $employee->suffix }}</h6>
-                                        <p class="text-muted mb-0">{{ $employee->position }}</p>
-                                        <p class="text-muted mt-0">{{ $employee->district }}</p>
-                                        <!-- Add more details about the employee if needed -->
+                                    <div class="modal-body">
+                                        <div class="text-center">
+                                            @if ($data->image)
+                                                <img src="{{ asset('Doctors/' . $data->image) }}"
+                                                    class="img-fluid rounded-circle mb-3" alt="{{ $data->fname }}"
+                                                    style="width: 150px; height: 150px; border: 2px solid #6c757d; object-fit:cover;">
+                                            @else
+                                                <img src="{{ asset('default.jpg') }}"
+                                                    class="img-fluid rounded-circle mb-3" alt="Default Image"
+                                                    style="width: 150px; height: 150px; border: 2px solid #6c757d;">
+                                            @endif
+                                            <h6 class="text-dark fw-bold">{{ $data->fname }}
+                                                {{ $data->mname }}{{ $data->lname }} {{ $data->suffix }}</h6>
+                                            <p class="text-muted mb-0">{{ $data->position }}</p>
+                                            <p class="text-muted mt-0">{{ $data->district }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Delete Confirmation Modal --}}
+                        <div class="modal fade" id="confirmDeleteModal{{ $data->id }}" tabindex="-1"
+                            aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this? This action cannot be undone.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{{ route('info.destroy', $data->id) }}" method="post"
+                                            class="m-0">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Pagination Links -->
+                    <div class="mt-auto d-flex justify-content-center">
+                        {{ $employees->links('pagination::bootstrap-5') }}
                     </div>
-                @endforeach
+                </div>
             </div>
+
+
         </div>
     </div>
+
+
 @stop
 
 

@@ -135,7 +135,7 @@ Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function 
 Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () {
     // Events
     Route::get('/Event', [AddActivityCTRL::class, 'addevent'])->name('add.event');
-    Route::post('/Event', [AddActivityCTRL::class, 'storeevent'])->name('store.event');
+    Route::post('/Event', [AddActivityCTRL::class, 'storeEvent'])->name('store.event');
     // View Event
     Route::get('/Event/{id}/view', [AddActivityCTRL::class, 'viewEvent'])->name('view.event');
     // Edit Event
@@ -153,6 +153,9 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/edit/{id}/information', [AddActivityCTRL::class, 'editInfo'])->name('edit.info');
     // Update
     Route::put('/Info/{id}', [AddActivityCTRL::class, 'infoUpdate'])->name('info.update');
+    // Delete
+    Route::delete('/delete/{id}/information', [AddActivityCTRL::class, 'destroyInfo'])->name('info.destroy');
+
 
     // Blog
     Route::get('/Blog', [AddActivityCTRL::class, 'blog'])->name('blog');
