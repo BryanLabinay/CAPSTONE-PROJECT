@@ -26,7 +26,7 @@ class AppointmentSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail(),
                 'address' => $faker->address(),
                 'phone' => $faker->phoneNumber(),
-                'date' => $faker->date('Y-m-d'),
+                'date' => $faker->dateTimeBetween('2023-01-01', '2024-12-31')->format('Y-m-d'),
                 'appointment' => $faker->randomElement([
                     'Check-Up',
                     'Ultrasound',

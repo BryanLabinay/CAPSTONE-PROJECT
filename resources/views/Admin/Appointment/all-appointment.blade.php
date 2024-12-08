@@ -23,14 +23,17 @@
 
     {{-- Data Table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.7.1.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/js/dataTables.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js">
+    {{-- Notification --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: "Nunito", sans-serif;
         }
-    </style>
-    {{-- Notification --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
+
         .colored-toast.swal2-icon-success {
             background-color: #012970 !important;
         }
@@ -213,11 +216,11 @@
         </div>
     </div> --}}
         <div class="row font-web">
-            <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
-                <table class="table table-striped mb-0 table-bordered" id="myTable">
+            <div class="col bg-primary-subtle p-2 rounded-1 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <table class="table table-striped mb-0 table-bordered table-hover" id="myTable">
                     <thead class="table-danger">
-                        <tr class="text-center">
-                            {{-- <th scope="col">No.</th> --}}
+                        <tr class="text-start">
+                            <th scope="col">No.</th>
                             <th scope="col">Name</th>
                             {{-- <th scope="col">Email</th> --}}
                             <th scope="col">Date</th>
@@ -235,10 +238,11 @@
                         $currentPage = $appointments->currentPage();
                         $counter = ($currentPage - 1) * $perPage + 1;
                     @endphp --}}
+                        @php $counter = 1; @endphp
                         @forelse ($appointments as $data)
                             <tr class="text-center">
-                                {{-- <td class="">{{ $counter++ }}</td> --}}
-                                <td class="fw-bold text-start text-truncate" style="max-width: 200px;">
+                                <td class="text-center">{{ $counter++ }}</td>
+                                <td class="fw-bold text-start" style="max-width: 200px;">
                                     {{ $data->fname }}
                                     @if (!empty($data->mname))
                                         {{ substr($data->mname, 0, 1) }}.
@@ -267,7 +271,7 @@
                                         <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-primary me-2 py-1 my-0"
-                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
+                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.3;" @endif>
                                                 Approve
                                             </button>
                                         </form>
@@ -281,7 +285,7 @@
                                                 </button>
                                             </a>
                                         @else
-                                            <button class="btn btn-danger py-1 my-0" disabled style="opacity: 0.1;">
+                                            <button class="btn btn-danger py-1 my-0" disabled style="opacity: 0.3;">
                                                 Reject
                                             </button>
                                         @endif
@@ -450,8 +454,40 @@
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 
     <script>
-        let table = new DataTable('#myTable');
+        new DataTable('#myTable', {
+            layout: {
+                topStart: {
+                    pageLength: {
+                        menu: [10, 25, 50, 100]
+                    }
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Type search here'
+                    }
+                },
+                bottomEnd: {
+                    paging: {
+                        buttons: 3
+                    }
+                }
+            },
+            language: {
+                lengthMenu: "Display _MENU_ Records per page",
+                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                infoEmpty: "No records available",
+                infoFiltered: "(filtered from _MAX_ total records)",
+                search: "Search:",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

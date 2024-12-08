@@ -57,7 +57,7 @@
                                 <div class="form-group position-relative">
                                     <label for="patient_name">Patient Name:</label>
                                     <input type="text" class="form-control" id="patient_name" name="patient_name"
-                                        placeholder="Enter the Patient Name..." autocomplete="off">
+                                        placeholder="Enter the Patient Name..." autocomplete="off" autofocus required>
 
                                     <!-- Spinner for loading -->
                                     <div id="loading-spinner" class="spinner-border text-primary position-absolute"
@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="address">Address:</label>
                                     <input type="text" class="form-control" id="address" name="address"
-                                        placeholder="Patient Address..." autocomplete="off">
+                                        placeholder="Patient Address..." autocomplete="off" required>
                                     <datalist id="addressList"></datalist> <!-- Suggestions will appear here -->
                                 </div>
                             </div>
@@ -91,11 +91,11 @@
                                     <input type="text" list="heart-options" class="form-control" id="heart"
                                         name="heart" autocomplete="off">
                                     <datalist id="heart-options">
-                                        <option value="Normal">
+                                        {{-- <option value="Normal">
                                         <option value="Murmur">
                                         <option value="Arrhythmia">
                                         <option value="Bradycardia">
-                                        <option value="Tachycardia">
+                                        <option value="Tachycardia"> --}}
                                     </datalist>
                                 </div>
                             </div>
@@ -105,11 +105,11 @@
                                     <input type="text" class="form-control" list="lung-options" id="lung"
                                         name="lung" autocomplete="off">
                                     <datalist id="lung-options">
-                                        <option value="lung 1">
+                                        {{-- <option value="lung 1">
                                         <option value="lung 2">
                                         <option value="lung 3">
                                         <option value="lung 4">
-                                        <option value="lung 5">
+                                        <option value="lung 5"> --}}
                                     </datalist>
                                 </div>
                             </div>

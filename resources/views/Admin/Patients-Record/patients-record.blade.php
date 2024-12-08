@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'DR.MENDOZA MULTI-SPECIALIST CLINIC')
 @section('css')
     {{-- Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('Image/logo/mendoza.png') }}">
@@ -16,6 +16,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+
+    {{-- Data Table --}}
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.7.1.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/js/dataTables.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js">
+
     <style>
         body {
             font-family: "Nunito", sans-serif;
@@ -63,7 +71,7 @@
             </div>
         </div>
         <hr class="mt-0">
-        <div class="row mb-2">
+        {{-- <div class="row mb-2">
             <div class="col-6 d-flex justify-content-start">
                 <form method="GET" action="{{ route('patients.filter') }}" class="form-inline mb-2">
                     @csrf
@@ -89,10 +97,10 @@
                             class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
                 </form>
             </div>
-        </div>
+        </div> --}}
         <div class="row font-web">
             <div class="col bg-primary-subtle p-2 rounded-1" data-aos="fade-up" data-aos-delay="100">
-                <table class="table table-striped mb-0 table-bordered">
+                <table class="table table-striped mb-0 table-bordered" id="myTable">
                     <thead class="table-danger">
                         <tr class="text-center">
                             <th scope="col">No.</th>
@@ -112,7 +120,7 @@
                         @else
                             @foreach ($patients as $patient)
                                 <tr class="text-center clickable-row">
-                                    <td>{{ $counter++ }}</td>
+                                    <td class="text-center">{{ $counter++ }}</td>
                                     <td class="fw-bold text-start">{{ $patient->fname }}
                                         @if (!empty($patient->mname))
                                             {{ substr($patient->mname, 0, 1) }}. {{-- First letter of middle name --}}
@@ -131,9 +139,9 @@
                     </tbody>
                 </table>
 
-                <div>
+                {{-- <div>
                     {{ $patients->links('pagination::bootstrap-5') }}
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -141,7 +149,49 @@
 @stop
 
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script>
+        new DataTable('#myTable', {
+            layout: {
+                topStart: {
+                    pageLength: {
+                        menu: [10, 25, 50, 100]
+                    }
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Type search here'
+                    }
+                },
+                bottomEnd: {
+                    paging: {
+                        buttons: 3
+                    }
+                }
+            },
+            language: {
+                lengthMenu: " _MENU_ Records per page",
+                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                infoEmpty: "No records available",
+                infoFiltered: "(filtered from _MAX_ total records)",
+                search: "Search:",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+    {{-- Font Awesome --}}
+    <script src="https://kit.fontawesome.com/5c14b0052b.js" crossorigin="anonymous"></script>
 @stop
