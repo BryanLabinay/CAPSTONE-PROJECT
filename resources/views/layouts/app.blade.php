@@ -53,6 +53,7 @@
 
     <!-- FullCalendar CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+
     <style>
         .colored-toast.swal2-icon-success {
             background-color: #012970 !important;
@@ -106,9 +107,6 @@
         </main>
     </div>
 
-
-    {{-- Js Script --}}
-    <script src="{{ url('Js/script.js') }}"></script>
 
     {{-- Script --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

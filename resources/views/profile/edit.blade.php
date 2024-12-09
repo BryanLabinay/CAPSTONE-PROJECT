@@ -138,7 +138,7 @@
             </form> --}}
 
 
-            <div class="row gy-4">
+            {{-- <div class="row gy-4">
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                     <div class="member">
                         @include('profile.partials.update-profile-information-form')
@@ -156,7 +156,7 @@
                         @include('profile.partials.delete-user-form')
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         </div>
     </section>

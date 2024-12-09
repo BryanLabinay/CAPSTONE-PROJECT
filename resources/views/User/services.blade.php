@@ -12,9 +12,17 @@
                         <div class="d-flex flex-column flex-md-row h-100">
                             <!-- Image Section -->
                             <div class="service-image" style="flex: 0 0 150px; flex-md: 0 0 100px;">
-                                <img src="{{ URL('uploads/service/' . $data->img) }}" class="img-fluid rounded-1"
-                                    alt="{{ $data->service }}" style="width: 150px; height: 150px; object-fit: cover;">
+                                @if (!empty($data->img) && file_exists(public_path('uploads/service/' . $data->img)))
+                                    <img src="{{ URL('uploads/service/' . $data->img) }}" class="img-fluid rounded-1"
+                                        alt="{{ $data->service }}"
+                                        style="width: 150px; height: 150px; object-fit: cover;">
+                                @else
+                                    <img src="{{ URL('uploads/service/default.png') }}" class="img-fluid rounded-1"
+                                        alt="Default Service Image"
+                                        style="width: 150px; height: 150px; object-fit: cover;">
+                                @endif
                             </div>
+
 
                             <!-- Text Section -->
                             <div class="service-content ms-md-3 mt-3 mt-md-0" style="flex-grow: 1;">
