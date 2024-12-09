@@ -85,7 +85,7 @@
                             <h6 class="fw-semibold">PHYSICAL EXAMINATIONS:</h6>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="heart">Heart:</label>
                                     <input type="text" list="heart-options" class="form-control" id="heart"
@@ -99,7 +99,7 @@
                                     </datalist>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="lung">Lung:</label>
                                     <input type="text" class="form-control" list="lung-options" id="lung"
@@ -113,33 +113,29 @@
                                     </datalist>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="heent">HEENT:</label>
                                     <input type="text" class="form-control" id="heent" name="heent">
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="abdomen">Abdomen:</label>
                                     <input type="text" class="form-control" id="abdomen" name="abdomen">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="extremeties">Extremeties:</label>
                                     <input type="text" class="form-control" id="extremeties" name="extremeties">
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="intergumentary">Integumentary:</label>
                                     <input type="text" class="form-control" id="intergumentary"

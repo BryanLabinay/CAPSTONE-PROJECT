@@ -48,20 +48,20 @@
 
     <h3 class="phy-exam">PHYSICAL EXAMINATIONS:</h3>
     <ul>
-        <li class="phy-li-1">Heart: {{ $heart ?? 'NO' }}</li>
-        <li class="phy-li">Chest/Lung: {{ $lung ?? 'NO' }}</li>
-        <li class="phy-li">HEENT: {{ $heent ?? 'NO' }}</li>
-        <li class="phy-li">Abdomen: {{ $abdomen ?? 'NO' }}</li>
-        <li class="phy-li">Extremeties: {{ $extremeties ?? 'NO' }}</li>
-        <li class="phy-li">Integumentary: {{ $intergumentary ?? 'NO' }}</li>
+        <li class="phy-li-1">Heart: {{ $heart ?? 'N/A' }}</li>
+        <li class="phy-li">Chest/Lung: {{ $lung ?? 'N/A' }}</li>
+        <li class="phy-li">HEENT: {{ $heent ?? 'N/A' }}</li>
+        <li class="phy-li">Abdomen: {{ $abdomen ?? 'N/A' }}</li>
+        <li class="phy-li">Extremeties: {{ $extremeties ?? 'N/A' }}</li>
+        <li class="phy-li">Integumentary: {{ $intergumentary ?? 'N/A' }}</li>
     </ul>
 
     <h3 class="phy-exam">VITAL SIGNS:</h3>
     <ul>
-        <li class="phy-li-1"><i>Blood Pressure (BP): {{ $bp ?? 'NO' }}</i></li>
-        <li class="phy-li"><i>Cardiac Rate (CR): {{ $cr ?? 'NO' }}</i></li>
-        <li class="phy-li"><i>Weight: {{ $weight ? $weight . ' KG' : 'NO' }}</i></li>
-        <li class="phy-li"><i>Height: {{ !empty($height) ? $height . ' CM' : 'NO' }}</i></li>
+        <li class="phy-li-1"><i>Blood Pressure (BP): {{ $bp ?? 'N/A' }}</i></li>
+        <li class="phy-li"><i>Cardiac Rate (CR): {{ $cr ?? 'N/A' }}</i></li>
+        <li class="phy-li"><i>Weight: {{ $weight ? $weight . ' KG' : 'N/A' }}</i></li>
+        <li class="phy-li"><i>Height: {{ !empty($height) ? $height . ' CM' : 'N/A' }}</i></li>
 
     </ul>
     <h3 class="assessment"><i>ASSESSMENT: ESSENTIALLY NORMAL AT THE TIME OF EXAMINATION</i></h3>

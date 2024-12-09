@@ -418,6 +418,12 @@ return [
             'icon' => 'fas fa-fw fa-plus',
             'submenu' => [
                 [
+                    'text' => 'Consultation',
+                    'icon' => 'fa-regular fa-calendar-plus',
+                    'icon_color' => 'primary',
+                    'url' => '#',
+                ],
+                [
                     'text' => 'Service',
                     'icon' => 'fa-solid fa-hand-holding-heart',
                     'icon_color' => 'success',
@@ -461,6 +467,12 @@ return [
             'icon' => 'fa-solid fa-list-check',
             'url' => '/Activity-Logs',
         ],
+        [
+            'text' => 'Email',
+            'icon' => 'fa-solid fa-list-check',
+            'url' => '/email',
+        ],
+
 
     ],
 

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClinicMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\User\AppointmentCTRL;
 use App\Http\Controllers\Admin\ActivityLogCTRL;
 use App\Http\Controllers\Admin\AddActivityCTRL;
+use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\MedicalCertCTRL;
 use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
@@ -18,6 +21,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -220,7 +224,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Search Patient
     // Route::get('/search/patient', [MedicalCertCTRL::class, 'searchPatient'])->name('search.patient');
     // Message
-    Route::get('/SampleTable', [SampleController::class, 'index']);
+    Route::get('/email', [EmailController::class, 'index'])->name('index.email');
+    Route::post('/send-email', [EmailController::class, 'create'])->name('send.email');
 });
 
 

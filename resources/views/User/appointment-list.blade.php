@@ -54,7 +54,7 @@
             </div>
             <div class="row gy-4 font-web container">
                 <div class="col bg-primary-subtle p-2 rounded-2" data-aos="fade-up" data-aos-delay="100">
-                    <table class="table table-striped mb-0 table-bordered">
+                    <table class="table table-striped mb-0 table-bordered" id="myTable">
                         <thead class="table-danger">
                             <tr class="text-center">
                                 <th scope="col">No.</th>
@@ -67,14 +67,16 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @php
+                            {{-- @php
                                 $perPage = $appointments->perPage();
                                 $currentPage = $appointments->currentPage();
                                 $counter = ($currentPage - 1) * $perPage + 1;
-                            @endphp
+                            @endphp --}}
+                            @php $counter = 1; @endphp
+
                             @forelse ($appointments->sortByDesc('created_at') as $data)
                                 <tr>
-                                    <td>{{ $counter++ }}</td>
+                                    <td class="text-center">{{ $counter++ }}</td>
                                     <td class="fw-bold text-start">
                                         {{ $data->fname }}
                                         @if (!empty($data->mname))
