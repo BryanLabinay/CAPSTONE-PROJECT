@@ -29,25 +29,35 @@ class AppointmentCTRL extends Controller
 
     public function approvedStatus($id)
     {
-        $approved = Appointment::find($id);
+        $approved = Appointment::findOrFail($id);
         $user = User::find($approved->user_id);
+
+        // Update appointment status to 'Approved'
         $approved->status = 'Approved';
-        Notification::send($user, new UserNotification('Your Appointment has been Approved'));
         $approved->save();
+
+        // Notify the user
+        Notification::send($user, new UserNotification('Your Appointment has been Approved'));
+
+
+
         return redirect()->back()->with('statusApproved', 'Approved status updated successfully');
     }
-
 
     public function canceledStatus(Request $request, $id)
     {
         $approved = Appointment::findOrFail($id);
+        $user = User::find($approved->user_id);
+
+        // Update appointment status to 'Cancelled' with a reason
         $approved->status = 'Cancelled';
         $approved->reason = $request->reason;
         $approved->updated_at = now();
         $approved->save();
 
-        $user = User::find($approved->user_id);
+        // Notify the user
         Notification::send($user, new UserNotification('Your Appointment has been Cancelled'));
+
 
         return redirect()->back()->with('statusCancelled', 'Cancelled status updated successfully');
     }
@@ -84,6 +94,9 @@ class AppointmentCTRL extends Controller
             'appointment' => $request->input('appointment'),
             'message' => $request->input('message') ?: null,  // Store null if empty
         ]);
+
+        $admins = User::where('usertype', 'admin')->get(); // Adjust 'role' field as per your database structure
+        Notification::send($admins, new UserNotification('You have an new appointment request.'));
 
 
         return redirect()->back()->with('status', 'Your Appointment has been added.');
