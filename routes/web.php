@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Mail;
 use App\Mail\ClinicMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\MedicalCertCTRL;
 use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
+use App\Http\Controllers\Admin\ConsultationCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\MessageController;
@@ -195,6 +196,9 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::put('/Contact/{id}', [AddActivityCTRL::class, 'contactUpdate'])->name('contact.update');
     // Contact Delete
     Route::delete('/Contact/delete/{id}', [AddActivityCTRL::class, 'contactDelete'])->name('contact.delete');
+
+    // CONSULTATION
+    Route::get('/Index/Consultation', [ConsultationCTRL::class, 'index']);
 });
 
 
@@ -219,11 +223,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/Medical-Certificate', [MedicalCertCTRL::class, 'medicalcertificate'])->name('medical-certificate');
     // web.php
     Route::get('/fetch-patient-names', [MedicalCertCTRL::class, 'fetchPatientNames'])->name('fetch.patient.names');
-
     Route::post('/Medical-Certificate-pdf', [MedicalCertCTRL::class, 'MedicalCertificatePDF'])->name('medical-certificate-pdf');
-    // Search Patient
-    // Route::get('/search/patient', [MedicalCertCTRL::class, 'searchPatient'])->name('search.patient');
-    // Message
+    // EMAIL
     Route::get('/email', [EmailController::class, 'index'])->name('index.email');
     Route::post('/send-email', [EmailController::class, 'create'])->name('send.email');
 });

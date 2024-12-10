@@ -330,15 +330,25 @@ return [
             'id' => 'my-notification',
             'icon' => 'fas fa-bell',
             'icon_color' => 'blue',
-            'url' => 'notifications/show',
+            'url' => 'notifications/show', // Adjust this to your desired route
             'topnav_right' => true,
             'dropdown_mode' => true,
-            'dropdown_flabel' => 'All notifications',
-            'update_cfg' => [
-                'url' => 'notifications/get',
-                'period' => 30,
-            ],
         ],
+        // [
+        //     'type' => 'navbar-notification',
+        //     'id' => 'my-notification',
+        //     'icon' => 'fas fa-bell',
+        //     'icon_color' => 'blue',
+        //     'url' => 'notifications/show', // Adjust this to your desired route
+        //     'topnav_right' => true,
+        //     'dropdown_mode' => true,
+        //     'dropdown_flabel' => 'All notifications',
+        //     'update_cfg' => [
+        //         'url' => 'notifications/get', // Adjust this to your desired route
+        //         'period' => 30, // Refresh period in seconds
+        //     ],
+        // ],
+
 
         [
             'type' => 'fullscreen-widget',
@@ -414,14 +424,14 @@ return [
         //     'icon_color' => 'red',
         // ],
         [
-            'text' => 'Add Activity',
+            'text' => 'Upload',
             'icon' => 'fas fa-fw fa-plus',
             'submenu' => [
                 [
                     'text' => 'Consultation',
                     'icon' => 'fa-regular fa-calendar-plus',
                     'icon_color' => 'primary',
-                    'url' => '#',
+                    'url' => 'Add-Activity/Index/Consultation',
                 ],
                 [
                     'text' => 'Service',
