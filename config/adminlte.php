@@ -314,8 +314,8 @@ return [
         [
             'type' => 'navbar-notification',
             'id' => 'my-messenger',
-            'icon' => 'fa-solid fa-comment',
-            'icon_color' => 'navy',
+            'icon' => 'fa-sharp fa-solid fa-comment-dots',
+            'icon_color' => 'primary',
             'url' => '/chat/list',
             'topnav_right' => true,
             // 'dropdown_mode' => true,
