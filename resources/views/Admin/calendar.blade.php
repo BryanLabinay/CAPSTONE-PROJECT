@@ -107,7 +107,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-center align-items-center">
                         <form method="GET" action="{{ route('calendar') }}" class="d-flex">
