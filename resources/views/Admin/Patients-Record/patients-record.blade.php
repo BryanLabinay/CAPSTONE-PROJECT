@@ -106,8 +106,10 @@
                             <th scope="col">No.</th>
                             <th scope="col">Name</th>
                             <th scope="col">Contact</th>
-                            <th scope="col">Address</th>
+                            {{-- <th scope="col">Address</th> --}}
+                            <th scope="col">Appointment</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,8 +133,12 @@
                                         @endif
                                     </td>
                                     <td>{{ $patient->phone }}</td>
-                                    <td class="fw-bold">{{ $patient->address }}</td>
+                                    {{-- <td class="fw-bold">{{ $patient->address }}</td> --}}
+                                    <td class="fw-bold">{{ $patient->appointment }}</td>
                                     <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
+                                    <td>
+                                        <i class="fa-solid fa-location-arrow fs-5 text-primary"></i>
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif
