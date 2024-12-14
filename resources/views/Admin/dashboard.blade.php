@@ -17,21 +17,21 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    {{--  <style>
+    <style>
         body {
             font-family: "Nunito", sans-serif;
         }
 
-        .body-img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 80%;
-            max-height: 90%;
-            opacity: 0.2;
-        }
-    </style>  --}}
+        /* .body-img {
+                                                                                                            position: absolute;
+                                                                                                            top: 50%;
+                                                                                                            left: 50%;
+                                                                                                            transform: translate(-50%, -50%);
+                                                                                                            max-width: 80%;
+                                                                                                            max-height: 90%;
+                                                                                                            opacity: 0.2;
+                                                                                                        } */
+    </style>
 @stop
 
 @section('content_header')
@@ -99,25 +99,32 @@
 
 
             {{--  chart  --}}
-            <div class="row">
-
-
-                <div class="col-6">
-                    <!-- First Bar Chart: Appointments by Type -->
-                    <div style=" margin: auto;">
-                        <canvas id="appointmentsChart"></canvas>
+            <div class="row mt-4">
+                <div class="col-6 d-flex">
+                    <div class="card w-100 d-flex">
+                        <div class="card-body d-flex flex-column">
+                            <h6 class="text-center">Appointments for <span id="currentYear">{{ $year }}</span></h6>
+                            <div class="d-flex justify-content-center">
+                                <button id="prevYear" class="btn btn-primary p-0 me-2">Previous Year</button>
+                                <button id="nextYear" class="btn btn-primary p-0">Next Year</button>
+                            </div>
+                            <canvas id="monthlyAppointmentsChart"></canvas>
+                        </div>
                     </div>
                 </div>
+                <div class="col-6 d-flex">
+                    <div class="card w-100 d-flex">
+                        <div class="card-body d-flex flex-column">
+                            <!-- First Bar Chart: Appointments by Type -->
+                            <div class="mt-5">
+                                <canvas id="appointmentsChart" width="1000"></canvas>
 
-
-                <div class="col-6" style=" margin: auto;">
-                    <h2>Appointments for <span id="currentYear">{{ $year }}</span></h2>
-                    <button id="prevYear">Previous Year</button>
-                    <button id="nextYear">Next Year</button>
-                    <canvas id="monthlyAppointmentsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
 
             <script>
                 const ctx1 = document.getElementById('appointmentsChart').getContext('2d');
@@ -188,8 +195,19 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Appointments by Type'
+                                text: 'Appointments by Type',
+                                font: {
+                                    size: 20, // Set the font size of the title (e.g., 20px)
+                                    weight: 'bold', // Optional: Make the title bold
+                                    family: 'Arial, sans-serif', // Optional: Specify the font family
+                                    color: 'black'
+                                },
+                                padding: {
+                                    top: 10, // Add space above the title
+                                    bottom: 20 // Add space below the title
+                                }
                             }
+
                         },
                         scales: {
                             y: {
@@ -223,8 +241,8 @@
                         datasets: [{
                             label: 'Appointments Per Month',
                             data: data2,
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(0, 0, 128, 1)',
+                            borderColor: 'rgba(13, 110, 253, 1)',
                             borderWidth: 1
                         }]
                     },
@@ -290,8 +308,6 @@
                     window.location.href = `${baseUrl}?year=${currentYear}`;
                 }
             </script>
-
-
 
             <!-- ./col -->
         </div>
