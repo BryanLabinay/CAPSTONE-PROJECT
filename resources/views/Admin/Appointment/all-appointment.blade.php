@@ -297,18 +297,12 @@
                                         {{-- View --}}
                                         <a href="#" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal{{ $data->id }}">
-                                            <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
+                                            <i class="fas fa-fw fa-magnifying-glass fs-5 text-success me-3"></i>
                                         </a>
 
-                                        {{-- Delete (optional) --}}
-                                        {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
-                                        method="post" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn text-danger p-0">
-                                            <i class="fas fa-fw fa-trash fs-5"></i>
-                                        </button>
-                                    </form> --}}
+                                        {{-- Chat --}}
+                                        <a href="{{ route('chat.user', $data->user->id) }}" class=""><i
+                                                class="fa-sharp fa-solid fa-comment-dots fs-5"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -347,7 +341,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="text-center">
+                        <div class="text-center mb-3">
                             <!-- Image inside the modal -->
                             @if ($data->image === null)
                                 <img src="{{ asset('default.jpg') }}" height="150" width="150"
