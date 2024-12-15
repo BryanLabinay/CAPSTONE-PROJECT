@@ -201,7 +201,7 @@
                                         <label for="bp">Remark/Diagnosis:</label>
                                         <select name="remarks" id="remarks" class="form-select"
                                             aria-label="Default select example" required>
-                                            <option selected disabled>Select Class...</option>
+                                            <option value="" selected disabled>Select Class...</option>
                                             <option value="FIT TO WORK CLASS A">FIT TO WORK CLASS A</option>
                                             <option value="FIT TO WORK CLASS B">FIT TO WORK CLASS B</option>
                                             <option value="FIT TO WORK CLASS C">FIT TO WORK CLASS C</option>
@@ -228,7 +228,7 @@
                                 <div class="col-6">
                                     <label for="doctorName">Doctor Name:</label>
                                     <select name="doctorName" id="doctor" class="form-control" required>
-                                        <option selected disabled>Select a Doctor</option>
+                                        <option value="" selected disabled>Select a Doctor</option>
                                         @forelse ($doctor as $data)
                                             {{-- <option value="" aria-placeholder="select doctor" disabled></option> --}}
                                             <option
@@ -280,7 +280,7 @@
 
 
                             <!-- Submit Button -->
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end mb-2">
                                 <button type="submit" class="btn btn-primary me-2 px-4">Create</button>
                                 {{-- <button class="btn btn-danger">Send to Patient</button> --}}
                             </div>
