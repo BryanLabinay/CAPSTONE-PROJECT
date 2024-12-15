@@ -417,11 +417,4 @@ class AddActivityCTRL extends Controller
         $delete = Contact::find($id)->delete();
         return redirect()->route('add-contact')->with('contactdelete', 'Contact deleted');
     }
-
-
-    // Summernote
-    public function summernote()
-    {
-        return view('Admin.summernote');
-    }
 }
