@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-start">
-                <a href="{{ url('Add-Activity/Contact') }}" class="btn btn-primary"><i
+                <a href="{{ url('Add-Activity/Contact') }}" class="btn btn-sm btn-primary"><i
                         class="fa-solid fa-arrow-left me-1"></i>Back</a>
             </div>
         </div>

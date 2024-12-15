@@ -109,7 +109,7 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-3 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Add<span
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Add<span
                             class="text-danger"> Contact</span></h5>
                     <hr class="mt-0 text-black">
 
@@ -141,7 +141,7 @@
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
                     style="height: 480px">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;"><span
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary"><span
                             class="text-danger">Contact</span> List</h5>
                     @forelse ($footer as $data)
                         <div class="clickable-container position-relative mb-1">

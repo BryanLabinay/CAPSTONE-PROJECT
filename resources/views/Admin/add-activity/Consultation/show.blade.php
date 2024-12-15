@@ -19,13 +19,13 @@
         rel="stylesheet">
     <style>
         body {
-            font-family: "Nunito";
+            font-family: "Nunito", sans-serif;
         }
     </style>
 @stop
 
 @section('content_header')
-    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Service List</h5>
+    <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>View Consultation</h5>
     <hr class="mt-0 text-secondary">
 @stop
 
@@ -36,12 +36,12 @@
                 <div class="bg-secondary p-1 bg-opacity-25 rounded-1" style="width: 650px;">
                     <div class="row">
                         <div class="col-6 d-flex justify-content-start">
-                            <a href="{{ url('Add-Activity/Service') }}" class="btn btn-outline-primary"><i
+                            <a href="{{ url('Add-Activity/Index/Consultation') }}" class="btn btn-sm btn-outline-primary"><i
                                     class="fa-solid fa-arrow-left me-1"></i>Back</a>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <div class="d-inline">
-                                <a href="{{ route('service.edit', ['id' => $serviceShow->id]) }}"
+                                <a href="{{ route('edit.consultation', ['id' => $show->id]) }}"
                                     class="btn btn-outline-primary btn-sm"><i
                                         class="fa-solid fa-pen-to-square fa-lg"></i></a>
 
@@ -55,26 +55,16 @@
                         </div>
                     </div>
                     <hr class="mt-0 ">
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center align-items-center">
-                            <div class="">
-                                @if ($serviceShow->img)
-                                    <img src="{{ asset('uploads/service/' . $serviceShow->img) }}"
-                                        class="m-2 ms-2 rounded-1" height="150" width="150"
-                                        alt="{{ $serviceShow->service }}" style="object-fit: cover;">
-                                @else
-                                    <img src="{{ asset('uploads/service/default.png') }}" class="m-2 ms-2 rounded-1"
-                                        height="150" width="150" alt="Default Image" style="object-fit: cover;">
-                                @endif
+                    <div class="row mt-4">
+                        <div class="col-12 text-black">
+                            <h5 class="text-center fw-bold">"{{ $show->consultation }}"</h5>
+                            <hr class="mt-0">
+                            <div class="px-2">
+                                <h5 class="text-bold"><i
+                                        class="fa-solid fa-user-doctor me-2 text-success"></i>{{ $show->doctor }}</h5>
+                                <h6><i class="fa-solid fa-calendar me-2 text-primary"></i>{{ $show->day }}</h6>
+                                {{-- <h6><i class="fa-solid fa-peso-sign me-2"></i>{{ $show->price }}</h6> --}}
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 ms-2 text-black">
-                            <h4 class="text-center fw-bold">{{ $serviceShow->service }}</h4>
-                            <p><small><i class="fa-solid fa-caret-right me-2"></i></small>{{ $serviceShow->description }}
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -83,7 +73,7 @@
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 460px">
                     <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Service
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Consultation
                             <span class="text-danger">List</span>
                         </h5>
                     </div>
@@ -91,12 +81,12 @@
 
                     <!-- Content -->
                     <div>
-                        @forelse ($services as $data)
+                        @forelse ($consultation as $data)
                             <div class="clickable-container position-relative mb-1">
-                                <a href="{{ route('service.view', ['id' => $data->id]) }}"
+                                <a href="{{ route('show.consultation', ['id' => $data->id]) }}"
                                     class="stretched-link text-decoration-none">
                                     <div class="d-flex align-items-center bg-white bg-opacity rounded-1 px-3">
-                                        <div class="me-3">
+                                        {{-- <div class="me-3">
                                             @if ($data->img)
                                                 <img src="{{ asset('uploads/service/' . $data->img) }}"
                                                     class="border border-1 border-secondary object-fit" height="50"
@@ -107,17 +97,18 @@
                                                     width="50" alt="Default Image"
                                                     style="border-radius:50%; object-fit: cover;">
                                             @endif
-                                        </div>
+                                        </div> --}}
                                         <div class="list-group">
                                             <div class="p-2">
                                                 <div class="flex-grow-1">
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <h6 class="mb-0 text-dark fw-bold">{{ $data->service }}</h6>
+                                                            <h6 class="mb-0 text-dark fw-bold">{{ $data->consultation }}
+                                                            </h6>
                                                         </div>
                                                         <div class="col-12">
                                                             <p class="mb-0 text-muted">
-                                                                {{ strlen($data->description) > 37 ? substr($data->description, 0, 37) . '...' : $data->description }}
+                                                                {{ strlen($data->doctor) > 40 ? substr($data->doctor, 0, 40) . '...' : $data->doctor }}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -133,7 +124,7 @@
                                     <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                         <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
                                             style="color:#012970;">
-                                            <span class="text-danger">No Service</span>
+                                            <span class="text-danger">No Consultation </span>
                                         </h5>
                                     </div>
                                 </div>
@@ -143,11 +134,10 @@
 
                     <!-- Pagination Links -->
                     <div class="d-flex justify-content-center align-items-center position-absolute bottom-0 start-0 w-100">
-                        {{ $services->links('pagination::bootstrap-5') }}
+                        {{ $consultation->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -166,7 +156,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="{{ route('service.delete', ['id' => $serviceShow->id]) }}" method="post"
+                    <form action="{{ route('delete.consultation', ['id' => $show->id]) }}" method="post"
                         style="display: inline-block;">
                         @csrf
                         @method('DELETE')
@@ -183,7 +173,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    {{-- <script>
-            console.log("Hi, Welcome to E.A MENDOZA APPOINTMENT SYSTEM!");
-        </script> --}}
 @stop

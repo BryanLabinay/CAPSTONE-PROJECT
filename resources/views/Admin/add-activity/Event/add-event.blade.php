@@ -129,7 +129,7 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="p-3 text-dark rounded-1 bg-secondary bg-opacity-25" style="width: 650px;">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Add <span
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Add <span
                             class="text-danger">Events</span> & Updates</h5>
                     <hr class="mt-0">
                     <form method="post" action="{{ route('store.event') }}" enctype="multipart/form-data">
@@ -193,7 +193,7 @@
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 740px">
                     <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center" style="color:#012970;">Event
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center text-primary">Event
                             <span class="text-danger">List</span>
                         </h5>
                     </div>
