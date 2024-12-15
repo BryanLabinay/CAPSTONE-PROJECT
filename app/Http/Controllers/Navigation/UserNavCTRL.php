@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\DoctorList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 
 class UserNavCTRL extends Controller
 {
@@ -29,7 +30,8 @@ class UserNavCTRL extends Controller
     public function appointment()
     {
         $service = Service::all();
-        return view('User.appointment', compact('service'));
+        $consultation = Consultation::all();
+        return view('User.appointment', compact('service', 'consultation'));
     }
 
     // Calendar
