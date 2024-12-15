@@ -132,15 +132,29 @@
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Consultation
                     </div>
-                    <div class="row px-4">
+                    {{-- <div class="row px-4">
                         <div class="col bg-white rounded-3 py-1 px-3">
-                            <h4 class="fw-bold">Monday</h4>
+                            <h4 class="fw-bold">{{ }}</h4>
                             <p class="fw-semibold"><b>OBGYNE</b> - Dr. Bernadette Soriano <br> <b>Internal Medicine</b>
                                 - Dr. Ronera G.
                                 Alonzo </p>
                         </div>
-                    </div>
-                    <div class="row px-4 mt-2">
+                    </div> --}}
+                    @forelse ($consultation as $data)
+                        <div class="row px-4 mt-2">
+                            <div class="col bg-white rounded-3 py-1 px-3">
+                                <h4 class="fw-bold">{{ $data->day }}</h4>
+                                <p class="fw-semibold"><b>{{ $data->consultation }}</b> - {{ $data->doctor }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="row px-4 mt-4">
+                            <div class="col bg-white rounded-3 py-1 px-3">
+                                <h5 class="fw-bold">No <span class="text-danger">Consultation</span> Available</h5>
+                            </div>
+                        </div>
+                    @endforelse
+                    {{-- <div class="row px-4 mt-2">
                         <div class="col bg-white rounded-3 py-1 px-3">
                             <h4 class="fw-bold">Tuesday to Wednesday</h4>
                             <p class="fw-semibold"><b>Family Med.</b> - Dr. Bernadette Soriano</p>
@@ -158,7 +172,7 @@
                             <h4 class="fw-bold">Saturday</h4>
                             <p class="fw-semibold"><b>OBGYNE</b> - Dr. Bernadette Soriano</p>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <script>
