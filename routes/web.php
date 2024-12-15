@@ -198,7 +198,12 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::delete('/Contact/delete/{id}', [AddActivityCTRL::class, 'contactDelete'])->name('contact.delete');
 
     // CONSULTATION
-    Route::get('/Index/Consultation', [ConsultationCTRL::class, 'index']);
+    Route::get('/Index/Consultation', [ConsultationCTRL::class, 'index'])->name('index.consultation');
+    Route::post('/Store/Consultation', [ConsultationCTRL::class, 'store'])->name('store.consultation');
+    Route::get('/Show/{id}/Consulation', [ConsultationCTRL::class, 'show'])->name('show.consultation');
+    Route::get('/Edit/{id}/Consultation', [ConsultationCTRL::class, 'edit'])->name('edit.consultation');
+    Route::put('/Update/{id}/Consultation', [ConsultationCTRL::class, 'update'])->name('update.consultation');
+    Route::delete('/Delete/{id}/Consultation', [ConsultationCTRL::class, 'destroy'])->name('delete.consultation');
 });
 
 
