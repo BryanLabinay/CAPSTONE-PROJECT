@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Update <span
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Update <span
                             class="text-danger">Service</span></h5>
                     <hr class="mt-0 text-black">
 
@@ -131,7 +131,7 @@
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 460px">
                     <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Service
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Service
                             <span class="text-danger">List</span>
                         </h5>
                     </div>

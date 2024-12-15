@@ -89,7 +89,7 @@
         <div class="row">
             <div class="col-7 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
-                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Service
+                    <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Service
                         <span class="text-danger">List</span>
                     </h5>
                     <form action="{{ route('upload-doctor') }}" method="post" enctype="multipart/form-data">
@@ -152,7 +152,7 @@
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative d-flex flex-column"
                     style="height: 460px">
                     <div class="p-0 rounded-1 text-black">
-                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">
                             Doctor <span class="text-danger">List</span>
                         </h5>
                     </div>

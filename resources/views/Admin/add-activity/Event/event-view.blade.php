@@ -129,7 +129,7 @@
             <div class="col-5 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 490px">
                     <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
-                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center" style="color:#012970;">
+                        <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center text-primary">
                             Event
                             <span class="text-danger">List</span>
                         </h5>
