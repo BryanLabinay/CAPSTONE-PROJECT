@@ -141,7 +141,7 @@
                 @foreach ($cancelled as $index => $data)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->fname }}</td>
                         <td>{{ $data->address }}</td>
                         <td>{{ $data->phone }}</td>
                         <td>{{ \Carbon\Carbon::parse($data->date)->format('F d, Y') }}</td>

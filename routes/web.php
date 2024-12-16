@@ -158,7 +158,7 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::get('/Employee/Doctor', [AddActivityCTRL::class, 'addDoctor'])->name('add.doctor');
     Route::get('/Employee/Staff', [AddActivityCTRL::class, 'addStaff'])->name('add.staff');
     Route::post('/upload-Doctor', [AddActivityCTRL::class, 'uploadDoctor'])->name('upload-doctor');
-    // Edit 
+    // Edit
     Route::get('/edit/{id}/information', [AddActivityCTRL::class, 'editInfo'])->name('edit.info');
     // Update
     Route::put('/Info/{id}', [AddActivityCTRL::class, 'infoUpdate'])->name('info.update');
@@ -214,10 +214,12 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
 Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::post('/AppointmentRecord', [ExportAppointmentController::class, 'ExportAppointmentExcel'])->name('export.excel');
     Route::post('/ApprovedAppointmentRecord', [ExportAppointmentController::class, 'ExportApprovedAppointmentExcel'])->name('export.approved.excel');
+    Route::post('/PendingAppointmentRecord', [ExportAppointmentController::class, 'ExportPendingAppointmentExcel'])->name('export.pending.excel');
     Route::post('/RejectedAppointmentRecord', [ExportAppointmentController::class, 'ExportRejectedAppointmentExcel'])->name('export.rejected.excel');
     Route::get('/Export-All-Appointment-Pdf', [ExportAppointmentController::class, 'ExportAllAppointmentPdf'])->name('export.allrecord.pdf');
     Route::get('/Export-Approved-Appointment-Pdf', [ExportAppointmentController::class, 'ExportApprovedAppointmentPdf'])->name('export.approvedrecord.pdf');
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');
+    Route::get('/Export-Pending-Appointment-Pdf', [ExportAppointmentController::class, 'ExportPendingAppointmentPdf'])->name('export.pendingrecord.pdf');
     Route::get('/Reports-Appointment-Pdf', [ExportAppointmentController::class, 'reports'])->name('export.reports.pdf');
     // Patient Record
     Route::get('/Patients-Records.Pdf', [ExportAppointmentController::class, 'patientsRecordPdf'])->name('patients.record.pdf');

@@ -144,11 +144,37 @@
     <div class="container-fluid">
         <div class="row mb-3">
             <div class="col d-flex justify-content-end">
-                <form action="{{ route('export.cancelledrecord.pdf') }}" method="get" target="_blank">
-                    @csrf
-                    <button class="btn btn-danger me-1"><i class="fa-solid fa-file-pdf me-1"></i>Export PDF</button>
-                </form>
-                <form action="{{ route('export.rejected.excel') }}" method="post">
+                <div class="dropdown me-1">
+                    <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                        <i class="fa-solid fa-file-export me-1"></i> Export PDF
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="{{ route('export.pendingrecord.pdf') }}" method="get" target="_blank">
+                                @csrf
+
+                                <!-- Start Date -->
+                                <div class="form-group px-2">
+                                    <label for="start_date">Start Date:</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control" required>
+                                </div>
+
+                                <!-- End Date -->
+                                <div class="form-group px-2">
+                                    <label for="end_date">End Date:</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control" required>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="form-group px-2 py-2">
+                                    <input type="submit" value="Export PDF" class="btn btn-danger w-100">
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <form action="{{ route('export.pending.excel') }}" method="post">
                     @csrf
                     <button class="btn btn-success">
                         <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
