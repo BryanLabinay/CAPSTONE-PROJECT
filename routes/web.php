@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
-
+use App\Http\Controllers\Admin\NotificationsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -134,7 +134,10 @@ Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function 
     Route::get('/patients/filter', [PatientsRecordCTRL::class, 'patientsFilter'])->name('patients.filter');
     Route::get('/patients/today', [PatientsRecordCTRL::class, 'showTodaypatients'])->name('patients.today');
     Route::get('/patients/search', [PatientsRecordCTRL::class, 'searchByName'])->name('patients.search');
+    Route::post('/patient/email', [EmailController::class, 'send_email'])->name('patient-email');
 });
+
+Route::post('/notifications/{id}/read', [NotificationsController::class, 'markAsRead'])->name('notif');
 
 
 // Add Activity

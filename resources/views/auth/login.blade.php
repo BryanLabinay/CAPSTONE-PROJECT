@@ -52,7 +52,7 @@
                 <div class="col-6">
                     <div
                         class="bg-navy border border-danger border-3 rounded-3 d-flex flex-column align-items-center justify-content-center h-100">
-                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="150" height="150" />
+                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="200" height="200" />
                         <h2 class="text-white text-center mt-1 fw-bold">Welcome to <br>
                             DR. MENDOZA<br>
                             MULTI-SPECIALIST CLINIC

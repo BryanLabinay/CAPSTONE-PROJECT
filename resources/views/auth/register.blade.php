@@ -47,13 +47,13 @@
 
 @section('body')
     <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="login-box zoom-out bg-light shadow" style="width: 55rem; border-radius: 10px;">
+        <div class="login-box zoom-out bg-light shadow" style="width: 70rem; border-radius: 10px;">
             <div class="row p-0 g-0 rounded-2">
                 <!-- Image Carousel Section -->
                 <div class="col-6">
                     <div
                         class="bg-navy border border-danger border-3 rounded-3 d-flex flex-column align-items-center justify-content-center h-100">
-                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="150" height="150" />
+                        <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" width="200" height="200" />
                         <h2 class="text-white text-center mt-1 fw-bold">Welcome to <br>
                             DR. MENDOZA<br>
                             MULTI-SPECIALIST CLINIC
@@ -64,7 +64,8 @@
                 <!-- Login Form Section -->
                 <div class="col-6 d-flex align-items-center p-4">
                     <div class="w-100">
-                        <h4 class="text-center mb-2 fw-semibold font">Register your Account</h4>
+                        <h4 class="text-center mb-3 fw-semibold font">Register your Account</h4>
+                        <hr class="mt-0">
                         <form action="{{ route('register') }}" method="post">
                             @csrf
                             <div class="row">
@@ -147,7 +148,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label for="password_confirmation" class="form-label fw-medium">Confirm Password</label>
                                 <input type="password" name="password_confirmation"
                                     class="form-control @error('password_confirmation') is-invalid @enderror"

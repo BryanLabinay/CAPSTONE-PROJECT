@@ -38,6 +38,13 @@
 
 @section('content')
     <div class="container-fluid">
+
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @elseif(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
                 <div class="dropdown me-1">
@@ -137,8 +144,12 @@
                                     <td class="fw-bold">{{ $patient->appointment }}</td>
                                     <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
                                     <td>
-                                        <i class="fa-solid fa-location-arrow fs-5 text-primary"></i>
+                                        <button type="button" class="btn btn-link p-0" data-bs-toggle="modal"
+                                            data-bs-target="#modal-{{ $patient->id }}">
+                                            <i class="fa-solid fa-location-arrow fs-5 text-primary"></i>
+                                        </button>
                                     </td>
+
                                 </tr>
                             @endforeach
                         @endif
@@ -152,6 +163,41 @@
             </div>
         </div>
     </div>
+
+    @foreach ($patients as $patient)
+        <div class="modal fade" id="modal-{{ $patient->id }}" tabindex="-1"
+            aria-labelledby="modalLabel-{{ $patient->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="modalLabel-{{ $patient->id }}">Send Email to Patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Name:</strong> {{ $patient->fname }} {{ $patient->lname }}</p>
+                        <form action="{{ route('patient-email') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+
+                            <p>Email: <input type="email" name="email" value="{{ $patient->email }}" readonly></p>
+
+                            <textarea name="send" id="send" cols="30" rows="10" placeholder="Enter your message here"></textarea><br>
+
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+
+
+
+
 @stop
 
 @section('js')

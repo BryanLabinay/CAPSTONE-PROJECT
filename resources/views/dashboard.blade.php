@@ -28,11 +28,16 @@
                     @endif --}}
 
                     <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
-                        <a href="" class="d-inline text-decoration-none">
-                            <i class="fa-brands fa-facebook fa-lg d-inline"></i>
-                            <h6 class="d-inline location"><a
-                                    href="https://www.facebook.com/profile.php?id=100057123803347">E.A. MENDOZA CLINIC
-                                    APARRI</a></h6>
+                        <a href="https://www.facebook.com/e.a.mendoza.clinics.aparri"
+                            class="d-inline text-decoration-none">
+                            <i class="fa-brands fa-facebook d-inline"></i>
+                            <h5 class="d-inline location">Dr Mendoza Multi-Specialty Clinic</h5>
+                        </a>
+                    </h5>
+                    <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
+                        <a href="https://maps.app.goo.gl/M1zmacbQNn5DR1pT8" class="d-inline text-decoration-none">
+                            <i class="fa-solid fa-lg fa-location-dot d-inline"></i>
+                            <h6 class="d-inline location">Magsaysay St, Aparri, Cagayan</h6>
                         </a>
                     </h5>
                     <h2 data-aos="fade-up" data-aos-delay="400">

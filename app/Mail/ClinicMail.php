@@ -13,12 +13,14 @@ class ClinicMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $messageContent;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($messageContent)
     {
-        //
+        $this->messageContent = $messageContent;
     }
 
     /**
@@ -38,6 +40,9 @@ class ClinicMail extends Mailable
     {
         return new Content(
             view: 'Admin.mail',
+            with: [
+                'messageContent' => $this->messageContent,
+            ],
         );
     }
 
