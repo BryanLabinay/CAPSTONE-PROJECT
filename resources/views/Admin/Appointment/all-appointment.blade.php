@@ -450,6 +450,7 @@
     <script>
         new DataTable('#myTable', {
             layout: {
+                data[],
                 topStart: {
                     pageLength: {
                         menu: [10, 25, 50, 100]
@@ -467,18 +468,19 @@
                 }
             },
             language: {
-                lengthMenu: "Display _MENU_ Records per page",
-                info: "Showing _START_ to _END_ of _TOTAL_ records",
-                infoEmpty: "No records available",
-                infoFiltered: "(filtered from _MAX_ total records)",
-                search: "Search:",
-                paginate: {
-                    first: "First",
-                    last: "Last",
-                    next: "Next",
-                    previous: "Previous"
-                }
-            }
+        lengthMenu: " _MENU_ Records per page",
+        info: "Showing _START_ to _END_ of _TOTAL_ records",
+        infoEmpty: "No records available",
+        infoFiltered: "(filtered from _MAX_ total records)",
+        search: "Search:",
+        paginate: {
+            first: "First",
+            last: "Last",
+            next: "Next",
+            previous: "Previous"
+        },
+        emptyTable: "No data available in the table" // Customize empty message
+    }
         });
     </script>
 
