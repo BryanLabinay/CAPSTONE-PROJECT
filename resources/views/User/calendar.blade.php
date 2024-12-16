@@ -5,7 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <style>
         #calendar {
-            max-width: 600px;
+            max-width: 750px;
             margin: 0 auto;
             margin-top: 5em;
             border-radius: 10px;
@@ -102,7 +102,9 @@
             });
         });
     </script> --}}
-    <div id="calendar"></div>
+    <div class="container">
+        <div id="calendar"></div>
+    </div>
 
     <script>
         $(document).ready(function() {
@@ -119,8 +121,8 @@
                         {
                             title: '{{ $appointment->appointment }}', // Title of the appointment
                             start: '{{ $appointment->date }}', // Date of the appointment
-                            // description: '{{ $appointment->message }}', // Message or details
                             color: '#074799', // Background color for events
+                            url: '/Appointment-List/{{ $appointment->id }}', // Redirect URL to the appointment details
                         },
                     @endforeach
                 ],
@@ -132,15 +134,23 @@
                     }
                 },
                 eventRender: function(event, element) {
+                    // Add tooltip for event
                     element.attr('title', `Appointment: ${event.title}`);
                     element.tooltip({
                         placement: 'top',
                         trigger: 'hover',
                     });
+
+                    // Make the event clickable
+                    if (event.url) {
+                        element.attr('href', event.url);
+                        // element.attr('target'); // Open in a new tab (optional)
+                    }
                 },
             });
         });
     </script>
+
 
 
 

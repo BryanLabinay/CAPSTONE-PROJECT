@@ -6,7 +6,7 @@
             </header>
 
             <div class="row gy-4 font-web">
-                <div class="col-6 bg-primary-subtle rounded-4 me-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-7 bg-primary-subtle rounded-2">
                     <div class="p-3">
                         <h3 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5" style="color:#012970;">
                             Edit Appointment
@@ -26,13 +26,43 @@
                                     </ul>
                                 </div>
                             @endif
-
-                            <div class="form-group mb-2">
-                                <label for="fullName" class="fw-semibold mb-1">Full Name</label>
-                                <input type="text" class="form-control py-2" name="name"
-                                    value="{{ old('name', $appointment->name) }}" placeholder="" id="fullName"
-                                    required>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="fullName" class="fw-semibold mb-1">First Name</label>
+                                        <input type="text" class="form-control py-2" name="fname"
+                                            value="{{ old('fname', $appointment->fname) }}" placeholder=""
+                                            id="fullName" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="fullName" class="fw-semibold mb-1">Middle Name</label>
+                                        <input type="text" class="form-control py-2" name="mname"
+                                            value="{{ old('mname', $appointment->mname) }}" placeholder=""
+                                            id="fullName">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="fullName" class="fw-semibold mb-1">Last Name</label>
+                                        <input type="text" class="form-control py-2" name="lname"
+                                            value="{{ old('lname', $appointment->lname) }}" placeholder=""
+                                            id="fullName" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group mb-2">
+                                        <label for="fullName" class="fw-semibold mb-1">Suffix</label>
+                                        <input type="text" class="form-control py-2" name="suffix"
+                                            value="{{ old('suffix', $appointment->suffix) }}" placeholder=""
+                                            id="fullName" required>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group mb-2">
                                 <label for="address" class="fw-semibold mb-1">Address</label>
                                 <input type="text" class="form-control py-2" name="address"
@@ -85,7 +115,7 @@
                                         Drug Test</option>
                                 </select>
                             </div>
-                            <div class="form-group mb-2">
+                            <div class="form-group mb-3">
                                 <label for="message" class="fw-semibold mb-1">Additional Message (optional)</label>
                                 <textarea class="form-control expanding-textarea" id="message" name="message" rows="1">{{ old('message', $appointment->message) }}</textarea>
                             </div>
@@ -94,7 +124,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-5 ms-5 bg-primary-subtle rounded-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-5 bg-primary-subtle rounded-2">
                     <div class="text-center mt-2">
                         <h3 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5" style="color:#012970;">Consultation
                     </div>

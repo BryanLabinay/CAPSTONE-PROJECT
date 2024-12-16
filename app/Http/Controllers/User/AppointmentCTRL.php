@@ -118,7 +118,10 @@ class AppointmentCTRL extends Controller
         $data = $request->validated();
 
         $data = Appointment::where('id', $appointment_id)->update([
-            'name' => $data['name'],
+            'fname' => $data['fname'],
+            'mname' => $data['mname'],
+            'lname' => $data['lname'],
+            'suffix' => $data['suffix'],
             'address' => $data['address'],
             'phone' => $data['phone'],
             'date' => $data['date'],
