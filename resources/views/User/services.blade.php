@@ -6,7 +6,7 @@
                 <h3 class="font-web fw-bold" style="color: #012970;">Our clinic services</h3>
             </header>
 
-            @foreach ($service as $data)
+            {{-- @foreach ($service as $data)
                 <div class="row mb-4">
                     <div class="col-12">
                         <div class="d-flex flex-column flex-md-row h-100">
@@ -32,7 +32,22 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
+
+            <div class="container">
+                <h1>Service: {{ $service }}</h1>
+
+                <ul>
+                    @forelse ($services as $data)
+                        <li>{{ $data->service }}</li>
+                        <li>{{ $data->description }}</li>
+                    @empty
+                        <p>No data available for this service.</p>
+                    @endforelse
+                </ul>
+            </div>
+
+
 
         </div>
     </section>

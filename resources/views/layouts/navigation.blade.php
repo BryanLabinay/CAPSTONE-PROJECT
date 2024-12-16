@@ -67,8 +67,21 @@
                         href="{{ route('dashboard') }}">Home</a></li>
 
                 {{-- Services --}}
-                <li><a class="nav-link scrollto {{ Route::is('services') ? 'active' : '' }}"
-                        href="{{ route('services') }}">Services</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ Route::is('services') ? 'active' : '' }}"
+                       href="#"
+                       id="servicesDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                        @foreach ($services as $data)
+                        <li><a class="dropdown-item" href="{{ route('services', $data->service) }}">{{ $data->service }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
 
                 {{-- Appointment --}}
                 <li class="dropdown">
