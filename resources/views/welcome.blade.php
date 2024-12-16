@@ -42,19 +42,20 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top p-1">
         <div class="container-fluid d-flex align-items-center justify-content-between px-5">
-            <a href="/" class="logo d-flex align-items-center text-decoration-none">
+            <a href="#hero" class="logo d-flex align-items-center text-decoration-none">
                 <img src="{{ url('assets/img/mendoza.png') }}" alt="" />
-                <span class="text-decoration-none"><b class="text-danger">DR</b>. MENDOZA<b< /span>
+                <span class="text-decoration-none"><b class="text-danger">DR</b>. MENDOZA</span>
             </a>
 
-            <nav id="navbar" class="navbar">
-                <ul>
+            <nav id="navbar" class="navbar mx-auto">
+                <ul class="d-flex align-items-center justify-content-center">
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Consultation</a></li>
                     <li><a href="#portfolio" class="text-decoration-none">Blog</a></li>
                     {{-- <li><a class="nav-link scrollto" href="#team">Doctor & Staff</a></li> --}}
-                    <li class="dropdown">
+                    {{-- <li class="dropdown">
                         <a href="#" class="text-decoration-none"><span>HealthHub</span> <i
                                 class="bi bi-chevron-down"></i></a>
                         <ul>
@@ -73,12 +74,12 @@
                             <li><a href="#">Drop Down 3</a></li>
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li><a href="#" class="text-decoration-none">News & Update</a></li>
-
-
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li>
+
+                    <!-- Move Login/Logout Button to the End -->
+                    {{-- <li>
                         @auth
                             <a class="getstarted scrollto text-decoration-none" href="{{ route('home') }}">Home</a>
                             <script>
@@ -88,13 +89,14 @@
                         @else
                             <a class="getstarted scrollto text-decoration-none" href="{{ route('login') }}">Login</a>
                         @endauth
-                    </li>
+                    </li> --}}
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            <!-- .navbar -->
         </div>
     </header>
+
+
     <!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
@@ -108,21 +110,44 @@
                     </h1>
 
                     <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
-                        <a href="" class="d-inline text-decoration-none">
+                        <a href="https://www.facebook.com/e.a.mendoza.clinics.aparri"
+                            class="d-inline text-decoration-none">
+                            <i class="fa-brands fa-facebook d-inline"></i>
+                            <h5 class="d-inline location">Dr Mendoza Multi-Specialty Clinic</h5>
+                        </a>
+                    </h5>
+                    <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
+                        <a href="https://maps.app.goo.gl/M1zmacbQNn5DR1pT8" class="d-inline text-decoration-none">
                             <i class="fa-solid fa-lg fa-location-dot d-inline"></i>
                             <h6 class="d-inline location">Magsaysay St, Aparri, Cagayan</h6>
                         </a>
                     </h5>
+
                     <h2 data-aos="fade-up" data-aos-delay="400">
                         "Expert care, easy booking. Reserve your appointment with us now."
                     </h2>
                     <div data-aos="fade-up" data-aos-delay="600">
                         <div class="text-center text-lg-start">
-                            <a href="{{ route('register') }}"
+                            {{-- <a href="{{ route('login') }}"
                                 class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center text-decoration-none ">
                                 <span>Get Started</span>
                                 <i class="bi bi-arrow-right"></i>
-                            </a>
+                            </a> --}}
+                            @auth
+                                <a href="{{ route('home') }}"
+                                    class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center text-decoration-none ">
+                                    <span>Home</span>
+                                    <i class="bi bi-arrow-right"></i></a>
+                                <script>
+                                    // Automatically redirect to the dashboard if authenticated
+                                    window.location.href = "{{ route('home') }}";
+                                </script>
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center text-decoration-none ">
+                                    <span>Get Started</span>
+                                    <i class="bi bi-arrow-right"></i></a>
+                            @endauth
                         </div>
                     </div>
                 </div>

@@ -20,15 +20,17 @@ class EmailController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+
+    public function send_email(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
-            'message' => 'required|string|max:255',
+            'send' => 'required|string|max:5000', // Adjusted max length
         ]);
 
         $email = $request->email;
-        $messageContent = $request->message;
+        $messageContent = $request->send;
+        $patientId = $request->patient_id; // Capture the patient ID if needed
 
         try {
             Mail::to($email)->send(new ClinicMail($messageContent));
@@ -37,6 +39,8 @@ class EmailController extends Controller
             return back()->with('error', 'Failed to send email: ' . $e->getMessage());
         }
     }
+
+
 
     /**
      * Store a newly created resource in storage.

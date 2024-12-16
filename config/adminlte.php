@@ -269,7 +269,8 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => '/Admin/profile/edit',
+    // 'profile_url' => '/Admin/profile/edit',
+    'profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -359,10 +360,10 @@ return [
 
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'Search',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'Search',
+        // ],
         ['header' => 'NAVIGATION'],
         [
             'text' => 'Dashboard',
@@ -477,11 +478,11 @@ return [
             'icon' => 'fa-solid fa-list-check',
             'url' => '/Activity-Logs',
         ],
-        [
-            'text' => 'Email',
-            'icon' => 'fa-solid fa-list-check',
-            'url' => '/email',
-        ],
+        // [
+        //     'text' => 'Email',
+        //     'icon' => 'fa-solid fa-list-check',
+        //     'url' => '/email',
+        // ],
 
 
     ],

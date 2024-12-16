@@ -40,7 +40,7 @@
 
     <h1 class="med-certif">MEDICAL CERTIFICATE</h1>
     {{-- {{ $date ?? 'NO' }} --}}
-    <h5 class="date">{{ $date }}</h5>
+    <h5 class="date">{{ \Carbon\Carbon::parse($date)->format('F j, Y') }}</h5>
     <p class="patient">This is to certify that <strong>{{ $patient_name }}</strong> from
         <strong>{{ $address }}</strong> was seen
         examined in this clinic.
