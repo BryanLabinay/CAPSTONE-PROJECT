@@ -17,6 +17,10 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+    {{-- Sweetalert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     {{-- Data Table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/jquery-3.7.1.js">
@@ -28,22 +32,97 @@
         body {
             font-family: "Nunito", sans-serif;
         }
+
+        .colored-toast.swal2-icon-success {
+            background-color: #012970 !important;
+        }
+
+        .colored-toast.swal2-icon-error {
+            background-color: #f27474 !important;
+        }
+
+        .colored-toast.swal2-icon-warning {
+            background-color: #DC3545 !important;
+        }
+
+        .colored-toast.swal2-icon-info {
+            background-color: #3fc3ee !important;
+        }
+
+        .colored-toast.swal2-icon-question {
+            background-color: #87adbd !important;
+        }
+
+        .colored-toast .swal2-title {
+            color: white;
+        }
+
+        .colored-toast .swal2-close {
+            color: white;
+        }
+
+        .colored-toast .swal2-html-container {
+            color: white;
+        }
     </style>
 @stop
 
 @section('content_header')
     <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Patients Record</h5>
     <hr class="mt-0 text-secondary">
+    @if (session('success'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 3000,
+                timerPr0ogressBar: true,
+            });
+            (async () => {
+                await Toast.fire({
+                    icon: 'success',
+                    title: 'Email sent successfully!'
+                })
+            })()
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 3000,
+                timerPr0ogressBar: true,
+            });
+            (async () => {
+                await Toast.fire({
+                    icon: 'warning',
+                    title: 'Failed to send email!'
+                })
+            })()
+        </script>
+    @endif
 @stop
 
 @section('content')
     <div class="container-fluid">
 
-        @if (session('success'))
+        {{-- @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @elseif(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
+        @endif --}}
 
         <div class="row mb-2">
             <div class="col-12 d-flex justify-content-end">
@@ -166,33 +245,46 @@
 
     @foreach ($patients as $patient)
         <div class="modal fade" id="modal-{{ $patient->id }}" tabindex="-1"
-            aria-labelledby="modalLabel-{{ $patient->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
+            aria-labelledby="modalLabel-{{ $patient->id }}" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content shadow-lg rounded">
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-gradient-primary text-white p-2">
                         <h5 class="modal-title" id="modalLabel-{{ $patient->id }}">Send Email to Patient</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <!-- Modal Body -->
                     <div class="modal-body">
-                        <p><strong>Name:</strong> {{ $patient->fname }} {{ $patient->lname }}</p>
+                        <p class="fw-bold mb-3">Name: {{ $patient->fname }} {{ $patient->mname }} {{ $patient->lname }}
+                            {{ $patient->suffix }}</p>
                         <form action="{{ route('patient-email') }}" method="POST">
                             @csrf
                             <input type="hidden" name="patient_id" value="{{ $patient->id }}">
 
-                            <p>Email: <input type="email" name="email" value="{{ $patient->email }}" readonly></p>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">Email:</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                    value="{{ $patient->email }}" readonly>
+                            </div>
 
-                            <textarea name="send" id="send" cols="30" rows="10" placeholder="Enter your message here"></textarea><br>
+                            <div class="mb-3">
+                                <label for="send" class="form-label fw-semibold">Message:</label>
+                                <textarea name="send" id="send" class="form-control" cols="30" rows="5"
+                                    placeholder="Enter your message here"></textarea>
+                            </div>
 
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary me-2">Send</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
+
 
 
 

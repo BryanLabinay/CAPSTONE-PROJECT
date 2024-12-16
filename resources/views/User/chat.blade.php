@@ -1,40 +1,36 @@
 <x-app-layout>
     <section id="team" class="mt-3 team">
         <div class="container" data-aos="fade-up">
-            <header class="section-header p-1">
+            <header class="section-header p-1 text-center">
                 <h2 class="text-danger">Chat here</h2>
                 <h3 class="font-web fw-bold" style="color: #012970;">Ask here</h3>
             </header>
 
-            {{-- <h3>Chat with Admin: {{ $admin->fname }}</h3> --}}
-
             <div id="chat-box"
-                style="height: calc(85vh - 200px); overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                style="height: calc(70vh); overflow-y: auto; padding: 15px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                 @forelse ($messages as $message)
                     <div
                         style="margin-bottom: 10px; display: flex; {{ $message->sender_id === auth()->id() ? 'justify-content: flex-end;' : '' }}">
                         <div
-                            style="max-width: 70%; padding: 5px; border-radius: 1px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#f1f1f1' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }};">
-                            <strong>{{ $message->sender_id === auth()->id() ? '' : '' }}</strong>
+                            style="max-width: 70%; padding: 10px; border-radius: 5px; background-color: {{ $message->sender_id === auth()->id() ? '#007bff' : '#e9ecef' }}; color: {{ $message->sender_id === auth()->id() ? '#fff' : '#000' }}; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
                             <div>{{ $message->message }}</div>
                         </div>
                     </div>
+
                 @empty
-                    <p id="no-messages">No messages yet. Start the conversation!</p>
+                    <p id="no-messages" style="text-align: center; color: #888;">No messages yet. Start the
+                        conversation!</p>
                 @endforelse
             </div>
 
-
-            <form id="chat-form" style="margin-top: 15px;">
+            <form id="chat-form" style="margin-top: 15px; display: flex; align-items: center;">
                 @csrf
                 <input type="hidden" id="receiver_id" value="{{ $admin->id }}">
-                <div style="display: flex; align-items: center;">
-                    <textarea id="message" placeholder="Type your message..." required
-                        style="flex: 1; padding: 5px; border: 1px solid #ddd; border-radius: 5px; resize: none;"></textarea>
-                    <button type="submit"
-                        style="margin-left: 10px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
-                </div>
+                <textarea id="message" placeholder="Type your message..." required
+                    style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; resize: none; font-size: 14px; height: 40px; overflow: hidden;"></textarea>
+                <button type="submit" class="btn btn-primary">Send</button>
             </form>
+
         </div>
     </section>
 
@@ -61,12 +57,13 @@
                         const contentDiv = document.createElement('div');
                         contentDiv.style.maxWidth = '70%';
                         contentDiv.style.padding = '10px';
-                        contentDiv.style.borderRadius = '15px';
+                        contentDiv.style.borderRadius = '5px'; // Reduced border radius
                         contentDiv.style.backgroundColor = message.sender_id === {{ auth()->id() }} ?
-                            '#007bff' : '#f1f1f1';
+                            '#007bff' : '#e9ecef';
                         contentDiv.style.color = message.sender_id === {{ auth()->id() }} ? '#fff' : '#000';
-                        contentDiv.innerHTML = `<strong>${message.sender_id === {{ auth()->id() }} ? '' : ''}</strong>
-                                                <div>${message.message}</div>`;
+                        contentDiv.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                        contentDiv.innerHTML = `<div>${message.message}</div>`;
+
                         messageDiv.appendChild(contentDiv);
                         chatBox.appendChild(messageDiv);
                     });
@@ -78,11 +75,27 @@
         // Periodically fetch messages
         setInterval(fetchMessages, 2000);
 
-        // Handle form submission
-        document.getElementById('chat-form').addEventListener('submit', function(e) {
+        // Handle form submission or pressing Enter
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message');
+
+        chatForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const message = document.getElementById('message').value;
+            sendMessage();
+        });
+
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Prevent new line
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
             const receiver_id = document.getElementById('receiver_id').value;
+
+            if (!message) return;
 
             fetch('{{ route('chat.send') }}', {
                     method: 'POST',
@@ -97,10 +110,10 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('message').value = ''; // Clear message input
+                    messageInput.value = ''; // Clear message input
                     fetchMessages(); // Fetch updated messages
                 })
                 .catch(error => console.error('Error:', error));
-        });
+        }
     </script>
 </x-app-layout>
