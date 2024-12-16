@@ -21,11 +21,11 @@ class UserNavCTRL extends Controller
     }
 
     // Services Route
-    public function services()
+    public function services($service)
 
     {
-        $service = Service::all();
-        return view('User.services', compact('service'));
+        $services = Service::where('service', $service)->get();
+        return view('User.services', compact('services','service'));
     }
 
     // Appointment
