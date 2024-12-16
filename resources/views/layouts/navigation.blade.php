@@ -288,10 +288,12 @@
             .then(data => {
                 if (data.success) {
                     // Optionally, you can update the UI to show the notification as read
-                    location.reload();
                     document.querySelector(`[onclick="markAsRead('${notificationId}')"]`)
                         .classList.remove('bg-lightblue');
+
+
                 }
+                location.reload();
             });
     }
 </script>

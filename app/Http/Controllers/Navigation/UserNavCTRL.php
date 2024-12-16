@@ -7,7 +7,9 @@ use App\Models\Service;
 use App\Models\DoctorList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Consultation;
+use Illuminate\Support\Facades\Auth;
 
 class UserNavCTRL extends Controller
 {
@@ -37,8 +39,12 @@ class UserNavCTRL extends Controller
     // Calendar
     public function calendar()
     {
-        return view('User.calendar');
+        $appointments = Auth::user()->appointments()
+            ->select('appointment', 'date', 'message') // Select only the required fields
+            ->get();
+        return view('User.calendar', compact('appointments'));
     }
+
 
     public function events()
     {
