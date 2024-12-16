@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportAppointmentData;
 use App\Exports\ExportApprovedAppointment;
+use App\Exports\ExportPendingAppointment;
 use App\Exports\ExportRejectedAppointment;
 use App\Models\Appointment;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -25,6 +26,11 @@ class ExportAppointmentController extends Controller
     public function ExportApprovedAppointmentExcel()
     {
         return Excel::download(new ExportApprovedAppointment, 'Approved-AppointmentRecord.xlsx');
+    }
+
+    public function ExportPendingAppointmentExcel()
+    {
+        return Excel::download(new ExportPendingAppointment, 'Pending-AppointmentRecord.xlsx');
     }
 
     public function ExportRejectedAppointmentExcel()
@@ -54,6 +60,30 @@ class ExportAppointmentController extends Controller
 
         // Return the generated PDF as a download
         return $pdf->stream('All-Record-' . $start_date->format('Y-m-d') . '-to-' . $end_date->format('Y-m-d') . '.pdf');
+    }
+
+    public function ExportPendingAppointmentPdf(Request $request)
+    {
+        // Validate the incoming dates
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        // Get the selected start and end dates
+        $start_date = Carbon::createFromFormat('Y-m-d', $request->start_date)->startOfDay();
+        $end_date = Carbon::createFromFormat('Y-m-d', $request->end_date)->endOfDay();
+
+        // Retrieve cancelled appointments within the selected date range
+        $pending = Appointment::where('status', 'Pending')
+                                ->whereBetween('date', [$start_date, $end_date])
+                                ->get();
+
+        // Generate the PDF with the pending appointments
+        $pdf = PDF::loadView('Admin.Export-PDF.export-pending-pdf', compact('pending'));
+
+        // Return the generated PDF as a download
+        return $pdf->stream('Cancelled-Record-' . $start_date->format('Y-m-d') . '-to-' . $end_date->format('Y-m-d') . '.pdf');
     }
 
 

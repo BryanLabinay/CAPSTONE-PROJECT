@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Approved Appointment Record PDF</title>
+    <title>Pending Appointment Record PDF</title>
 
     <link rel="shortcut icon" href="IMG/csulogo.png" type="image/x-icon">
     <style>
@@ -117,7 +117,7 @@
         <p>
             Magsaysay Corner St. Minanga Aparri Cagayan
         </p>
-        <p class="title">APPROVED PATIENTS APPOINTMENT RECORDS</p>
+        <p class="title">PENDING PATIENTS APPOINTMENT RECORDS</p>
         {{-- <p>ATTENDANCE FOR STUDENTS LOG SHEET</p> --}}
     </header>
     <footer>
@@ -138,7 +138,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($appointments as $index => $data)
+                @foreach ($pending as $index => $data)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $data->fname }}</td>
