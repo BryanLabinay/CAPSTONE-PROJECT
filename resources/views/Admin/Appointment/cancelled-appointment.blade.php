@@ -172,7 +172,7 @@
             <table class="table table-striped mb-0 table-bordered" id="myTable">
                 <thead class="table-danger">
                     <tr class="text-center">
-                        {{-- <th scope="col">No.</th> --}}
+                        <th scope="col">No.</th>
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Appointment</th>
@@ -184,15 +184,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php
-                        $perPage = $cancelled->perPage();
-                        $currentPage = $cancelled->currentPage();
-                        $counter = ($currentPage - 1) * $perPage + 1;
-                    @endphp --}}
+                    @php $counter = 1; @endphp
                     @forelse ($cancelled->sortByDesc('created_at') as $data)
                         <tr class="text-center">
 
-                            {{-- <td class="">{{ $counter++ }}</td> --}}
+                            <td class="text-center">{{ $counter++ }}</td>
                             <td class="fw-bold text-start">{{ $data->fname }}
                                 @if (!empty($data->mname))
                                     {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
@@ -369,41 +365,43 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script>
-        new DataTable('#myTable', {
-            data[],
-            layout: {
-                topStart: {
-                    pageLength: {
-                        menu: [10, 25, 50, 100]
+        $(document).ready(function() {
+            new DataTable('#myTable', {
+                layout: {
+                    topStart: {
+                        pageLength: {
+                            menu: [10, 25, 50, 100] // Page length options
+                        }
+                    },
+                    topEnd: {
+                        search: {
+                            placeholder: 'Type search here' // Custom search placeholder
+                        }
+                    },
+                    bottomEnd: {
+                        paging: {
+                            buttons: 3 // Number of pagination buttons
+                        }
                     }
                 },
-                topEnd: {
-                    search: {
-                        placeholder: 'Type search here'
-                    }
+                language: {
+                    lengthMenu: " _MENU_ Records per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ records",
+                    infoEmpty: "No records available",
+                    infoFiltered: "(filtered from _MAX_ total records)",
+                    search: "Search:",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    },
+                    emptyTable: "No data available in the table" // Customize empty message
                 },
-                bottomEnd: {
-                    paging: {
-                        buttons: 3
-                    }
-                }
-            },
-            language: {
-        lengthMenu: " _MENU_ Records per page",
-        info: "Showing _START_ to _END_ of _TOTAL_ records",
-        infoEmpty: "No records available",
-        infoFiltered: "(filtered from _MAX_ total records)",
-        search: "Search:",
-        paginate: {
-            first: "First",
-            last: "Last",
-            next: "Next",
-            previous: "Previous"
-        },
-        emptyTable: "No data available in the table" // Customize empty message
-    }
+            });
         });
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

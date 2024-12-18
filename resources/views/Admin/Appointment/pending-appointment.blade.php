@@ -216,7 +216,7 @@
                 <table class="table table-striped mb-0 table-bordered" id="myTable">
                     <thead class="table-danger">
                         <tr class="text-center">
-                            {{-- <th scope="col">No.</th> --}}
+                            <th scope="col">No.</th>
                             <th scope="col">Name</th>
                             <th scope="col">Date</th>
                             <th scope="col">Appointment</th>
@@ -228,14 +228,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @php
-                            $perPage = $pendings->perPage();
-                            $currentPage = $pendings->currentPage();
-                            $counter = ($currentPage - 1) * $perPage + 1;
-                        @endphp --}}
+                        @php $counter = 1; @endphp
                         @forelse ($pendings->sortByDesc('created_at') as $data)
                             <tr class="text-center">
-                                {{-- <td class="">{{ $counter++ }}</td> --}}
+                                <td class="text-center">{{ $counter++ }}</td>
                                 <td class="fw-bold text-start">{{ $data->fname }}
                                     @if (!empty($data->mname))
                                         {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
@@ -322,14 +318,15 @@
 
         {{-- Modal --}}
         @foreach ($pendings as $data)
-            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModal{{ $data->id }}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title fw-semibold " id="exampleModalLabel">Appointment
                                 Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             {{-- Add your appointment details here --}}
@@ -409,41 +406,52 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script>
-        new DataTable('#myTable', {
-            data[],
-            layout: {
-                topStart: {
-                    pageLength: {
-                        menu: [10, 25, 50, 100]
+        $(document).ready(function() {
+            new DataTable('#myTable', {
+                layout: {
+                    topStart: {
+                        pageLength: {
+                            menu: [10, 25, 50, 100] // Page length options
+                        }
+                    },
+                    topEnd: {
+                        search: {
+                            placeholder: 'Type search here' // Custom search placeholder
+                        }
+                    },
+                    bottomEnd: {
+                        paging: {
+                            buttons: 3 // Number of pagination buttons
+                        }
                     }
                 },
-                topEnd: {
-                    search: {
-                        placeholder: 'Type search here'
-                    }
+                language: {
+                    lengthMenu: "_MENU_ Records per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ records",
+                    infoEmpty: "No records available",
+                    infoFiltered: "(filtered from _MAX_ total records)",
+                    search: "Search:",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    },
+                    emptyTable: "No data available in the table" // Customize empty message
                 },
-                bottomEnd: {
-                    paging: {
-                        buttons: 3
-                    }
-                }
-            },
-            language: {
-        lengthMenu: " _MENU_ Records per page",
-        info: "Showing _START_ to _END_ of _TOTAL_ records",
-        infoEmpty: "No records available",
-        infoFiltered: "(filtered from _MAX_ total records)",
-        search: "Search:",
-        paginate: {
-            first: "First",
-            last: "Last",
-            next: "Next",
-            previous: "Previous"
-        },
-        emptyTable: "No data available in the table" // Customize empty message
-    }
+                // You can specify a static data array or AJAX configuration here
+                // Example for static data (if needed):
+                // data: [], 
+                // If you're using AJAX to load data dynamically, you can configure the `ajax` option
+                // ajax: {
+                //     url: 'your-data-source-url',
+                //     method: 'GET',
+                //     dataSrc: '' // Adjust based on the structure of your response
+                // },
+            });
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

@@ -10,8 +10,14 @@
                 @forelse ($events as $event)
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="card card-hover">
-                            <img src="{{ asset('uploads/events/' . $event->img) }}" class="card-img-top"
-                                alt="{{ $event->title }}" style="object-fit: cover; width: 100%; height: 350px;">
+                            @if ($event->img)
+                                <img src="{{ asset('uploads/events/' . $event->img) }}" class="card-img-top"
+                                    alt="{{ $event->title }}" style="object-fit: cover; width: 100%; height: 350px;">
+                            @else
+                                <img src="{{ asset('assets/img/news.jpg') }}" class="card-img-top" alt="Default Image"
+                                    style="object-fit: cover; width: 100%; height: 350px;">
+                            @endif
+
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h6 class="m-0 fw-bold">{{ $event->title }}</h6>

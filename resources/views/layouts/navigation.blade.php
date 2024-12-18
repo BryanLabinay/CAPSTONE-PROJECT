@@ -49,6 +49,41 @@
     .text-muted {
         color: #6c757d !important;
     }
+
+    /* Mobile Navigation Toggle Button */
+    .mobile-nav-toggle {
+        font-size: 1.5rem;
+        color: #012970;
+        cursor: pointer;
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+
+    #mobile-menu ul {
+        padding: 0;
+    }
+
+    #mobile-menu li {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #mobile-menu a {
+        color: #012970;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .mobile-nav-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
 </style>
 <!-- Add some custom CSS to enhance the UI -->
 
@@ -59,6 +94,10 @@
             <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" />
             <span><b class="text-danger">DR</b>. MENDOZA</span>
         </a>
+
+        <button class="mobile-nav-toggle d-lg-none border-0 bg-transparent">
+            <i class="fa-solid fa-bars fa-lg"></i>
+        </button>
         <!-- Main Navigation -->
         <nav id="navbar" class="navbar justify-content-center">
             <ul>
@@ -68,17 +107,14 @@
 
                 {{-- Services --}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ Route::is('services') ? 'active' : '' }}"
-                       href="#"
-                       id="servicesDropdown"
-                       role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                    <a class="nav-link dropdown-toggle {{ Route::is('services') ? 'active' : '' }}" href="#"
+                        id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Services
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
                         @foreach ($services as $data)
-                        <li><a class="dropdown-item" href="{{ route('services', $data->service) }}">{{ $data->service }}</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('services', $data->service) }}">{{ $data->service }}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -86,13 +122,15 @@
                 {{-- Appointment --}}
                 <li class="dropdown">
                     <a href="#"
-                        class="text-decoration-none {{ Route::is('Add-Appointment') ? 'active' : '' }} {{ Route::is('Appointment-List') ? 'active' : '' }} {{ Route::is('Edit-Appointment') ? 'active' : '' }}"><span>Appointment</span>
-                        <i class="bi bi-chevron-down"></i></a>
+                        class="text-decoration-none dropdown-toggle {{ Route::is('Add-Appointment') ? 'active' : '' }} {{ Route::is('Appointment-List') ? 'active' : '' }} {{ Route::is('Edit-Appointment') ? 'active' : '' }}"><span>Appointment</span>
+                        {{-- <i class="bi bi-chevron-down"></i> --}}
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end ">
                         <li><a href="{{ route('Add-Appointment') }}"
                                 class="{{ Route::is('Add-Appointment') ? 'active' : '' }}">Add Appointment</a></li>
                         <li><a href="{{ route('Appointment-List') }}"
-                                class="{{ Route::is('Appointment-List') ? 'active' : '' }}">Appointment List</a></li>
+                                class="{{ Route::is('Appointment-List') ? 'active' : '' }}">Appointment List</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -177,71 +215,6 @@
         </nav>
 
 
-        {{-- <div class="d-flex align-items-center">
-
-            <a class="{{ Route::is('chat.admin') ? 'active' : '' }}" href="{{ route('chat.admin') }}">
-                <i class="fa-solid fa-comment fa-lg mx-3"
-                    style="{{ Route::is('chat.admin') ? 'color: #dc3545;' : 'color: navy;' }}"></i>
-            </a>
-
-
-
-            <div class="dropdown position-relative" id="notificationIcon">
-                <a class="dropdown" role="button" id="notificationDropdown" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fa-solid fa-bell fa-lg" style="color:#012970;"></i>
-
-                    <span id="notificationBadge"
-                        class="position-absolute top-3 start-100 translate-middle badge rounded-pill bg-danger
-                        @if ($unreadCount === 0) disabled
-                        aria-disabled="true"
-                        style="pointer-events: none; opacity: 0;" @endif">
-                        {{ $unreadCount }}
-                    </span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end p-1"
-                    style="background-color: #1a2b4d; width: 500px; max-height: 300px; overflow-y: auto;">
-                    @forelse ($notifications->sortByDesc('created_at') as $notification)
-                        <li class="px-0 mb-1 {{ $notification->read_at ? '' : 'unread' }}"
-                            id="notification_{{ $notification->id }}">
-                            <a class="dropdown-item bg-primary-subtle px-3 rounded-2" href="#"
-                                onclick="markAsRead({{ $notification->id }})"
-                                style="background-color: #2d3e5d; color: #ffffff;">
-                                <div class="row">
-                                    <div class="col mb-1">
-                                        <div class="notification-title">
-                                            <h6 class="fw-bolder"
-                                                style="color:
-                                                @if ($notification->status === 'Approved') green
-                                                @elseif($notification->status === 'Cancelled') red
-                                                @else #ffffff @endif;">
-                                                {{ $notification->status }}
-                                            </h6>
-                                        </div>
-
-                                        <div class="notification-description text-muted">
-                                            {{ $notification->appointment }}
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="notification-date text-muted">
-                                            <small>{{ $notification->created_at->diffForHumans() }}</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    @empty
-                        <li class="text-white">No notifications available</li>
-                    @endforelse
-                </ul>
-            </div>
-
-        </div> --}}
-
-
-
-
         <!-- User Profile Dropdown -->
         <div class="nav-item dropdown font-web">
             <a class="nav-link d-flex align-items-center" style="color:#012970;" href="#" role="button"
@@ -310,7 +283,30 @@
             });
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        const mobileNavClose = document.querySelector('.mobile-nav-close');
 
+        // Open the mobile menu
+        mobileNavToggle.addEventListener('click', () => {
+            mobileMenu.style.display = 'block';
+        });
+
+        // Close the mobile menu
+        mobileNavClose.addEventListener('click', () => {
+            mobileMenu.style.display = 'none';
+        });
+
+        // Optionally close the mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 
 

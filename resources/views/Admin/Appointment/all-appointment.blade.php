@@ -450,39 +450,45 @@
     <script>
         new DataTable('#myTable', {
             layout: {
-                data[],
                 topStart: {
                     pageLength: {
-                        menu: [10, 25, 50, 100]
+                        menu: [10, 25, 50, 100] // Page length options
                     }
                 },
                 topEnd: {
                     search: {
-                        placeholder: 'Type search here'
+                        placeholder: 'Type search here' // Custom search placeholder
                     }
                 },
                 bottomEnd: {
                     paging: {
-                        buttons: 3
+                        buttons: 3 // Number of pagination buttons
                     }
                 }
             },
             language: {
-        lengthMenu: " _MENU_ Records per page",
-        info: "Showing _START_ to _END_ of _TOTAL_ records",
-        infoEmpty: "No records available",
-        infoFiltered: "(filtered from _MAX_ total records)",
-        search: "Search:",
-        paginate: {
-            first: "First",
-            last: "Last",
-            next: "Next",
-            previous: "Previous"
-        },
-        emptyTable: "No data available in the table" // Customize empty message
-    }
+                lengthMenu: " _MENU_ Records per page",
+                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                infoEmpty: "No records available",
+                infoFiltered: "(filtered from _MAX_ total records)",
+                search: "Search:",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                },
+                emptyTable: "No data available in the table" // Customize empty message
+            },
+            columnDefs: [{
+                    orderable: false,
+                    targets: [4, 5, 6]
+                } // Disable sorting for specific columns
+            ],
         });
     </script>
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

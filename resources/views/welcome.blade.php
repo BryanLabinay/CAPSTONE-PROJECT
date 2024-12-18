@@ -52,7 +52,7 @@
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Consultation</a></li>
+                    <li><a class="nav-link scrollto" href="#consultation">Consultation</a></li>
                     <li><a href="#portfolio" class="text-decoration-none">Blog</a></li>
                     {{-- <li><a class="nav-link scrollto" href="#team">Doctor & Staff</a></li> --}}
                     {{-- <li class="dropdown">
@@ -75,7 +75,7 @@
                             <li><a href="#">Drop Down 4</a></li>
                         </ul>
                     </li> --}}
-                    <li><a href="#" class="text-decoration-none">News & Update</a></li>
+                    <li><a href="#news" class="text-decoration-none">News & Update</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 
                     <!-- Move Login/Logout Button to the End -->
@@ -116,12 +116,12 @@
                             <h5 class="d-inline location">Dr Mendoza Multi-Specialty Clinic</h5>
                         </a>
                     </h5>
-                    <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
+                    {{-- <h5 class="mt-2" data-aos="fade-up" data-aos-delay="400">
                         <a href="https://maps.app.goo.gl/M1zmacbQNn5DR1pT8" class="d-inline text-decoration-none">
                             <i class="fa-solid fa-lg fa-location-dot d-inline"></i>
                             <h6 class="d-inline location">Magsaysay St, Aparri, Cagayan</h6>
                         </a>
-                    </h5>
+                    </h5> --}}
 
                     <h2 data-aos="fade-up" data-aos-delay="400">
                         "Expert care, easy booking. Reserve your appointment with us now."
@@ -164,7 +164,7 @@
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
                 <div class="row gx-0">
-                    <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up"
+                    <div class="col-lg-12 d-flex flex-column justify-content-center" data-aos="fade-up"
                         data-aos-delay="200">
                         <div class="content">
                             <h3>Who We Are</h3>
@@ -177,150 +177,159 @@
                                 offers comprehensive medical services, tailored to your needs. Partner with us for your
                                 wellness journey.
                             </p>
-                            <div class="text-center text-lg-start">
-                                <a href="#"
+                            {{-- <div class="text-center text-lg-start">
+                                <a href="{{ route('login') }}"
                                     class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center text-decoration-none">
                                     <span>Read More</span>
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
-                    <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <img src="assets/img/Staff/cover.jpg" class="img-fluid" alt="" />
-                    </div>
+                    {{-- <div class="col-lg-6 d-flex align-items-center justify-content-center" style="height: 80vh;"
+                        data-aos="zoom-out" data-aos-delay="200">
+                        <img src="assets/img/about.jpg" class="img-fluid rounded-3" alt=""
+                            style="height: 100%; object-fit: cover;" />
+                    </div> --}}
+
                 </div>
             </div>
         </section>
         <!-- End About Section -->
 
-
-        <!-- ======= Services Section ======= -->
-        <section id="services" class="services">
+        <!-- ======= Features Section ======= -->
+        <section id="services" class="features">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h2>Services</h2>
-                    <p>Our Services</p>
+                    <h2 class="text-danger">Services</h2>
+                    <h3 class="fw-semibold" style="color: #012970;">We prioritize your health and well-being.</h3>
                 </header>
 
-                <div class="row gy-4">
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="service-box blue">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>Xray</h3>
-                            {{-- <p>
-                                Provident nihil minus qui consequatur non omnis maiores. Eos
-                                accusantium minus dolores iure perferendis tempore et
-                                consequatur.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
+                <div class="row">
+                    <div class="col-lg-5 d-flex justify-content-center">
+                        <img src="{{ asset('assets/img/serve.jpg') }}" class="img-fluid w-75 rounded-3"
+                            alt="Services" />
                     </div>
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-box orange">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>Labaratory</h3>
-                            {{-- <p>
-                                Ut autem aut autem non a. Sint sint sit facilis nam iusto
-                                sint. Libero corrupti neque eum hic non ut nesciunt dolorem.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
+                    <div class="col-lg-7 mt-2 mt-lg-0 d-flex">
+                        <div class="row align-self-center justify-content-center gy-4">
+                            @forelse ($services as $data)
+                                <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
+                                    <div class="feature-box d-flex align-items-center">
+                                        <i class="bi bi-check"></i>
+                                        <h3>{{ $data->service }}</h3>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
+                                    <div class="feature-box d-flex align-items-center">
+                                        <i class="fa-solid fa-rectangle-xmark"></i>
+                                        <h3>No services available at the moment.</h3>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
+                </div>
+                <!-- / row -->
+            </div>
+        </section>
+        <!-- End Features Section -->
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="service-box green">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>Ultrasound</h3>
-                            {{-- <p>
-                                Ut excepturi voluptatem nisi sed. Quidem fuga consequatur.
-                                Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
+        <section id="consultation" class="service">
+            <!-- Feature Icons -->
+            <div class="row feature-icons mb-0" id="consultation" data-aos="fade-up">
+                <header class="section-header">
+                    <h2 class="text-danger">Consultation</h2>
+                    <h3 class="fw-semibold" style="color: #012970;">Offering expert consultation for your
+                        healthcare needs.</h3>
+                </header>
+                <div class="row mt-0">
+                    <div class="col-xl-4 text-center" data-aos="fade-right" data-aos-delay="100">
+                        <img src="{{ asset('assets/img/consultation.jpg') }}" class="img-fluid p-4"
+                            alt="" />
                     </div>
 
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                        <div class="service-box red">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>2D Echo with Doppler</h3>
-                            {{-- <p>
-                                Non et temporibus minus omnis sed dolor esse consequatur.
-                                Cupiditate sed error ea fuga sit provident adipisci neque.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                        <div class="service-box purple">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>Consultation</h3>
-                            {{-- <p>
-                                Cumque et suscipit saepe. Est maiores autem enim facilis ut
-                                aut ipsam corporis aut. Sed animi at autem alias eius labore.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
-                        <div class="service-box pink">
-                            <i class="ri-discuss-line icon"></i>
-                            <h3>Drug Test</h3>
-                            {{-- <p>
-                                Hic molestias ea quibusdam eos. Fugiat enim doloremque aut
-                                neque non et debitis iure. Corrupti recusandae ducimus enim.
-                            </p> --}}
-                            <a href="#" class="read-more"><span>Read More</span> <i
-                                    class="bi bi-arrow-right"></i></a>
+                    <div class="col-xl-8 d-flex content">
+                        <div class="row align-self-center gy-4">
+                            @forelse ($consultation as $data)
+                                <div class="col-md-6 icon-box shadow-sm" data-aos="fade-up">
+                                    {{-- <i class="fa-solid fa-check"></i> --}}
+                                    <div>
+                                        <h5 class="fw-bold" style="color: #012970;">{{ $data->consultation }}
+                                        </h5>
+                                        <p class="text-muted">
+                                            {{ $data->day }} - Dr. {{ $data->doctor }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-md-6 icon-box" data-aos="fade-up">
+                                    {{-- <i class="fa-solid fa-check"></i> --}}
+                                    <div>
+                                        <h4>No Consultation at the moment.</h4>
+                                        {{-- <p>
+                                                Consequuntur sunt aut quasi enim aliquam quae harum
+                                                pariatur laboris nisi ut aliquip
+                                            </p> --}}
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- End Feature Icons -->
         </section>
+
         <!-- ======= Portfolio Section ======= -->
         <section id="portfolio" class="portfolio">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h2>Blog</h2>
-                    <p>Check our latest work</p>
+                    <h2 class="text-danger">Blog</h2>
+                    <h3 class="fw-semibold" style="color: #012970;">Our latest Updates</h3>
                 </header>
 
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-app">App</li>
+                            {{-- <li data-filter=".filter-app">App</li>
                             <li data-filter=".filter-card">Card</li>
-                            <li data-filter=".filter-web">Web</li>
+                            <li data-filter=".filter-web">Web</li> --}}
                         </ul>
                     </div>
                 </div>
 
                 <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-wrap">
-                            <img src="{{ url('Image/Activity/img1.jpg') }}" class="img-fluid" alt="" />
-                            <div class="portfolio-info">
-                                <h4>App 1</h4>
-                                <p>App</p>
-                                <div class="portfolio-links">
-                                    <a href="{{ url('Image/Activity/img1.jpg') }}" data-gallery="portfolioGallery"
-                                        class="portfokio-lightbox" title="App 1"><i class="bi bi-plus"></i></a>
-                                    <a href="portfolio-details.html" title="More Details"><i
-                                            class="bi bi-link"></i></a>
+                    @forelse ($blog as $data)
+                        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                            <div class="portfolio-wrap">
+                                @if ($data->img)
+                                    <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid"
+                                        alt="{{ $data->title }}" style="object-fit: cover;" />
+                                @else
+                                    <img src="{{ asset('') }}" class="img-fluid" alt="{{ $data->title }}"
+                                        style="object-fit: cover;" />
+                                @endif
+                                <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid"
+                                    alt="{{ $data->title }}" />
+                                <div class="portfolio-info">
+                                    <h4>App 1</h4>
+                                    <p>App</p>
+                                    <div class="portfolio-links">
+                                        <a href="{{ url('Image/Activity/img1.jpg') }}"
+                                            data-gallery="portfolioGallery" class="portfokio-lightbox"
+                                            title="App 1"><i class="bi bi-plus"></i></a>
+                                        {{-- <a href="portfolio-details.html" title="More Details"><i
+                                            class="bi bi-link"></i></a> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @empty
+                    @endforelse
 
                     <div class="col-lg-4 col-md-6 portfolio-item filter-web">
                         <div class="portfolio-wrap">
@@ -357,12 +366,62 @@
             </div>
         </section>
 
+        <section id="news" class="values">
+            <div class="container" data-aos="fade-up">
+                <header class="section-header">
+                    <h2 class="text-danger">News & Updates</h2>
+                    <h3 class="fw-semibold" style="color: #012970;">Check the news and updates of our clinic</h3>
+                </header>
+
+                <div class="row">
+                    @forelse ($events as $event)
+                        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card shadow-sm h-100">
+                                <!-- Event Image -->
+                                <div class="card-img-top">
+                                    @if ($event->img)
+                                        <img src="{{ asset($event->img) }}"
+                                            class="img-fluid mx-auto d-block w-75 rounded-top" alt="Event Image" />
+                                    @else
+                                        <img src="{{ asset('assets/img/mendoza.png') }}"
+                                            class="img-fluid mx-auto d-block w-75 rounded-top" alt="Default Image" />
+                                    @endif
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="card-title text-center">{{ $event->title }}</h3>
+                                    <h5 class="card-subtitle text-muted">
+                                        {{ \Illuminate\Support\Str::limit($event->activity, 40, '...') }}</h5>
+
+                                    <p class="card-text mt-2">
+                                        {{ \Illuminate\Support\Str::limit($event->description, 50, '...') }}
+                                    </p>
+
+                                    <!-- Event Date -->
+                                    <p class="mt-auto text-muted small">
+                                        <strong>Date:</strong>
+                                        {{ \Carbon\Carbon::parse($event->date)->format('l, d F Y') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <!-- No Events Available -->
+                        <div class="col-12 text-center">
+                            <p class="text-muted">No events available at the moment.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </section>
+
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
                 <header class="section-header">
-                    <h2>Contact</h2>
-                    <p>Contact Us</p>
+                    <h2 class="text-danger">Contact</h2>
+                    <h3 class="fw-semibold" style="color: #012970;">Contact Us</h3>
                 </header>
 
                 <div class="row gy-4">
@@ -442,36 +501,19 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        {{-- <div class="footer-newsletter">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 text-center">
-                        <h4>Our Newsletter</h4>
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, ex?
-                        </p>
-                    </div>
-                    <div class="col-lg-6">
-                        <form action="" method="post">
-                            <input type="email" name="email" /><input type="submit" value="Subscribe" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
         <div class="footer-top">
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-info">
                         <a href="index.html" class="logo d-flex align-items-center text-decoration-none ">
-                            <img src="assets/img/mendoza.png" alt="" />
+                            <img src="{{ asset('assets/img/mendoza.png') }}" alt="Medonza Logo" />
                             <span><b class="text-danger">DR</b>. MENDOZA</span>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi vitae esse in exercitationem
-                            repudiandae doloremque enim. Inventore, dolores similique, porro perferendis architecto aut
-                            enim, placeat consequuntur accusantium ad laborum possimus!
+                            Dr. Mendoza Clinic's Multi-Health Specialists Management System is designed to streamline
+                            the management of medical information and appointments, ensuring efficient coordination
+                            between patients and service providers. The system offers secure and seamless access to
+                            essential health information while enhancing the overall patient experience.
                         </p>
                         <div class="social-links mt-3">
                             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -479,24 +521,27 @@
                     </div>
 
                     <div class="col-lg-2 col-6 footer-links">
-                        <h4>Useful Links</h4>
+                        <h4>Navigation</h4>
                         <ul>
                             <li>
                                 <i class="bi bi-chevron-right"></i> <a href="#">Home</a>
                             </li>
                             <li>
-                                <i class="bi bi-chevron-right"></i> <a href="#">About us</a>
+                                <i class="bi bi-chevron-right"></i> <a href="#">About</a>
                             </li>
                             <li>
                                 <i class="bi bi-chevron-right"></i> <a href="#">Services</a>
                             </li>
                             <li>
                                 <i class="bi bi-chevron-right"></i>
-                                <a href="#">Terms of service</a>
+                                <a href="#">Blog</a>
                             </li>
                             <li>
                                 <i class="bi bi-chevron-right"></i>
-                                <a href="#">Privacy policy</a>
+                                <a href="#">News & Update</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-chevron-right"></i> <a href="#">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -504,14 +549,15 @@
                     <div class="col-lg-2 col-6 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <li>
+                            {{-- <li>
                                 <i class="bi bi-chevron-right"></i> <a href="#">X-Ray</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">Labaratory</a>
-                            </li>
-                            <li>
+                            </li> --}}@foreach ($services as $service)
+                                <li>
+                                    <i class="bi bi-chevron-right"></i>
+                                    <a href="#services">{{ $service->service }}</a>
+                                </li>
+                            @endforeach
+                            {{-- <li>
                                 <i class="bi bi-chevron-right"></i>
                                 <a href="#">Ultrasound</a>
                             </li>
@@ -533,7 +579,7 @@
                             <li>
                                 <i class="bi bi-chevron-right"></i>
                                 <a href="#">Drug Test</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 

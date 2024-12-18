@@ -93,8 +93,14 @@
                                 <div class="col-6">
                                     <div class="form-group mb-2">
                                         <label for="phone" class="fw-semibold mb-1">Phone Number</label>
-                                        <input type="tel" class="form-control py-2" name="phone" id="phone"
-                                            required>
+                                        <input type="tel"
+                                            class="form-control py-2 @error('phone') is-invalid @enderror"
+                                            name="phone" id="phone" required>
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -116,9 +122,14 @@
                                     @endforelse
                                 </select>
                             </div>
-                            <div class="form-group mb-2">
+                            {{-- <div class="form-group mb-2">
                                 <label for="message" class="fw-semibold mb-1">Additional Message (optional)</label>
                                 <textarea class="form-control expanding-textarea" id="message" name="message" rows="1"></textarea>
+                            </div> --}}
+                            <div class="form-group mb-2">
+                                <label for="message" class="fw-semibold mb-1">Additional Message (optional)</label>
+                                <textarea class="form-control" id="message" name="message" placeholder="Type your message here..." rows="1"
+                                    style="height: auto; overflow-y: hidden;"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary px-5 py-2 mt-2 fw-semibold">Request
                                 Appointment</button>
@@ -132,14 +143,7 @@
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Consultation
                     </div>
-                    {{-- <div class="row px-4">
-                        <div class="col bg-white rounded-3 py-1 px-3">
-                            <h4 class="fw-bold">{{ }}</h4>
-                            <p class="fw-semibold"><b>OBGYNE</b> - Dr. Bernadette Soriano <br> <b>Internal Medicine</b>
-                                - Dr. Ronera G.
-                                Alonzo </p>
-                        </div>
-                    </div> --}}
+
                     @forelse ($consultation as $data)
                         <div class="row px-4 mt-2">
                             <div class="col bg-white rounded-3 py-1 px-3">
@@ -154,25 +158,7 @@
                             </div>
                         </div>
                     @endforelse
-                    {{-- <div class="row px-4 mt-2">
-                        <div class="col bg-white rounded-3 py-1 px-3">
-                            <h4 class="fw-bold">Tuesday to Wednesday</h4>
-                            <p class="fw-semibold"><b>Family Med.</b> - Dr. Bernadette Soriano</p>
-                        </div>
-                    </div>
-                    <div class="row px-4 mt-2">
-                        <div class="col bg-white rounded-3 py-1 px-3">
-                            <h4 class="fw-bold">Thursday</h4>
-                            <p class="fw-semibold"><b>Internal Medicine</b> - - Dr. Ronera G.
-                                Alonzo</p>
-                        </div>
-                    </div>
-                    <div class="row px-4 mt-2">
-                        <div class="col bg-white rounded-3 py-1 px-3">
-                            <h4 class="fw-bold">Saturday</h4>
-                            <p class="fw-semibold"><b>OBGYNE</b> - Dr. Bernadette Soriano</p>
-                        </div>
-                    </div> --}}
+
                 </div>
             </div>
             <script>
@@ -220,6 +206,23 @@
                 });
             </script>
 
+            {{-- TextArea --}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const descriptionTextarea = document.getElementById('message');
+
+                    function adjustTextareaHeight() {
+                        descriptionTextarea.style.height = 'auto';
+                        descriptionTextarea.style.height = descriptionTextarea.scrollHeight + 'px';
+                    }
+
+                    descriptionTextarea.addEventListener('input', function() {
+                        adjustTextareaHeight();
+                    });
+
+                    adjustTextareaHeight();
+                });
+            </script>
 
     </section>
 </x-app-layout>

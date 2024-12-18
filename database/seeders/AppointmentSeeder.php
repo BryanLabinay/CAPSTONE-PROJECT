@@ -25,7 +25,7 @@ class AppointmentSeeder extends Seeder
                 'suffix' => $faker->optional()->suffix(),  // Made suffix optional
                 'email' => $faker->unique()->safeEmail(),
                 'address' => $faker->address(),
-                'phone' => $faker->phoneNumber(),
+                'phone' => '+63' . $faker->phoneNumber,
                 'date' => $faker->dateTimeBetween('2023-01-01', '2024-12-31')->format('Y-m-d'),
                 'appointment' => $faker->randomElement([
                     'Check-Up',
