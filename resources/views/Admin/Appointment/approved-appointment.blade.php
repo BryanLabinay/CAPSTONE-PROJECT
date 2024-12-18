@@ -174,7 +174,7 @@
             <table class="table table-striped mb-0 table-bordered" id="myTable">
                 <thead class="table-danger">
                     <tr class="text-center">
-                        {{-- <th scope="col">#</th> --}}
+                        <th scope="col">No.</th>
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Contact</th>
@@ -185,15 +185,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php
-                        $perPage = $approved->perPage();
-                        $currentPage = $approved->currentPage();
-                        $counter = ($currentPage - 1) * $perPage + 1;
-                    @endphp --}}
+                    @php $counter = 1; @endphp
+
                     @forelse ($approved as $data)
                         <tr class="text-center">
 
-                            {{-- <td class="">{{ $counter++ }}</td> --}}
+                            <td class="text-center">{{ $counter++ }}</td>
                             <td class="fw-bold text-start">{{ $data->fname }}
                                 @if (!empty($data->mname))
                                     {{ substr($data->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
@@ -216,25 +213,6 @@
                                 @else
                                     gray @endif">
                                 {{ $data->status }}</td>
-                            {{-- Approval --}}
-                            {{-- <td class="py-0">
-                                <div class="d-flex justify-content-center align-items-center mt-1">
-                                    <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-primary me-2 py-1 my-0"
-                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.2;" @endif>
-                                            Approve
-                                        </button>
-                                    </form>
-
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#newModal{{ $data->id }}">
-                                        <button class="btn btn-danger py-1 my-0"
-                                            @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.1;" @endif>
-                                            Reject
-                                        </button>
-                                    </a>
-                                </div>
-                            </td> --}}
                             <td>
                                 <div class="d-flex justify-content-center align-items-center mt-0">
                                     {{-- View --}}
@@ -242,16 +220,6 @@
                                         data-bs-target="#exampleModal{{ $data->id }}">
                                         <i class="fas fa-fw fa-magnifying-glass fs-5 text-success"></i>
                                     </a>
-
-                                    {{-- Delete --}}
-                                    {{-- <form action="{{ route('appointment.delete', ['appointment_id' => $data->id]) }}"
-                                        method="post" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn text-danger p-0">
-                                            <i class="fas fa-fw fa-trash fs-5"></i>
-                                        </button>
-                                    </form> --}}
                                 </div>
                             </td>
 
@@ -362,42 +330,43 @@
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 
     <script>
-        new DataTable('#myTable', {
-            layout: {
-                data[],
-                topStart: {
-                    pageLength: {
-                        menu: [10, 25, 50, 100]
+        $(document).ready(function() {
+            new DataTable('#myTable', {
+                layout: {
+                    topStart: {
+                        pageLength: {
+                            menu: [10, 25, 50, 100] // Page length options
+                        }
+                    },
+                    topEnd: {
+                        search: {
+                            placeholder: 'Type search here' // Custom search placeholder
+                        }
+                    },
+                    bottomEnd: {
+                        paging: {
+                            buttons: 3 // Number of pagination buttons
+                        }
                     }
                 },
-                topEnd: {
-                    search: {
-                        placeholder: 'Type search here'
-                    }
+                language: {
+                    lengthMenu: " _MENU_ Records per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ records",
+                    infoEmpty: "No records available",
+                    infoFiltered: "(filtered from _MAX_ total records)",
+                    search: "Search:",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    },
+                    emptyTable: "No data available in the table" // Customize empty message
                 },
-                bottomEnd: {
-                    paging: {
-                        buttons: 3
-                    }
-                }
-            },
-            language: {
-        lengthMenu: " _MENU_ Records per page",
-        info: "Showing _START_ to _END_ of _TOTAL_ records",
-        infoEmpty: "No records available",
-        infoFiltered: "(filtered from _MAX_ total records)",
-        search: "Search:",
-        paginate: {
-            first: "First",
-            last: "Last",
-            next: "Next",
-            previous: "Previous"
-        },
-        emptyTable: "No data available in the table" // Customize empty message
-
-            }
+            });
         });
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Navigation;
 
-use App\Http\Controllers\Controller;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminNavCTRL extends Controller
 {
@@ -19,7 +20,8 @@ class AdminNavCTRL extends Controller
     // Admin Profile
     public function appointmentlist()
     {
-        return view('Admin.appointment-list');
+        $consultation = Consultation::all();
+        return view('Admin.appointment-list', compact('consultation'));
     }
     // Add Activity
     // -Add Event

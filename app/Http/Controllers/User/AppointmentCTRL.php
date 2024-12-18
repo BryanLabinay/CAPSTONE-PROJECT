@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AppointmentFormRequest;
-use App\Models\Appointment;
 use App\Models\User;
-use App\Notifications\UserNotification;
+use App\Models\Appointment;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\UserNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Http\Requests\AppointmentFormRequest;
 
 class AppointmentCTRL extends Controller
 {
@@ -107,7 +108,8 @@ class AppointmentCTRL extends Controller
     public function edit($appointment_id)
     {
         $appointment = Appointment::find($appointment_id);
-        return view('User.edit-appointment', compact('appointment'));
+        $consultation = Consultation::all();
+        return view('User.edit-appointment', compact('appointment', 'consultation'));
     }
 
     /**

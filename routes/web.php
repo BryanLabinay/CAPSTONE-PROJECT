@@ -23,10 +23,12 @@ use App\Http\Controllers\Admin\PatientsRecordCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
 use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\LandingPage;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandingPage::class, 'index']);
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/home', [HomeController::class, 'auth'])
     ->middleware(['auth'])->name('home');

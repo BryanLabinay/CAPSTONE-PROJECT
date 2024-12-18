@@ -218,7 +218,7 @@
                                             {{ $patient->suffix }}
                                         @endif
                                     </td>
-                                    <td>{{ $patient->phone }}</td>
+                                    <td>{{ $patient->email }}</td>
                                     {{-- <td class="fw-bold">{{ $patient->address }}</td> --}}
                                     <td class="fw-bold">{{ $patient->appointment }}</td>
                                     <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>

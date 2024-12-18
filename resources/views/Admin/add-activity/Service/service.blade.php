@@ -118,7 +118,7 @@
                         <div class="form-group">
                             <label for="">Service Name:</label>
                             <input name="service" type="text" required class="form-control"
-                                placeholder="Enter the name here..." autocomplete="off">
+                                placeholder="Enter the name here..." autocomplete="off" autofocus>
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
@@ -240,5 +240,5 @@
             adjustTextareaHeight();
         });
     </script>
-    <script src="h
+    {{-- <script src="h --}}
 @stop
