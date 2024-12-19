@@ -16,6 +16,7 @@ class Contact extends Model
         'cpnumber',
         'email',
         'address',
+        'day_open',
         'open_hour'
     ];
     public function getActivitylogOptions(): LogOptions

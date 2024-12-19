@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('cpnumber');
             $table->string('email');
             $table->string('address');
+            $table->string('day_open');
             $table->string('open_hour');
             $table->timestamps();
 

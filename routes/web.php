@@ -75,9 +75,11 @@ Route::middleware(['auth', 'user'])->controller(UserNavCTRL::class)->group(funct
     Route::get('/Calendar', 'calendar')->name('user-calendar');
     Route::get('/Events', 'events')->name('events');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/home', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+
+    Route::get('/Home', 'home')->name('dashboard');
 });
 
 // Appointment Route

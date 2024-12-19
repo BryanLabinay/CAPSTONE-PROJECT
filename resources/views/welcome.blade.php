@@ -295,9 +295,7 @@
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
                             <li data-filter="*" class="filter-active">All</li>
-                            {{-- <li data-filter=".filter-app">App</li>
-                            <li data-filter=".filter-card">Card</li>
-                            <li data-filter=".filter-web">Web</li> --}}
+
                         </ul>
                     </div>
                 </div>
@@ -307,21 +305,32 @@
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                             <div class="portfolio-wrap">
                                 @if ($data->img)
-                                    <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid"
-                                        alt="{{ $data->title }}" style="object-fit: cover;" />
+                                    <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid rounded-3"
+                                        alt="{{ $data->title }}"
+                                        style="object-fit: cover; width: 100%; height: 300px;" />
                                 @else
-                                    <img src="{{ asset('') }}" class="img-fluid" alt="{{ $data->title }}"
-                                        style="object-fit: cover;" />
+                                    <img src="{{ asset('mendoza.png') }}" class="img-fluid" alt="default-image"
+                                        style="object-fit: cover; width: 100%; height: 300px;" />
                                 @endif
-                                <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid"
-                                    alt="{{ $data->title }}" />
+
+                                {{-- <img src="{{ asset('uploads/blogs/' . $data->img) }}" class="img-fluid"
+                                    alt="{{ $data->title }}" /> --}}
                                 <div class="portfolio-info">
-                                    <h4>App 1</h4>
-                                    <p>App</p>
+                                    <h4>{{ $data->title }}</h4>
+                                    {{-- <p>App</p> --}}
                                     <div class="portfolio-links">
-                                        <a href="{{ url('Image/Activity/img1.jpg') }}"
-                                            data-gallery="portfolioGallery" class="portfokio-lightbox"
-                                            title="App 1"><i class="bi bi-plus"></i></a>
+                                        @if ($data->img)
+                                            <a href="{{ asset('uploads/blogs/' . $data->img) }}"
+                                                data-gallery="portfolioGallery"
+                                                class="portfokio-lightbox text-decoration-none">
+                                                <i class="fa-solid fa-magnifying-glass"></i></a>
+                                        @else
+                                            <a href="{{ asset('assets/img/mendoza.png') }}"
+                                                data-gallery="portfolioGallery"
+                                                class="portfokio-lightbox text-decoration-none">
+                                                <i class="fa-solid fa-magnifying-glass"></i></a>
+                                        @endif
+
                                         {{-- <a href="portfolio-details.html" title="More Details"><i
                                             class="bi bi-link"></i></a> --}}
                                     </div>
@@ -329,39 +338,16 @@
                             </div>
                         </div>
                     @empty
+                        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                            <div class="portfolio-wrap">
+                                <img src="{{ asset('mendoza.png') }}" class="img-fluid" alt="" />
+                                <div class="portfolio-info" style="object-fit: cover;">
+                                    <h4>No Blog</h4>
+                                </div>
+                            </div>
+                        </div>
                     @endforelse
 
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-wrap">
-                            <img src="{{ url('Image/Activity/img2.jpg') }}" class="img-fluid" alt="" />
-                            <div class="portfolio-info">
-                                <h4>Web 3</h4>
-                                <p>Web</p>
-                                <div class="portfolio-links">
-                                    <a href="{{ url('Image/Activity/img2.jpg') }}" data-gallery="portfolioGallery"
-                                        class="portfokio-lightbox" title="Web 3"><i class="bi bi-plus"></i></a>
-                                    <a href="portfolio-details.html" title="More Details"><i
-                                            class="bi bi-link"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-wrap">
-                            <img src="{{ url('Image/Activity/img3.jpg') }}" class="img-fluid" alt="" />
-                            <div class="portfolio-info">
-                                <h4>App 2</h4>
-                                <p>App</p>
-                                <div class="portfolio-links">
-                                    <a href="{{ url('Image/Activity/img3.jpg') }}" data-gallery="portfolioGallery"
-                                        class="portfokio-lightbox" title="App 2"><i class="bi bi-plus"></i></a>
-                                    <a href="portfolio-details.html" title="More Details"><i
-                                            class="bi bi-link"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -391,12 +377,12 @@
                                 <!-- Card Content -->
                                 <div class="card-body d-flex flex-column">
                                     <h3 class="card-title text-center">{{ $event->title }}</h3>
-                                    <h5 class="card-subtitle text-muted">
-                                        {{ \Illuminate\Support\Str::limit($event->activity, 40, '...') }}</h5>
+                                    {{-- <h5 class="card-subtitle text-muted">
+                                        {{ \Illuminate\Support\Str::limit($event->activity, 40, '...') }}</h5> --}}
 
-                                    <p class="card-text mt-2">
+                                    {{-- <p class="card-text mt-2">
                                         {{ \Illuminate\Support\Str::limit($event->description, 50, '...') }}
-                                    </p>
+                                    </p> --}}
 
                                     <!-- Event Date -->
                                     <p class="mt-auto text-muted small">
@@ -431,28 +417,45 @@
                                 <div class="info-box">
                                     <i class="bi bi-geo-alt"></i>
                                     <h3>Address</h3>
-                                    <p>Magsaysay St,<br />Aparri, Cagayan</p>
+                                    @forelse ($contact as $data)
+                                        <p>{{ $data->address }}</p>
+                                    @empty
+                                        <p>Location</p>
+                                    @endforelse
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
                                     <i class="bi bi-telephone"></i>
                                     <h3>Call Us</h3>
-                                    <p>09175744643</p>
+                                    @forelse ($contact as $data)
+                                        <p>{{ $data->cpnumber }}</p>
+                                    @empty
+                                        <p>No Contact</p>
+                                    @endforelse
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
                                     <i class="bi bi-envelope"></i>
                                     <h3>Email Us</h3>
-                                    <p>eamendozaclinic00@gmail.com</p>
+                                    @forelse ($contact as $data)
+                                        <p>{{ $data->email }}</p>
+
+                                    @empty
+                                        <p>No Email displayed</p>
+                                    @endforelse
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
                                     <i class="bi bi-clock"></i>
                                     <h3>Open Hours</h3>
-                                    <p>Monday - Saturday<br />8:00AM - 04:00PM</p>
+                                    @forelse ($contact as $data)
+                                        <p>{{ $data->day_open }}<br />{{ $data->open_hour }}</p>
+                                    @empty
+                                        <p>No Date set yet.</p>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -533,6 +536,9 @@
                                 <i class="bi bi-chevron-right"></i> <a href="#">Services</a>
                             </li>
                             <li>
+                                <i class="bi bi-chevron-right"></i> <a href="#">Consultation</a>
+                            </li>
+                            <li>
                                 <i class="bi bi-chevron-right"></i>
                                 <a href="#">Blog</a>
                             </li>
@@ -549,49 +555,27 @@
                     <div class="col-lg-2 col-6 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            {{-- <li>
-                                <i class="bi bi-chevron-right"></i> <a href="#">X-Ray</a>
-                            </li> --}}@foreach ($services as $service)
+                            @foreach ($services as $service)
                                 <li>
                                     <i class="bi bi-chevron-right"></i>
                                     <a href="#services">{{ $service->service }}</a>
                                 </li>
                             @endforeach
-                            {{-- <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">Ultrasound</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i> <a href="#">2D Echo with Doppler</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">ECG</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">NST</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">Consultation</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-chevron-right"></i>
-                                <a href="#">Drug Test</a>
-                            </li> --}}
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                         <h4>Contact Us</h4>
-                        <p>
-                            Magsaysay Street <br />
-                            Aparri, Cagayan<br />
-                            <br />
-                            <strong>Phone:</strong>09175744643<br />
-                            <strong>Email:</strong>eamendozaclinic00@gmail.com<br />
-                        </p>
+                        @forelse ($contact as $data)
+                            <p>
+                                {{ $data->address }}
+                                <br />
+                                <strong>Phone:</strong>{{ $data->cpnumber }}<br />
+                                <strong>Email:</strong>{{ $data->email }}<br />
+                            </p>
+                        @empty
+                            <p>No contact</p>
+                        @endforelse
                     </div>
                 </div>
             </div>

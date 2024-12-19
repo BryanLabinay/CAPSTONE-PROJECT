@@ -3,16 +3,30 @@
 namespace App\Http\Controllers\Navigation;
 
 use App\Models\Event;
+use App\Models\Contact;
 use App\Models\Service;
 use App\Models\DoctorList;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Consultation;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Blog;
 
 class UserNavCTRL extends Controller
 {
+    // Home
+    public function home()
+    {
+        $services = Service::all();
+        $events = Event::all();
+        $consultation = Consultation::all();
+        $blog = Blog::all();
+        $contact = Contact::all();
+
+        return view('dashboard', compact('services', 'events', 'consultation', 'blog', 'contact'));
+    }
+
     // Doctor and Staff Route
     public function doctorstaff()
     {
@@ -25,7 +39,7 @@ class UserNavCTRL extends Controller
 
     {
         $services = Service::where('service', $service)->get();
-        return view('User.services', compact('services','service'));
+        return view('User.services', compact('services', 'service'));
     }
 
     // Appointment

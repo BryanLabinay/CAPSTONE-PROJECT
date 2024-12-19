@@ -127,9 +127,19 @@
                             <label for="address">Address:</label>
                             <input name="address" type="text" required class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="open_hour">Open Hour:</label>
-                            <input name="open_hour" type="text" required class="form-control">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="day_open">Day Open:</label>
+                                    <input name="day_open" type="text" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="open_hour">Open Hour:</label>
+                                    <input name="open_hour" type="text" required class="form-control">
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-start">
                             <button type="submit" class="btn btn-primary px-5">Upload</button>

@@ -360,6 +360,7 @@ class AddActivityCTRL extends Controller
             'cpnumber' => 'required|string|max:15',
             'email' => 'required|email',
             'address' => 'required|string|max:255',
+            'day_open' => 'required|string|max:100',
             'open_hour' => 'required|string|max:50',
         ]);
 
@@ -367,6 +368,7 @@ class AddActivityCTRL extends Controller
         $contact->cpnumber = $request->cpnumber;
         $contact->email = $request->email;
         $contact->address = $request->address;
+        $contact->day_open = $request->day_open;
         $contact->open_hour = $request->open_hour;
         $contact->save();
 
@@ -396,6 +398,7 @@ class AddActivityCTRL extends Controller
             'cpnumber' => 'required|string|max:50',
             'email' => 'required|string|max:50',
             'address' => 'required|string|max:255',
+            'day_open' => 'required|string|max:100',
             'open_hour' => 'required|string|max:50',
 
         ]);
@@ -404,6 +407,7 @@ class AddActivityCTRL extends Controller
         $edit->cpnumber = $request->cpnumber;
         $edit->email = $request->email;
         $edit->address = $request->address;
+        $edit->day_open = $request->day_open;
         $edit->open_hour = $request->open_hour;
 
         $edit->save();
