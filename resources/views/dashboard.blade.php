@@ -168,10 +168,7 @@
                                     {{-- <i class="fa-solid fa-check"></i> --}}
                                     <div>
                                         <h4>No Consultation at the moment.</h4>
-                                        {{-- <p>
-                                                Consequuntur sunt aut quasi enim aliquam quae harum
-                                                pariatur laboris nisi ut aliquip
-                                            </p> --}}
+
                                     </div>
                                 </div>
                             @endforelse

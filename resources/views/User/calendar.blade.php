@@ -117,12 +117,23 @@
                 defaultView: 'month',
                 editable: false,
                 events: [
+                    // Loop through appointments and add them as events
                     @foreach ($appointments as $appointment)
                         {
-                            title: '{{ $appointment->appointment }}', // Title of the appointment
-                            start: '{{ $appointment->date }}', // Date of the appointment
-                            color: '#074799', // Background color for events
-                            url: '/Appointment-List/{{ $appointment->id }}', // Redirect URL to the appointment details
+                            title: '{{ $appointment->appointment }}', // Appointment title
+                            start: '{{ $appointment->date }}', // Appointment date
+                            color: '#074799', // Background color for the appointment
+                            url: '/Appointment-List/{{ $appointment->id }}', // Link to the appointment details
+                        },
+                    @endforeach
+
+                    // Loop through events and add them as events
+                    @foreach ($events as $event)
+                        {
+                            title: '{{ $event->title }}', // Event title
+                            start: '{{ $event->date }}', // Event start date
+                            color: '#ff5733', // Background color for the event
+                            url: '/Events/{{ $event->id }}', // Link to the event details
                         },
                     @endforeach
                 ],

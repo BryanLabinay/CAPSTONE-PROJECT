@@ -150,7 +150,6 @@
                                 style="margin-left: 10px; padding: 5px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Send</button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -158,8 +157,6 @@
 
 
     <script>
-        // Fetch new messages periodically
-        // Fetch new messages periodically
         function fetchMessages() {
             fetch('{{ route('admin.chat.fetch', ['userId' => $user->id]) }}')
                 .then(response => response.json())

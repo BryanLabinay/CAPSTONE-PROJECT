@@ -69,17 +69,17 @@ Route::get('/notifications/unread-count', [NotificationController::class, 'getUn
 
 // User Navigation
 Route::middleware(['auth', 'user'])->controller(UserNavCTRL::class)->group(function () {
+    // Home
+    Route::get('/Home', 'home')->name('dashboard');
+
     Route::get('/Doctor&Staff', 'doctorstaff')->name('doctor.staff');
     Route::get('/Services/{service}', 'services')->name('services');
     Route::get('/Appointment', 'appointment')->name('Add-Appointment');
     Route::get('/Calendar', 'calendar')->name('user-calendar');
+
+    // News & Updates
     Route::get('/Events', 'events')->name('events');
-
-    // Route::get('/home', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
-    Route::get('/Home', 'home')->name('dashboard');
+    Route::get('/View/{id}/Events', 'eventView')->name('event.view');
 });
 
 // Appointment Route

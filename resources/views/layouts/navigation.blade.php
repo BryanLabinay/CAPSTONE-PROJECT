@@ -139,8 +139,13 @@
                         href="{{ route('user-calendar') }}">Calendar</a></li>
 
                 {{-- News & Updates --}}
-                <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
-                        href="{{ route('events') }}">News & Updates</a></li>
+                {{-- <li><a class="text-decoration-none {{ Route::is('events') ? 'active' : '' }}"
+                        href="{{ route('events') }}">News & Updates</a></li> --}}
+
+                <li>
+                    <a class="text-decoration-none {{ in_array(Route::currentRouteName(), ['events', 'event.view']) ? 'active' : '' }}"
+                        href="{{ route('events') }}">News & Updates</a>
+                </li>
 
                 <li>
                     <a class="{{ Route::is('chat.admin') ? 'active' : '' }}" href="{{ route('chat.admin') }}">
@@ -190,7 +195,8 @@
                         {{-- Read Notifications --}}
                         @if ($readNotifications->isNotEmpty())
                             @foreach ($readNotifications as $notification)
-                                <a class="dropdown-item notification-item bg-light text-muted" href="#">
+                                <a class="dropdown-item notification-item bg-light text-muted"
+                                    href="{{ route('Appointment-List') }}">
                                     <i
                                         class="fas fa-check-circle me-1 text-success"></i>{{ $notification->data['message'] }}
                                 </a>

@@ -191,7 +191,7 @@
                         <tr class="text-center">
                             <th scope="col">No.</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Contact</th>
+                            <th scope="col">Email</th>
                             {{-- <th scope="col">Address</th> --}}
                             <th scope="col">Appointment</th>
                             <th scope="col">Date</th>
