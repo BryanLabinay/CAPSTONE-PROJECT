@@ -417,23 +417,16 @@ return [
             'url' => '/Admin/Calendars',
             'icon' => 'fa-regular fa-calendar-days',
         ],
-
-        // [
-        //     'text' => 'Summernote',
-        //     'url' => '/Add-Activity/Summernote',
-        //     'icon' => 'fa-solid fa-file-pen',
-        //     'icon_color' => 'red',
-        // ],
+        [
+            'text' => 'Consultation',
+            'icon' => 'fa-regular fa-calendar-plus',
+            'icon_color' => 'primary',
+            'url' => 'Add-Activity/Index/Consultation',
+        ],
         [
             'text' => 'Upload',
             'icon' => 'fas fa-fw fa-plus',
             'submenu' => [
-                [
-                    'text' => 'Consultation',
-                    'icon' => 'fa-regular fa-calendar-plus',
-                    'icon_color' => 'primary',
-                    'url' => 'Add-Activity/Index/Consultation',
-                ],
                 [
                     'text' => 'Service',
                     'icon' => 'fa-solid fa-hand-holding-heart',

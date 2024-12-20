@@ -54,18 +54,29 @@ class UserNavCTRL extends Controller
     public function calendar()
     {
         $appointments = Auth::user()->appointments()
-            ->select('appointment', 'date', 'message') // Select only the required fields
+            ->select('appointment', 'date', 'message')
+            ->where('status', 'Approved') // Filter only approved appointments
             ->get();
-        return view('User.calendar', compact('appointments'));
+
+        $events = Event::all();
+
+        return view('User.calendar', compact('appointments', 'events'));
     }
 
-
+    // News & Updates
     public function events()
     {
         $events = Event::orderBy('created_at', 'desc')->get();
         foreach ($events as $event) {
             $event->formattedTimestamp = $event->created_at->diffForHumans();
         }
-        return view('User.events', compact('events'));
+        return view('User.News.events', compact('events'));
+    }
+
+    public function eventView($id)
+    {
+        $event = Event::findOrFail($id);
+
+        return view('User.News.view-events', compact('event'));
     }
 }
