@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
                     <form action="{{ route('contact.update', ['id' => $edit->id]) }}" method="post">
                         @csrf
@@ -126,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
                     <h5 class="text-center">List</h5>
                 </div>
@@ -161,7 +161,7 @@
                     </div>
                 @empty
                     <div class="row d-flex justify-content-center">
-                        <div class="col-5">
+                        <div class="col-md-5 col-12">
                             <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                 <h5 class="text-center text-black">No Service</h5>
                             </div>

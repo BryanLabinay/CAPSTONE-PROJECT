@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 mb-2 d-flex justify-content-center">
                 <div class="bg-secondary p-3 text-black rounded-1 bg-opacity-25" style="width: 650px;">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center" style="color:#012970;">Update <span
                             class="text-danger">Event</span> & Updates</h5>
@@ -107,14 +107,14 @@
                                 value="{{ old('title', $event->title) }}" autocomplete="off" required>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Date:</label>
                                     <input type="date" class="form-control" id="date" name="date"
                                         value="{{ old('date', $event->date) }}" autocomplete="off" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Time:</label>
                                     <input type="time" class="form-control" id="time" name="time"
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative" style="height: 740px">
                     <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
                         <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 mt-2 text-center text-primary">
@@ -206,7 +206,7 @@
                             </div>
                         @empty
                             <div class="row d-flex justify-content-center">
-                                <div class="col-5">
+                                <div class="col-md-5 col-12">
                                     <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                         <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"
                                             style="color:#012970;">

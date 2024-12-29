@@ -32,6 +32,13 @@ class AppointmentController extends Controller
         $approved = Appointment::where('status', 'Approved')->get();
         return view('Admin.Appointment.approved-appointment', compact('approved'))->with('message', 'Appointment Approved');
     }
+    // Follow Up Appointment
+    public function followup()
+    {
+        $followups = Appointment::where('status', 'Rescheduled')->get();
+        return view('Admin.Appointment.follow-up', compact('followups'))->with('statusFollowUp', 'Appointment Follow Up');
+    }
+
     // Cancelled Appointment
     public function cancelled()
     {

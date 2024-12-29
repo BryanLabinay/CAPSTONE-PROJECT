@@ -95,9 +95,16 @@
                                         @if ($data->status === 'Approved') green
                                         @elseif ($data->status === 'Cancelled')
                                             red
+                                            @elseif ($data->status === 'Rescheduled')
+                                            navy
                                         @else
                                             grey @endif">
-                                        {{ $data->status }}</td>
+                                        @if ($data->status === 'Rescheduled')
+                                            Follow-Up
+                                        @else
+                                            {{ $data->status }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center">
                                             {{-- View --}}

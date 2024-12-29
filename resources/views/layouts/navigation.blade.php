@@ -92,10 +92,13 @@
         <!-- Logo -->
         <a href="{{ url('/dashboard') }}" class="logo d-flex align-items-center text-decoration-none">
             <img src="{{ url('assets/img/mendoza.png') }}" alt="Mendoza Logo" />
-            <span><b class="text-danger">DR</b>. MENDOZA</span>
+            <span class="d-none d-sm-inline">
+                <b class="text-danger">DR</b>. MENDOZA
+            </span>
         </a>
 
-        <button class="mobile-nav-toggle d-lg-none border-0 bg-transparent">
+
+        <button class="mobile-nav-toggle d-md-none border-0 bg-transparent">
             <i class="fa-solid fa-bars fa-lg"></i>
         </button>
         <!-- Main Navigation -->

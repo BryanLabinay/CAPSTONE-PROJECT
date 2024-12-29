@@ -261,8 +261,14 @@
                                     style="color:
                                 @if ($data->status === 'Approved') green
                                 @elseif ($data->status === 'Cancelled') red
+                                @elseif ($data->status === 'Rescheduled') navy
                                 @else gray @endif">
-                                    {{ $data->status }}
+
+                                    @if ($data->status === 'Rescheduled')
+                                        Re-Appointment
+                                    @else
+                                        {{ $data->status }}
+                                    @endif
                                 </td>
                                 {{-- Approval --}}
                                 <td class="py-0">
@@ -271,13 +277,13 @@
                                         <form action="/Appointment-List/approvedStatus/{{ $data->id }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-primary me-2 py-1 my-0"
-                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled') disabled style="opacity: 0.3;" @endif>
+                                                @if ($data->status === 'Approved' || $data->status === 'Cancelled' || $data->status === 'Rescheduled') disabled style="opacity: 0.3;" @endif>
                                                 Approve
                                             </button>
                                         </form>
 
                                         {{-- Reject --}}
-                                        @if ($data->status !== 'Approved' && $data->status !== 'Cancelled')
+                                        @if ($data->status !== 'Approved' && $data->status !== 'Cancelled' && $data->status !== 'Rescheduled')
                                             <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#newModal{{ $data->id }}">
                                                 <button class="btn btn-danger py-1 my-0">

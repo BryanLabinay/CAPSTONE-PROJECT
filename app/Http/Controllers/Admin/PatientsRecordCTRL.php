@@ -15,14 +15,12 @@ class PatientsRecordCTRL extends Controller
 
     public function index()
     {
-        // Fetch all patients ordered by 'fname'
-        $patients = Appointment::orderBy('fname', 'asc')->get();
+        // Fetch only approved patients ordered by 'fname'
+        $patients = Appointment::whereIn('status', ['Approved', 'Rescheduled'])->orderBy('fname', 'asc')->get();
 
-        // Fetch all appointments for patients in one query
-        $allAppointments = Appointment::all();
-
-        return view('Admin.Patients-Record.patients-record', compact('patients', 'allAppointments'));
+        return view('Admin.Patients-Record.patients-record', compact('patients'));
     }
+
 
 
     // Search Function

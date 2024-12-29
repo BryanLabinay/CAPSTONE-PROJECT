@@ -107,7 +107,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 mb-2 d-flex justify-content-center">
                 <div class="bg-secondary p-3 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Add<span
                             class="text-danger"> Contact</span></h5>
@@ -128,13 +128,13 @@
                             <input name="address" type="text" required class="form-control">
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="day_open">Day Open:</label>
                                     <input name="day_open" type="text" required class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="open_hour">Open Hour:</label>
                                     <input name="open_hour" type="text" required class="form-control">
@@ -148,7 +148,7 @@
 
                 </div>
             </div>
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
                     style="height: 480px">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary"><span
@@ -184,7 +184,7 @@
                         </div>
                     @empty
                         <div class="row d-flex justify-content-center">
-                            <div class="col-5">
+                            <div class="col-md-5 col-12">
                                 <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center"><span
                                             class="text-danger">No Contact</span></h5>

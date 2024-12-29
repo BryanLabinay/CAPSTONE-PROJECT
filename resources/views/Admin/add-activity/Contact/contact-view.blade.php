@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 mb-2 d-flex justify-content-center">
                 <div class="bg-secondary p-1 bg-opacity-25 rounded-1" style="width: 650px;">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-end">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-0 rounded-1 text-black">
                     <h5 class="text-center">List</h5>
                 </div>
@@ -116,7 +116,7 @@
                     </div>
                 @empty
                     <div class="row d-flex justify-content-center">
-                        <div class="col-5">
+                        <div class="col-md-5 col-12">
                             <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                 <h5 class="text-center text-black">No Service</h5>
                             </div>

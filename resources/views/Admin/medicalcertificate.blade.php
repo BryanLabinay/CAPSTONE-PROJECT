@@ -65,7 +65,7 @@
                             @csrf
                             <!-- Patient Name Input with Suggestions -->
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group position-relative">
                                         <label for="patient_name">Patient Name:</label>
                                         <input type="text" class="form-control" id="patient_name" name="patient_name"
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="address">Address:</label>
                                         <input type="text" class="form-control" id="address" name="address"
@@ -97,7 +97,7 @@
                                 <h6 class="fw-semibold">PHYSICAL EXAMINATIONS:</h6>
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="heart">Heart:</label>
                                         <input type="text" list="heart-options" class="form-control" id="heart"
@@ -111,7 +111,7 @@
                                         </datalist>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="lung">Lung:</label>
                                         <input type="text" class="form-control" list="lung-options" id="lung"
@@ -125,7 +125,7 @@
                                         </datalist>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="heent">HEENT:</label>
                                         <input type="text" class="form-control" id="heent" name="heent">
@@ -134,20 +134,20 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="abdomen">Abdomen:</label>
                                         <input type="text" class="form-control" id="abdomen" name="abdomen">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="extremeties">Extremeties:</label>
                                         <input type="text" class="form-control" id="extremeties" name="extremeties">
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="intergumentary">Integumentary:</label>
                                         <input type="text" class="form-control" id="intergumentary"
@@ -160,14 +160,14 @@
                                 <h6 class="fw-semibold">VITAL SIGNS:</h6>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <!-- Vital Signs -->
                                     <div class="form-group">
                                         <label for="bp">Blood Pressure (BP):</label>
                                         <input type="text" class="form-control" id="bp" name="bp">
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="cr">Cardiac Rate (CR):</label>
                                         <input type="text" class="form-control" id="cr" name="cr">
@@ -176,14 +176,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="weight">Weight:</label>
                                         <input type="text" class="form-control" id="weight" name="weight">
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="height">Height:</label>
                                         <input type="text" class="form-control" id="height" name="height">
@@ -195,7 +195,7 @@
                                 <h6 class="fw-semibold">ASSESSMENT:</h6>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <!-- Vital Signs -->
                                     <div class="form-group">
                                         <label for="bp">Remark/Diagnosis:</label>
@@ -225,7 +225,7 @@
                                 <h6 class="fw-semibold">DOCTOR INFORMATION:</h6>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <label for="doctorName">Doctor Name:</label>
                                     <select name="doctorName" id="doctor" class="form-control" required>
                                         <option value="" selected disabled>Select a Doctor</option>
@@ -244,12 +244,12 @@
                                     </select>
 
                                     <div class="row mt-2 mb-2">
-                                        <div class="col-6">
+                                        <div class="col-md-6 col-12">
                                             <label for="position">Position:</label>
                                             <input type="text" class="form-control" name="position" id="position"
                                                 required readonly>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-md-6 col-12">
                                             <label for="district">District:</label>
                                             <input type="text" class="form-control" name="district" id="district"
                                                 required readonly>

@@ -400,12 +400,24 @@ return [
                     'url' => '/Appointment-List/Approved',
                 ],
                 [
+                    'text' => 'Follow Up',
+                    'icon_color' => 'blue',
+                    'icon' => 'fa-solid fa-repeat',
+                    'url' => '/Appointment-List/Follow-Up',
+                ],
+                [
                     'text' => 'Rejected',
                     'icon_color' => 'red',
                     'icon' => 'fas fa-fw fa-times',
                     'url' => '/Appointment-List/Cancelled',
                 ],
             ],
+        ],
+        [
+            'text' => 'Set Appointment',
+            'url' => 'Set-Appointment/Set/Appointment',
+            'icon' => 'fa-duotone fa-solid fa-calendar-plus',
+            'icon_color' => 'success'
         ],
         [
             'text' => 'Patients Record',

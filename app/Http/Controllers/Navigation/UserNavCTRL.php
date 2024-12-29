@@ -55,7 +55,7 @@ class UserNavCTRL extends Controller
     {
         $appointments = Auth::user()->appointments()
             ->select('appointment', 'date', 'message')
-            ->where('status', 'Approved') // Filter only approved appointments
+            ->whereIn('status', ['Approved', 'Rescheduled']) // Filter only approved and rescheduled appointments
             ->get();
 
         $events = Event::all();

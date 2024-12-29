@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="row p-2 font-web">
-                <div class="col-7 bg-primary-subtle rounded-2">
+                <div class="col-md-7 col-12 mb-2 bg-primary-subtle rounded-2">
                     <div class="p-3">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Appointment
@@ -50,14 +50,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="firstName" class="fw-semibold mb-1">First Name</label>
                                         <input type="text" class="form-control py-2" name="fname" id="firstName"
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="middleName" class="fw-semibold mb-1">Middle Name</label>
                                         <input type="text" class="form-control py-2" name="mname" id="middleName">
@@ -65,14 +65,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="lastName" class="fw-semibold mb-1">Last Name</label>
                                         <input type="text" class="form-control py-2" name="lname" id="lastName"
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="suffix" class="fw-semibold mb-1">Suffix <small>(e.g., Jr., Sr.,
                                                 III)</small></label>
@@ -90,7 +90,7 @@
                                 <input type="text" class="form-control py-2" name="address" id="address" required>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="phone" class="fw-semibold mb-1">Phone Number</label>
                                         <input type="tel"
@@ -103,7 +103,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group mb-2">
                                         <label for="date" class="fw-semibold mb-1">Preferred Date</label>
                                         <input type="date" class="form-control py-2" name="date" id="date"
@@ -138,7 +138,7 @@
 
                     </div>
                 </div>
-                <div class="col-5 bg-primary-subtle rounded-2">
+                <div class="col-md-5 col-12 bg-primary-subtle rounded-2">
                     <div class="text-center mt-3">
                         <h4 class="mb-3 fw-bold bg-white px-5 py-2 rounded-5 text-center" style="color:#012970;">
                             Consultation

@@ -2,10 +2,10 @@
 
 use App\Mail\ClinicMail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\LandingPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminCTRL;
-use App\Http\Controllers\SampleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\User\AppointmentCTRL;
@@ -20,10 +20,10 @@ use App\Http\Controllers\Navigation\UserNavCTRL;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\PatientsRecordCTRL;
+use App\Http\Controllers\Admin\SetAppointmentCTRL;
 use App\Http\Controllers\Admin\AppointmentController;
-use App\Http\Controllers\Admin\ExportAppointmentController;
 use App\Http\Controllers\Admin\NotificationsController;
-use App\Http\Controllers\LandingPage;
+use App\Http\Controllers\Admin\ExportAppointmentController;
 
 Route::get('/', [LandingPage::class, 'index']);
 // Route::get('/', function () {
@@ -119,6 +119,7 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
     Route::get('/All', [AppointmentController::class, 'appointmentlist'])->name('all-appointment');
     Route::get('/Pending', [AppointmentController::class, 'pending'])->name('pending.appointment');
     Route::get('/Approved', [AppointmentController::class, 'approved'])->name('approved.appointment');
+    Route::get('/Follow-Up', [AppointmentController::class, 'followUp'])->name('followUp.appointment');
     Route::get('/Cancelled', [AppointmentController::class, 'cancelled'])->name('cancelled.appointment');
     Route::delete('/delete-appointment/{appointment_id}', [AppointmentController::class, 'destroy'])->name('appointment.delete');
 
@@ -212,6 +213,14 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::put('/Update/{id}/Consultation', [ConsultationCTRL::class, 'update'])->name('update.consultation');
     Route::delete('/Delete/{id}/Consultation', [ConsultationCTRL::class, 'destroy'])->name('delete.consultation');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('Set-Appointment')->group(function () {
+    Route::get('Set/Appointment', [SetAppointmentCTRL::class, 'index'])->name('index');
+    // Use a more descriptive URL for rescheduling the appointment
+    Route::post('reschedule/{id}', [SetAppointmentCTRL::class, 'store'])->name('appointments.reschedule');
+});
+
+
 
 
 // Export Excel

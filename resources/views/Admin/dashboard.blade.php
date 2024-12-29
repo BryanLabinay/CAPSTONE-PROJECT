@@ -21,16 +21,6 @@
         body {
             font-family: "Nunito", sans-serif;
         }
-
-        /* .body-img {
-                                                                                                            position: absolute;
-                                                                                                            top: 50%;
-                                                                                                            left: 50%;
-                                                                                                            transform: translate(-50%, -50%);
-                                                                                                            max-width: 80%;
-                                                                                                            max-height: 90%;
-                                                                                                            opacity: 0.2;
-                                                                                                        } */
     </style>
 @stop
 
@@ -45,7 +35,7 @@
         {{--  <img src="{{ url('Image/logo/mendoza.png') }}" class="body-img ">  --}}
 
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-md-3 col-12">
                 <!-- small box -->
                 <a href="{{ route('all-appointment') }}" class="text-decoration-none">
                     <div class="small-box" style="background-color:#343984; height:110px;"> <!-- Adjust height as needed -->
@@ -58,7 +48,7 @@
             </div>
 
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-md-3 col-12">
                 <!-- small box -->
                 <a href="{{ route('pending.appointment') }}" class="text-decoration-none">
                     <div class="small-box bg-secondary" style="height: 110px;">
@@ -71,7 +61,7 @@
                 </a>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-md-3 col-12">
                 <!-- small box -->
                 <a href="{{ route('approved.appointment') }}" class="text-decoration-none">
                     <div class="small-box bg-success" style="height: 110px;">
@@ -83,7 +73,7 @@
                 </a>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-md-3 col-12">
                 <!-- small box -->
                 <a href="{{ route('cancelled.appointment') }}" class="text-decoration-none">
                     <div class="small-box bg-danger" style="height: 110px">
@@ -100,7 +90,7 @@
 
             {{--  chart  --}}
             <div class="row mt-4">
-                <div class="col-6 d-flex">
+                <div class="col-12 col-lg-6 d-flex">
                     <div class="card w-100 d-flex">
                         <div class="card-body d-flex flex-column">
                             <h6 class="text-center">Appointments for <span id="currentYear">{{ $year }}</span></h6>
@@ -112,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 d-flex">
+                <div class="col-12 col-lg-6 d-flex">
                     <div class="card w-100 d-flex">
                         <div class="card-body d-flex flex-column">
                             <!-- First Bar Chart: Appointments by Type -->

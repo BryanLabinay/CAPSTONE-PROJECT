@@ -87,7 +87,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 mb-2 d-flex justify-content-center">
                 <div class="bg-secondary p-2 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Service
                         <span class="text-danger">List</span>
@@ -97,13 +97,13 @@
                         {{-- <h5 class="fw-semibold text-dark">Form</h5> --}}
                         <hr class="mt-0 text-black">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">First Name:</label>
                                     <input name="fname" type="text" required class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Middle Name:</label>
                                     <input name="mname" type="text" class="form-control">
@@ -111,13 +111,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Last Name:</label>
                                     <input name="lname" type="text" required class="form-control">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">Suffix:</label>
                                     <input name="suffix" type="text" class="form-control">
@@ -125,13 +125,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="position">Position:</label>
                                     <input type="text" class="form-control" name="position" id="position" required>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="">District:</label>
                                     <input name="district" type="text" id="district" required class="form-control">
@@ -148,7 +148,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-2 rounded-1 position-relative d-flex flex-column"
                     style="height: 460px">
                     <div class="p-0 rounded-1 text-black">

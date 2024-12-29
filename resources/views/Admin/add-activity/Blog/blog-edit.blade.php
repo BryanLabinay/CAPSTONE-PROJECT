@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-7 d-flex justify-content-center">
+            <div class="col-md-7 col-12 mb-2 d-flex justify-content-center">
                 <div class="bg-secondary p-3 text-black px-3 rounded-1 bg-opacity-25" style="width: 650px;">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">Edit<span
                             class="text-danger"> Blog</span></h5>
@@ -115,11 +115,11 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-md-8 col-12">
                                     <label for="">Image</label>
                                     <input type="file" class="form-control" id="img" name="img">
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4 col-12">
                                     @if ($blog->img)
                                         <img src="{{ asset('uploads/blogs/' . $blog->img) }}" height="100"
                                             class="rounded-1">
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <div class="col-5 p-0">
+            <div class="col-md-5 col-12 p-0">
                 <div class="bg-secondary bg-opacity-25 p-3 rounded-1 position-relative d-flex flex-column"
                     style="height: 460px">
                     <h5 class="mb-3 fw-bold bg-white px-1 py-1 rounded-1 text-center text-primary">
@@ -173,7 +173,7 @@
                         </div>
                     @empty
                         <div class="row d-flex justify-content-center">
-                            <div class="col-5">
+                            <div class="col-md-5 col-12">
                                 <div class="bg-secondary bg-opacity-25 rounded-1 shadow-sm">
                                     <h5 class="text-center text-black">No Blog</h5>
                                 </div>

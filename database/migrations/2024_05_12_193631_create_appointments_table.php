@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('date');
             $table->string('appointment');
             $table->string('message')->nullable();
-            $table->enum('status', ['Pending', 'Approved', 'Cancelled'])->default('Pending');
+            $table->enum('status', ['Pending', 'Approved', 'Cancelled', 'Rescheduled'])->default('Pending');
             $table->string('reason')->nullable();
             $table->timestamps();
 
