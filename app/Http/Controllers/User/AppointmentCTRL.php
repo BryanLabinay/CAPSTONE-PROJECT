@@ -68,41 +68,50 @@ class AppointmentCTRL extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'fname' => 'required|string|max:255',
-            'mname' => 'nullable|string|max:255',  // Made mname optional
-            'lname' => 'required|string|max:255',
-            'suffix' => 'nullable|string|max:255',  // Made suffix optional
-            'email' => 'required|email|max:255',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|min:10|max:15',  // Adjust based on your requirements
-            'date' => 'required|date',
-            'appointment' => 'required|string',
-            'message' => 'nullable|string'
-        ]);
-        // dd($request);
-        Appointment::create([
-            'user_id' => Auth::user()->id,
-            'fname' => $request->input('fname'),
-            'mname' => $request->input('mname') ?: null,  // Store null if empty
-            'lname' => $request->input('lname'),
-            'suffix' => $request->input('suffix') ?: null,  // Store null if empty
-            'email' => $request->input('email'),
-            'address' => $request->input('address'),
-            'phone' => $request->input('phone'),
-            'date' => $request->input('date'),
-            'appointment' => $request->input('appointment'),
-            'message' => $request->input('message') ?: null,  // Store null if empty
-        ]);
+{
+    $request->validate([
+        'fname' => 'required|string|max:255',
+        'mname' => 'nullable|string|max:255',  // Optional
+        'lname' => 'required|string|max:255',
+        'suffix' => 'nullable|string|max:255',  // Optional
+        'email' => 'required|email|max:255',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|min:10|max:15',
+        'date' => 'required|date',
+        'appointment' => 'required|string',
+        'message' => 'nullable|string'
+    ]);
 
-        $admins = User::where('usertype', 'admin')->get(); // Adjust 'role' field as per your database structure
-        Notification::send($admins, new UserNotification('You have an new appointment request.'));
+    // Check if the number of appointments for the selected date with status 'pending' or 'reschedule' has reached the limit
+    $appointmentCount = Appointment::where('date', $request->input('date'))
+        ->whereIn('status', ['approved', 'rescheduled']) // Include 'pending' and 'reschedule'
+        ->count();
 
-
-        return redirect()->back()->with('status', 'Your Appointment has been added.');
+    if ($appointmentCount >= 3) {
+        return redirect()->back()->withErrors(['date' => 'The selected date is fully booked. Please choose another date.']);
     }
 
+    // Create the appointment
+    Appointment::create([
+        'user_id' => Auth::user()->id,
+        'fname' => $request->input('fname'),
+        'mname' => $request->input('mname') ?: null,  // Store null if empty
+        'lname' => $request->input('lname'),
+        'suffix' => $request->input('suffix') ?: null,  // Store null if empty
+        'email' => $request->input('email'),
+        'address' => $request->input('address'),
+        'phone' => $request->input('phone'),
+        'date' => $request->input('date'),
+        'appointment' => $request->input('appointment'),
+        'message' => $request->input('message') ?: null,  // Store null if empty
+    ]);
+
+    // Notify admins
+    $admins = User::where('usertype', 'admin')->get();
+    Notification::send($admins, new UserNotification('You have a new appointment request.'));
+
+    return redirect()->back()->with('status', 'Your appointment has been added.');
+}
 
 
     public function edit($appointment_id)
