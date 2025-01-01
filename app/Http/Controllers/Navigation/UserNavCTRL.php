@@ -47,21 +47,46 @@ class UserNavCTRL extends Controller
     {
         $service = Service::all();
         $consultation = Consultation::all();
-        return view('User.appointment', compact('service', 'consultation'));
+
+        // Fetch dates with 3 or more appointments that are either 'approved' or 'rescheduled'
+        $fullyBookedDates = Appointment::select('date')
+        ->whereIn('status', ['approved', 'rescheduled'])  // Correct status filter
+        ->groupBy('date')
+        ->havingRaw('COUNT(*) >= 3')  // Limit to dates with 3 or more appointments
+        ->pluck('date')
+        ->toArray();
+
+        return view('User.appointment', compact('service', 'consultation', 'fullyBookedDates'));
     }
+
+
+
 
     // Calendar
     public function calendar()
-    {
-        $appointments = Auth::user()->appointments()
-            ->select('appointment', 'date', 'message')
-            ->whereIn('status', ['Approved', 'Rescheduled']) // Filter only approved and rescheduled appointments
-            ->get();
+{
+    // Get appointments filtered by status (Approved and Rescheduled)
+    $appointments = Auth::user()->appointments()
+        ->select('appointment', 'date', 'message')
+        ->whereIn('status', ['Approved', 'Rescheduled'])
+        ->get();
 
-        $events = Event::all();
+    // Get all events
+    $events = Event::all();
 
-        return view('User.calendar', compact('appointments', 'events'));
-    }
+    // Get fully booked dates (those with 3 or more appointments)
+    $fullyBookedDates = Auth::user()->appointments()
+        ->select('date')
+        ->whereIn('status', ['Approved', 'Rescheduled']) // Only include approved or rescheduled appointments
+        ->groupBy('date') // Group by date
+        ->havingRaw('COUNT(*) >= 3') // Limit to dates with 3 or more appointments
+        ->pluck('date') // Extract dates as an array
+        ->toArray();
+
+    // Pass appointments, events, and fullyBookedDates to the view
+    return view('User.calendar', compact('appointments', 'events', 'fullyBookedDates'));
+}
+
 
     // News & Updates
     public function events()

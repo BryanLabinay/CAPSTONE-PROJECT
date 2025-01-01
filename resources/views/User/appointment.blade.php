@@ -3,28 +3,52 @@
         <div class="container">
             <header class="section-header">
             </header>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
             <div class="d-flex justify-content-end">
                 @if (session('status'))
-                    <script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            iconColor: 'white',
-                            customClass: {
-                                popup: 'colored-toast',
-                            },
-                            showConfirmButton: false,
-                            timer: 2500,
-                            timerPr0ogressBar: true,
+                <script>
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        iconColor: 'white',
+                        customClass: {
+                            popup: 'colored-toast',
+                        },
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                    });
+                    (async () => {
+                        await Toast.fire({
+                            icon: 'success',
+                            title: 'Appointment Requested'
                         });
-                        (async () => {
-                            await Toast.fire({
-                                icon: 'success',
-                                title: 'Appointment Requested'
-                            })
-                        })()
-                    </script>
-                @endif
+                    })();
+                </script>
+            @endif
+
+            @if (session('error'))
+                <script>
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        iconColor: 'white',
+                        customClass: {
+                            popup: 'colored-toast',
+                        },
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                    });
+                    (async () => {
+                        await Toast.fire({
+                            icon: 'error',
+                            title: '{{ session('error') }}'
+                        });
+                    })();
+                </script>
+            @endif
+
             </div>
             <div class="row p-2 font-web">
                 <div class="col-md-7 col-12 mb-2 bg-primary-subtle rounded-2">
@@ -103,13 +127,22 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group mb-2">
-                                        <label for="date" class="fw-semibold mb-1">Preferred Date</label>
-                                        <input type="date" class="form-control py-2" name="date" id="date"
-                                            required>
-                                    </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="date" class="fw-semibold mb-1">Preferred Date</label>
+                                    <input
+                                        type="date"
+                                        class="form-control py-2"
+                                        name="date"
+                                        id="date"
+                                        placeholder="Select a date"
+                                        data-fully-booked-dates="{{ json_encode($fullyBookedDates) }}"
+                                        required
+                                    >
+                                    <small id="date-error" class="form-text text-danger" style="display: none;">This date is fully booked. Please select another date.</small>
                                 </div>
+
+
                             </div>
                             <div class="form-group mb-2">
                                 <label for="dropdown" class="fw-semibold mb-1">Choose an option:</label>
@@ -161,6 +194,70 @@
 
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+            <div class="form-group mb-2">
+                <label for="date" class="fw-semibold mb-1">Preferred Date</label>
+                <input
+                    type="date"
+                    class="form-control py-2"
+                    name="date"
+                    id="date"
+                    placeholder="Select a date"
+                    data-fully-booked-dates="{{ json_encode($fullyBookedDates) }}"
+                    required
+                >
+                <small id="date-error" class="form-text text-danger" style="display: none;">This date is fully booked. Please select another date.</small>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const dateInput = document.getElementById('date');
+                    const fullyBookedDates = JSON.parse(dateInput.dataset.fullyBookedDates);
+                    const errorText = document.getElementById('date-error');
+
+                    // Initialize Flatpickr
+                    flatpickr(dateInput, {
+                        minDate: "today", // Disable dates before today
+                        disable: [
+                            function(date) {
+                                return fullyBookedDates.includes(formatDate(date)); // Disable fully booked dates
+                            }
+                        ],
+
+                        onDayCreate: function(dObj, dStr, fp, dayElem) {
+                            const date = formatDate(dayElem.dateObj);
+                            if (fullyBookedDates.includes(date)) {
+                                dayElem.style.backgroundColor = '#dc3545'; // Red background for fully booked dates
+                                dayElem.style.color = '#fff'; // White text for visibility
+                                dayElem.title = "Fully booked"; // Tooltip text for fully booked dates
+                            }
+                        },
+
+                        onChange: function(selectedDates) {
+                            const selectedDate = formatDate(selectedDates[0]);
+                            if (fullyBookedDates.includes(selectedDate)) {
+                                errorText.style.display = 'block';
+                                dateInput.style.borderColor = '#dc3545'; // Red border for fully booked date
+                            } else {
+                                errorText.style.display = 'none';
+                                dateInput.style.borderColor = ''; // Reset the border color
+                            }
+                        }
+                    });
+
+                    // Helper function to format the date as yyyy-mm-dd
+                    function formatDate(dateObj) {
+                        const year = dateObj.getFullYear();
+                        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const day = String(dateObj.getDate()).padStart(2, '0');
+                        return `${year}-${month}-${day}`;
+                    }
+                });
+            </script>
+
+
+
             <script>
                 function fillDetails(option) {
                     if (option === 'me') {

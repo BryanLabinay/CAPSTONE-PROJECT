@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
@@ -18,9 +17,9 @@
             font-size: 14px;
         }
 
+        /* Pastel color for booked appointments */
         .fc-event.fc-event-month {
             background-color: #ff9f89 !important;
-            /* Pastel color for booked appointments */
         }
 
         /* Hover effect on events */
@@ -33,6 +32,24 @@
         .fc-day-number {
             padding: 5px;
             font-size: 16px;
+        }
+
+        /* Message for fully booked dates */
+        .fc-day.fc-booked {
+            background-color: #f4cccc; /* Light red background for fully booked dates */
+            color: white;
+            position: relative;
+        }
+
+        .fc-day.fc-booked:after {
+            content: "Full";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff5c5c;
         }
     </style>
 
@@ -77,6 +94,12 @@
                     if (date.format('YYYY-MM-DD') === today) {
                         cell.css('background-color', '#FFF574'); // Highlight current day
                     }
+
+                    // Check if the date is fully booked (add class for fully booked days)
+                    const bookedDates = @json($fullyBookedDates); // Get fully booked dates from PHP
+                    if (bookedDates.includes(date.format('YYYY-MM-DD'))) {
+                        cell.addClass('fc-booked'); // Add class for fully booked dates
+                    }
                 },
                 eventRender: function(event, element) {
                     // Add tooltip for event
@@ -89,20 +112,9 @@
                     // Make the event clickable
                     if (event.url) {
                         element.attr('href', event.url);
-                        // element.attr('target'); // Open in a new tab (optional)
                     }
                 },
             });
         });
     </script>
-
-
-
-
-
-
-
-
-
-
 </x-app-layout>
