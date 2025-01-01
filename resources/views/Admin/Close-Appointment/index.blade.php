@@ -98,6 +98,17 @@
                                 <td>Jan 1</td>
                                 <td></td>
                             </tr>
+                            <tr class="text-center">
+                                <td>1</td>
+                                <td>Bryan</td>
+                                <td>bry@gmail.com</td>
+                                <td>Approved</td>
+                                <td>Jan 1</td>
+                                <td></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td colspan="6">Bryan</td> <!-- Spans across all 6 columns -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
