@@ -420,6 +420,12 @@ return [
             'icon_color' => 'success'
         ],
         [
+            'text' => 'Close Appointment',
+            'url' => 'Close-Appointment/Close/Appointment',
+            'icon' => 'fa-solid fa-square-xmark',
+            'icon_color' => 'danger'
+        ],
+        [
             'text' => 'Patients Record',
             'url' => '/Patients-Record/List',
             'icon' => 'fa-solid fa-user-group',
