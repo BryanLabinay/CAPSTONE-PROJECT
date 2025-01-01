@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\MedicalCertCTRL;
 use App\Http\Controllers\User\NotificationCTRL;
 use App\Http\Controllers\Admin\AdminProfileCTRL;
+use App\Http\Controllers\Admin\CloseAppointment;
 use App\Http\Controllers\Admin\ConsultationCTRL;
 use App\Http\Controllers\Navigation\UserNavCTRL;
 use App\Http\Controllers\NotificationController;
@@ -213,6 +214,11 @@ Route::middleware(['auth', 'admin'])->prefix('Add-Activity')->group(function () 
     Route::put('/Update/{id}/Consultation', [ConsultationCTRL::class, 'update'])->name('update.consultation');
     Route::delete('/Delete/{id}/Consultation', [ConsultationCTRL::class, 'destroy'])->name('delete.consultation');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('Close-Appointment')->group(function () {
+    Route::get('Close/Appointment', [CloseAppointment::class, 'index'])->name('index');
+});
+
 
 Route::middleware(['auth', 'admin'])->prefix('Set-Appointment')->group(function () {
     Route::get('Set/Appointment', [SetAppointmentCTRL::class, 'index'])->name('index');
