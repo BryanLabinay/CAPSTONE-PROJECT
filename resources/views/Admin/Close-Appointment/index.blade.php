@@ -8,7 +8,7 @@
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="{{ url('Css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ url('Css/all.min.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     {{-- Add here extra stylesheets --}}
     <link rel="stylesheet" href="{{ url('vendor/adminlte/dist/css/custom-admin.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -90,26 +90,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center">
-                                <td>1</td>
-                                <td>Bryan</td>
-                                <td>bry@gmail.com</td>
-                                <td>Approved</td>
-                                <td>Jan 1</td>
-                                <td></td>
-                            </tr>
-                            <tr class="text-center">
-                                <td>1</td>
-                                <td>Bryan</td>
-                                <td>bry@gmail.com</td>
-                                <td>Approved</td>
-                                <td>Jan 1</td>
-                                <td></td>
-                            </tr>
-                            <tr class="text-center">
-                                <td colspan="6">Bryan</td> <!-- Spans across all 6 columns -->
-                            </tr>
-                        </tbody>
+                            @php
+                            $orderedClose = $close->sortBy(function($data) {
+                                return $data->status === 'Approved' ? 0 : 1;
+                            });
+                        @endphp
+
+@foreach ($orderedClose as $data)
+<tr class="text-center">
+    <td>{{ $data->id }}</td>
+    <td>{{ $data->fname }}</td>
+    <td>{{ $data->email }}</td>
+    <td>{{ $data->status }}</td>
+    <td>{{ $data->date }}</td>
+    <td>
+        @if ($data->status !== 'Closed')
+            <form action="{{ route('appointments.close', $data->id) }}" method="POST" class="close-form" data-id="{{ $data->id }}">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm close-btn">Close</button>
+            </form>
+        @else
+            <span class="badge bg-secondary">Closed</span>
+        @endif
+    </td>
+</tr>
+@endforeach
+
+                            <!-- Form for submitting the request -->
+                            <form id="close-form" action="" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
+                    </tbody>
+
                     </table>
                 </div>
             </div>
@@ -123,6 +136,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         new DataTable('#myTable', {
             layout: {
@@ -157,6 +172,38 @@
             }
         });
     </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all Close buttons
+        const closeButtons = document.querySelectorAll('.close-btn');
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent form submission
+
+                // Get the form to submit
+                const form = this.closest('form');
+
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, close it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Submit the form if confirmed
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

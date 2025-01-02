@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\ExportAppointmentController;
 
+
 Route::get('/', [LandingPage::class, 'index']);
 // Route::get('/', function () {
 //     return view('welcome');
@@ -122,6 +123,7 @@ Route::middleware(['auth', 'admin'])->prefix('Appointment-List')->group(function
     Route::get('/Approved', [AppointmentController::class, 'approved'])->name('approved.appointment');
     Route::get('/Follow-Up', [AppointmentController::class, 'followUp'])->name('followUp.appointment');
     Route::get('/Cancelled', [AppointmentController::class, 'cancelled'])->name('cancelled.appointment');
+    Route::post('/appointments/{id}/close', [CloseAppointment::class, 'closeAppointment'])->name('appointments.close');
     Route::delete('/delete-appointment/{appointment_id}', [AppointmentController::class, 'destroy'])->name('appointment.delete');
 
     Route::post('/approvedStatus/{id}', [AppointmentCTRL::class, 'approvedStatus']);
@@ -142,6 +144,8 @@ Route::middleware(['auth', 'admin'])->prefix('Patients-Record')->group(function 
     Route::get('/patients/search', [PatientsRecordCTRL::class, 'searchByName'])->name('patients.search');
     Route::post('/patient/email', [EmailController::class, 'send_email'])->name('patient-email');
 });
+
+
 
 Route::post('/notifications/{id}/read', [NotificationsController::class, 'markAsRead'])->name('notif');
 

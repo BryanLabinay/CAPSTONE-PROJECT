@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 class CloseAppointment extends Controller
@@ -12,12 +13,30 @@ class CloseAppointment extends Controller
      */
     public function index()
     {
-        return view('Admin.Close-Appointment.index');
-    }
+        $close = Appointment::whereIn('status', ['Approved', 'Rescheduled'])
+    ->orderByRaw("FIELD(status, 'Approved', 'Rescheduled')")
+    ->get();
 
+        return view('Admin.Close-Appointment.index', compact('close'));
+    }
     /**
      * Show the form for creating a new resource.
      */
+
+     public function closeAppointment($id)
+     {
+         // Find the appointment by its ID
+         $appointment = Appointment::findOrFail($id);
+
+         // Update the status to 'Closed'
+         $appointment->status = 'Closed';
+         $appointment->save();
+
+         // Redirect back with a success message
+         return redirect()->back()->with('success', 'Appointment status updated to Closed.');
+     }
+
+
     public function create()
     {
         //
