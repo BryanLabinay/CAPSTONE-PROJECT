@@ -30,14 +30,24 @@ class AdminCTRL extends Controller
             $currentYear++;
         }
 
-        // Get the selected date, or use the current date
-        $selectedDate = $request->input('date', date('Y-m-d'));
-        $formattedDate = Carbon::parse($selectedDate)->format('F j, Y');
+        // Set the selected date to the current date or keep it based on the filter
+        $selectedDate = $request->input('selectedDate', date('Y-m-d'));
 
-        // Get all appointments
-        $appointments = DB::table('appointments')->get();
+        // Other filters (status and appointment type)
+        $status = $request->input('status', '');
+        $appointmentType = $request->input('appointment', '');
 
-        // Filter appointments for the selected month
+        // Fetch appointments and apply filters
+        $appointments = DB::table('appointments')
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->when($appointmentType, function ($query, $appointmentType) {
+                return $query->where('appointment', $appointmentType);
+            })
+            ->get();
+
+        // Group and count appointments by day
         $appointmentCounts = $appointments->filter(function ($item) use ($currentYear, $currentMonth) {
             return (new \DateTime($item->date))->format('Y-m') === "$currentYear-" . str_pad($currentMonth + 1, 2, '0', STR_PAD_LEFT);
         })->groupBy(function ($item) {
@@ -49,13 +59,13 @@ class AdminCTRL extends Controller
         return view('Admin.calendar', [
             'currentMonth' => $currentMonth,
             'currentYear' => $currentYear,
+            'status' => $status,
+            'appointmentType' => $appointmentType,
             'selectedDate' => $selectedDate,
-            'formattedDate' => $formattedDate,
             'appointmentCounts' => $appointmentCounts,
-            'appointments' => $appointments
+            'appointments' => $appointments,
         ]);
     }
-
 
 
     // Add event

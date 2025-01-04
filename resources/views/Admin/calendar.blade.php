@@ -110,19 +110,59 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-center align-items-center">
-                        <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                            <input type="hidden" name="month" value="{{ $currentMonth }}">
+                        <div class="card-header d-flex justify-content-center align-items-center">
+                            <form method="GET" action="{{ route('calendar') }}" class="d-flex">
+                                <input type="hidden" name="month" value="{{ $currentMonth }}">
+                                <input type="hidden" name="year" value="{{ $currentYear }}">
+                                <input type="hidden" name="status" value="{{ $status }}">
+                                <input type="hidden" name="appointment" value="{{ $appointmentType }}">
+                                <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                            </form>
+                            <span
+                                id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
+                            <form method="GET" action="{{ route('calendar') }}" class="d-flex">
+                                <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
+                                <input type="hidden" name="year" value="{{ $currentYear }}">
+                                <input type="hidden" name="status" value="{{ $status }}">
+                                <input type="hidden" name="appointment" value="{{ $appointmentType }}">
+                                <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+                        <form method="GET" action="{{ route('calendar') }}" class="d-flex mb-3">
+                            <input type="hidden" name="month" value="{{ $currentMonth + 1 }}">
                             <input type="hidden" name="year" value="{{ $currentYear }}">
-                            <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth"><i
-                                    class="fa-solid fa-chevron-left"></i></button>
+                            <div class="me-2">
+                                <select name="status" class="form-select">
+                                    <option value="" {{ $status == '' ? 'selected' : '' }}>All Statuses</option>
+                                    <option value="Pending" {{ $status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="Confirmed" {{ $status == 'Confirmed' ? 'selected' : '' }}>Confirmed
+                                    </option>
+                                    <option value="Completed" {{ $status == 'Completed' ? 'selected' : '' }}>Completed
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="me-2">
+                                <select name="appointment" class="form-select">
+                                    <option value="" {{ $appointmentType == '' ? 'selected' : '' }}>All Appointment
+                                        Types</option>
+                                    <option value="Check-Up" {{ $appointmentType == 'Check-Up' ? 'selected' : '' }}>
+                                        Check-Up</option>
+                                    <option value="Ultrasound" {{ $appointmentType == 'Ultrasound' ? 'selected' : '' }}>
+                                        Ultrasound</option>
+                                    <option value="Xray" {{ $appointmentType == 'Xray' ? 'selected' : '' }}>Xray</option>
+                                    <!-- Add more types as needed -->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filter</button>
                         </form>
-                        <span id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
-                        <form method="GET" action="{{ route('calendar') }}" class="d-flex">
-                            <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
-                            <input type="hidden" name="year" value="{{ $currentYear }}">
-                            <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth"><i
-                                    class="fa-solid fa-chevron-right"></i></button>
-                        </form>
+
+
                     </div>
 
                     <div class="card-body">
@@ -214,13 +254,12 @@
                                 <tr>
                                     <td class="fw-bold text-start">{{ $appointment->fname }}
                                         @if (!empty($appointment->mname))
-                                            {{ substr($appointment->mname, 0, 1) }}. {{-- Display the first letter of the middle name with a dot --}}
+                                            {{ substr($appointment->mname, 0, 1) }}.
                                         @endif
                                         {{ $appointment->lname }}
                                         @if (!empty($appointment->suffix))
                                             {{ $appointment->suffix }}
                                         @endif
-
                                     </td>
                                     <td>{{ $appointment->address }}</td>
                                     <td>{{ $appointment->appointment }}</td>
@@ -229,6 +268,7 @@
                             @endif
                         @endforeach
                     </tbody>
+
                 </table>
             </div>
             <div class="modal-footer">
@@ -268,7 +308,7 @@
                     if (appointment.date === date) {
                         appointmentsHTML += `
                             <tr>
-                                <td>${appointment.name}</td>
+                                <td>${appointment.fname} ${appointment.mname} ${appointment.lname}</td>
                                 <td>${appointment.address}</td>
                                 <td>${appointment.appointment}</td>
                                 <td>${appointment.status}</td>
