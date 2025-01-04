@@ -78,8 +78,8 @@
                 <div class="table-responsive">
                     <table class="table table-striped mb-0 table-bordered" id="myTable">
                         <thead class="table-danger">
-                            <tr class="text-center">
-                                <th scope="col">No.</th>
+                            <tr class="">
+                                <th scope="col" class="text-center">No.</th>
                                 <th scope="col">Name</th>
                                 <th scope="col" class="d-none d-sm-table-cell">Email</th>
                                 <!-- Hidden on small screens -->
@@ -91,37 +91,52 @@
                         </thead>
                         <tbody>
                             @php
-                            $orderedClose = $close->sortBy(function($data) {
-                                return $data->status === 'Approved' ? 0 : 1;
-                            });
-                        @endphp
+                                $orderedClose = $close->sortBy(function ($data) {
+                                    return $data->status === 'Approved' ? 0 : 1;
+                                });
+                            @endphp
 
-@foreach ($orderedClose as $data)
-<tr class="text-center">
-    <td>{{ $data->id }}</td>
-    <td>{{ $data->fname }}</td>
-    <td>{{ $data->email }}</td>
-    <td>{{ $data->status }}</td>
-    <td>{{ $data->date }}</td>
-    <td>
-        @if ($data->status !== 'Closed')
-            <form action="{{ route('appointments.close', $data->id) }}" method="POST" class="close-form" data-id="{{ $data->id }}">
-                @csrf
-                <button type="submit" class="btn btn-danger btn-sm close-btn">Close</button>
-            </form>
-        @else
-            <span class="badge bg-secondary">Closed</span>
-        @endif
-    </td>
-</tr>
-@endforeach
+                            @php $counter = 1; @endphp
+
+                            @foreach ($orderedClose as $data)
+                                <tr class="">
+                                    <td class="text-center">{{ $counter++ }}</td>
+                                    <td class="fw-bold">{{ $data->fname }} {{ $data->mname }} {{ $data->lname }}
+                                        {{ $data->suffix }}</td>
+                                    <td>{{ $data->email }}</td>
+                                    <td class="fw-bold text-center"
+                                        style="color:
+                            @if ($data->status === 'Approved') green
+                            @elseif ($data->status === 'Rescheduled') navy
+                            @else gray @endif">
+                                        @if ($data->status == 'Rescheduled')
+                                            Follow-Up
+                                        @else
+                                            {{ $data->status }}
+                                        @endif
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($data->date)->format('F j, Y') }}</td>
+                                    <td class="text-center p-0">
+                                        @if ($data->status !== 'Closed')
+                                            <form action="{{ route('appointments.close', $data->id) }}" method="POST"
+                                                class="close-form" data-id="{{ $data->id }}">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="btn btn-danger btn-sm close-btn mt-1">Close</button>
+                                            </form>
+                                        @else
+                                            <span class="badge bg-secondary">Closed</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
 
                             <!-- Form for submitting the request -->
                             <form id="close-form" action="" method="POST" style="display: none;">
                                 @csrf
                             </form>
 
-                    </tbody>
+                        </tbody>
 
                     </table>
                 </div>
@@ -172,37 +187,37 @@
             }
         });
     </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get all Close buttons
-        const closeButtons = document.querySelectorAll('.close-btn');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all Close buttons
+            const closeButtons = document.querySelectorAll('.close-btn');
 
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault(); // Prevent form submission
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent form submission
 
-                // Get the form to submit
-                const form = this.closest('form');
+                    // Get the form to submit
+                    const form = this.closest('form');
 
-                // SweetAlert confirmation
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, close it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Submit the form if confirmed
-                        form.submit();
-                    }
+                    // SweetAlert confirmation
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, close it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Submit the form if confirmed
+                            form.submit();
+                        }
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
