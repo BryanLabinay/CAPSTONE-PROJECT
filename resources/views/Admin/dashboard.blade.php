@@ -78,9 +78,9 @@
                 <a href="{{ route('cancelled.appointment') }}" class="text-decoration-none">
                     <div class="small-box bg-danger" style="height: 110px">
                         <div class="inner p-2">
-                            <h3>{{ $countrejected }}</h3>
+                            <h3>{{ $countresched }}</h3>
 
-                            <p>Reject Appointment</p>
+                            <p>Follow-Up Appointment</p>
                         </div>
                     </div>
                 </a>
