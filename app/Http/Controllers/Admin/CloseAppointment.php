@@ -13,28 +13,34 @@ class CloseAppointment extends Controller
      */
     public function index()
     {
-        $close = Appointment::whereIn('status', ['Approved', 'Rescheduled'])
-    ->orderByRaw("FIELD(status, 'Approved', 'Rescheduled')")
-    ->get();
+        $orderedClose = Appointment::whereIn('status', ['Approved', 'Rescheduled'])
+            ->orderBy('date', 'desc')
+            ->get()
+            ->groupBy(function ($appointment) {
+                return \Carbon\Carbon::parse($appointment->date)->format('F j, Y');
+            });
 
-        return view('Admin.Close-Appointment.index', compact('close'));
+
+
+        return view('Admin.Close-Appointment.index', compact('orderedClose'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
 
-     public function closeAppointment($id)
-     {
-         // Find the appointment by its ID
-         $appointment = Appointment::findOrFail($id);
+    public function closeAppointment($id)
+    {
+        // Find the appointment by its ID
+        $appointment = Appointment::findOrFail($id);
 
-         // Update the status to 'Closed'
-         $appointment->status = 'Closed';
-         $appointment->save();
+        // Update the status to 'Closed'
+        $appointment->status = 'Closed';
+        $appointment->save();
 
-         // Redirect back with a success message
-         return redirect()->back()->with('success', 'Appointment status updated to Closed.');
-     }
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Appointment status updated to Closed.');
+    }
 
 
     public function create()

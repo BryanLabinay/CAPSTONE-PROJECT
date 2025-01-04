@@ -90,53 +90,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $orderedClose = $close->sortBy(function ($data) {
-                                    return $data->status === 'Approved' ? 0 : 1;
-                                });
-                            @endphp
-
                             @php $counter = 1; @endphp
 
-                            @foreach ($orderedClose as $data)
-                                <tr class="">
-                                    <td class="text-center">{{ $counter++ }}</td>
-                                    <td class="fw-bold">{{ $data->fname }} {{ $data->mname }} {{ $data->lname }}
-                                        {{ $data->suffix }}</td>
-                                    <td>{{ $data->email }}</td>
-                                    <td class="fw-bold text-center"
-                                        style="color:
-                            @if ($data->status === 'Approved') green
-                            @elseif ($data->status === 'Rescheduled') navy
-                            @else gray @endif">
-                                        @if ($data->status == 'Rescheduled')
-                                            Follow-Up
-                                        @else
-                                            {{ $data->status }}
-                                        @endif
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($data->date)->format('F j, Y') }}</td>
-                                    <td class="text-center p-0">
-                                        @if ($data->status !== 'Closed')
-                                            <form action="{{ route('appointments.close', $data->id) }}" method="POST"
-                                                class="close-form" data-id="{{ $data->id }}">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="btn btn-danger btn-sm close-btn mt-1">Close</button>
-                                            </form>
-                                        @else
-                                            <span class="badge bg-secondary">Closed</span>
-                                        @endif
-                                    </td>
-                                </tr>
+                            @foreach ($orderedClose as $date => $appointments)
+                                <!-- Grouped Date Row with Colspan -->
+
+
+                                <!-- Loop through Appointments for each Date -->
+                                @foreach ($appointments as $data)
+                                    <tr>
+                                        <td class="text-center">{{ $counter++ }}</td>
+                                        <td class="fw-bold">
+                                            {{ $data->fname }} {{ $data->mname }} {{ $data->lname }} {{ $data->suffix }}
+                                        </td>
+                                        <td class="d-none d-sm-table-cell">{{ $data->email }}</td>
+                                        <td class="fw-bold text-center"
+                                            style="color:
+                                        @if ($data->status === 'Approved') green
+                                        @elseif ($data->status === 'Rescheduled') navy
+                                        @else gray @endif">
+                                            @if ($data->status == 'Rescheduled')
+                                                Follow-Up
+                                            @else
+                                                {{ $data->status }}
+                                            @endif
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($data->date)->format('F j, Y') }}</td>
+                                        <td class="text-center p-0">
+                                            @if ($data->status !== 'Closed')
+                                                <form action="{{ route('appointments.close', $data->id) }}" method="POST"
+                                                    class="close-form" data-id="{{ $data->id }}">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="btn btn-danger btn-sm close-btn mt-1">Close</button>
+                                                </form>
+                                            @else
+                                                <span class="badge bg-secondary">Closed</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
 
-                            <!-- Form for submitting the request -->
-                            <form id="close-form" action="" method="POST" style="display: none;">
-                                @csrf
-                            </form>
 
                         </tbody>
+
 
                     </table>
                 </div>
@@ -172,6 +170,9 @@
                     }
                 }
             },
+            responsive: true,
+            autoWidth: false,
+            lengthMenu: [10, 25, 50, 100],
             language: {
                 lengthMenu: " _MENU_ Records per page",
                 info: "Showing _START_ to _END_ of _TOTAL_ records",
@@ -182,26 +183,26 @@
                     first: "First",
                     last: "Last",
                     next: "Next",
-                    previous: "Previous"
-                }
-            }
+                    previous: "Previous",
+                },
+            },
+
+
         });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get all Close buttons
-            const closeButtons = document.querySelectorAll('.close-btn');
-
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
+            // Use event delegation to handle click events on dynamically loaded buttons
+            document.body.addEventListener('click', function(e) {
+                if (e.target.classList.contains('close-btn')) {
                     e.preventDefault(); // Prevent form submission
 
                     // Get the form to submit
-                    const form = this.closest('form');
+                    const form = e.target.closest('form');
 
                     // SweetAlert confirmation
                     Swal.fire({
-                        title: 'Apppointment done?',
+                        title: 'Appointment done?',
                         text: "You won't be able to revert this!",
                         icon: 'warning',
                         showCancelButton: true,
@@ -214,7 +215,7 @@
                             form.submit();
                         }
                     });
-                });
+                }
             });
         });
     </script>
