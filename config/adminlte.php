@@ -414,17 +414,18 @@ return [
             ],
         ],
         [
-            'text' => 'Set Appointment',
-            'url' => 'Set-Appointment/Set/Appointment',
-            'icon' => 'fa-duotone fa-solid fa-calendar-plus',
-            'icon_color' => 'success'
-        ],
-        [
             'text' => 'Close Appointment',
             'url' => 'Close-Appointment/Close/Appointment',
             'icon' => 'fa-solid fa-square-xmark',
             'icon_color' => 'danger'
         ],
+        [
+            'text' => 'Set Appointment',
+            'url' => 'Set-Appointment/Set/Appointment',
+            'icon' => 'fa-duotone fa-solid fa-calendar-plus',
+            'icon_color' => 'success'
+        ],
+
         [
             'text' => 'Patients Record',
             'url' => '/Patients-Record/List',
