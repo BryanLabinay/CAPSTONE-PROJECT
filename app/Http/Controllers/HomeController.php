@@ -45,7 +45,8 @@ class HomeController extends Controller
         $countpending = Appointment::where('status', 'Pending')->count();
         $countapproved = Appointment::where('status', 'Approved')->count();
         $countrejected = Appointment::where('status', 'Cancelled')->count();
-        return view('Admin.dashboard', compact('countall', 'countpending', 'countapproved', 'countrejected', 'appointments', 'appointmentsData', 'year'));
+        $countresched = Appointment::where('status', 'Rescheduled')->count();
+        return view('Admin.dashboard', compact('countall', 'countpending', 'countapproved', 'countrejected', 'countresched', 'appointments', 'appointmentsData', 'year'));
     }
 
     /**
