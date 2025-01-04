@@ -116,8 +116,8 @@
                                         <td class="fw-bold">
                                             {{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
                                         <!-- Hidden on small screens -->
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-sm btn-primary px-1 m-0"
+                                        <td class="text-center p-0">
+                                            <button type="button" class="btn btn-sm btn-primary mt-1"
                                                 data-bs-toggle="modal" data-bs-target="#modal-{{ $patient->id }}">
                                                 Follow-Up
                                             </button>
