@@ -10,6 +10,7 @@ use App\Exports\ExportAppointmentData;
 use App\Exports\ExportApprovedAppointment;
 use App\Exports\ExportPendingAppointment;
 use App\Exports\ExportRejectedAppointment;
+use App\Exports\ExportPatientRecords;
 use App\Models\Appointment;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -36,6 +37,11 @@ class ExportAppointmentController extends Controller
     public function ExportRejectedAppointmentExcel()
     {
         return Excel::download(new ExportRejectedAppointment, 'Rejected-AppointmentRecord.xlsx');
+    }
+
+    public function ExportPatientRecords()
+    {
+        return Excel::download(new ExportPatientRecords, 'Patient-Record.xlsx');
     }
 
 

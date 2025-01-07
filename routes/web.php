@@ -239,6 +239,7 @@ Route::middleware(['auth', 'admin'])->prefix('Export')->group(function () {
     Route::post('/ApprovedAppointmentRecord', [ExportAppointmentController::class, 'ExportApprovedAppointmentExcel'])->name('export.approved.excel');
     Route::post('/PendingAppointmentRecord', [ExportAppointmentController::class, 'ExportPendingAppointmentExcel'])->name('export.pending.excel');
     Route::post('/RejectedAppointmentRecord', [ExportAppointmentController::class, 'ExportRejectedAppointmentExcel'])->name('export.rejected.excel');
+    Route::post('/PatientRecord', [ExportAppointmentController::class, 'ExportPatientRecords'])->name('export.patient.excel');
     Route::get('/Export-All-Appointment-Pdf', [ExportAppointmentController::class, 'ExportAllAppointmentPdf'])->name('export.allrecord.pdf');
     Route::get('/Export-Approved-Appointment-Pdf', [ExportAppointmentController::class, 'ExportApprovedAppointmentPdf'])->name('export.approvedrecord.pdf');
     Route::get('/Export-Cancelled-Appointment-Pdf', [ExportAppointmentController::class, 'ExportCancelledAppointmentPdf'])->name('export.cancelledrecord.pdf');

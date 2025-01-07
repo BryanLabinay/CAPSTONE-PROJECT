@@ -150,9 +150,11 @@
                     </ul>
                 </div>
 
-                <form action="">
-                    <button type="submit" class="btn btn-success"> <i class="fa-solid fa-file-arrow-down me-1"></i> Export
-                        Excel</button>
+                <form action="{{ route('export.patient.excel') }}" method="post">
+                    @csrf
+                    <button class="btn btn-success">
+                        <i class="fa-solid fa-file-arrow-down me-1"></i> Export Excel
+                    </button>
                 </form>
             </div>
         </div>
