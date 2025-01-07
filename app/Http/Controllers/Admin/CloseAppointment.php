@@ -14,7 +14,7 @@ class CloseAppointment extends Controller
     public function index()
     {
         $orderedClose = Appointment::whereIn('status', ['Approved', 'Rescheduled'])
-            ->orderBy('date', 'desc')
+            ->orderBy('date', 'asc')
             ->get()
             ->groupBy(function ($appointment) {
                 return \Carbon\Carbon::parse($appointment->date)->format('F j, Y');

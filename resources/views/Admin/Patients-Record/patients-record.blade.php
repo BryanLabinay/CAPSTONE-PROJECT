@@ -194,7 +194,7 @@
                             <th scope="col">Email</th>
                             {{-- <th scope="col">Address</th> --}}
                             <th scope="col">Appointment</th>
-                            <th scope="col">Status</th>
+                            {{-- <th scope="col">Status</th> --}}
                             <th scope="col">Date</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -222,18 +222,20 @@
                                     <td>{{ $patient->email }}</td>
                                     {{-- <td class="fw-bold">{{ $patient->address }}</td> --}}
                                     <td class="fw-bold">{{ $patient->appointment }}</td>
-                                    <td class="fw-bold"
+                                    {{-- <td class="fw-bold"
                                         style="color:
                                 @if ($patient->status === 'Approved') green
-                                @elseif ($patient->status === 'Cancelled') red
                                 @elseif ($patient->status === 'Rescheduled') navy
+                                @elseif ($patient->status === 'Closed') blue
                                 @else gray @endif">
                                         @if ($patient->status == 'Rescheduled')
                                             Follow-Up
+                                        @elseif ($patient->status == 'Closed')
+                                            Done
                                         @else
                                             {{ $patient->status }}
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="fw-bold">{{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
                                     <td>
                                         <button type="button" class="btn btn-link p-0" data-bs-toggle="modal"

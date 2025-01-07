@@ -265,7 +265,7 @@
                                 @else gray @endif">
 
                                     @if ($data->status === 'Rescheduled')
-                                        Re-Appointment
+                                        Follow-Up
                                     @else
                                         {{ $data->status }}
                                     @endif

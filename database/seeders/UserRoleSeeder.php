@@ -16,9 +16,9 @@ class UserRoleSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'fname' => 'Admin',
-                'mname' => 'i',
-                'lname' => 'strator',
+                'fname' => 'System',
+                'mname' => null,
+                'lname' => 'Admin',
                 'suffix' => null,
                 'email' => 'admin@gmail.com',
                 'usertype' => 'admin',
@@ -29,10 +29,10 @@ class UserRoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'fname' => 'Bryan',
+                'fname' => 'Mark Bryan',
                 'mname' => 'B.',
                 'lname' => 'Labinay',
-                'suffix' => 'Jr.',
+                'suffix' => null,
                 'email' => 'bryan@gmail.com',
                 'usertype' => 'user',
                 'image' => null,
@@ -55,10 +55,10 @@ class UserRoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'fname' => 'user',
-                'mname' => 'D.',
+                'fname' => 'Patient',
+                'mname' => null,
                 'lname' => 'Williams',
-                'suffix' => 'Sr.',
+                'suffix' => null,
                 'email' => 'user@gmail.com',
                 'usertype' => 'user',
                 'image' => null,

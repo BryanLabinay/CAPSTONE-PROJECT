@@ -109,61 +109,81 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-center align-items-center">
-                        <div class="card-header d-flex justify-content-center align-items-center">
+                    <div class="card-header d-flex flex-column align-items-center bg-light py-3">
+                        <!-- Navigation for Previous and Next Month -->
+                        <div class="d-flex align-items-center mb-3">
                             <form method="GET" action="{{ route('calendar') }}" class="d-flex">
                                 <input type="hidden" name="month" value="{{ $currentMonth }}">
                                 <input type="hidden" name="year" value="{{ $currentYear }}">
                                 <input type="hidden" name="status" value="{{ $status }}">
                                 <input type="hidden" name="appointment" value="{{ $appointmentType }}">
-                                <button type="submit" class="btn btn-sm btn-primary me-2" name="prevMonth">
+                                <button type="submit" class="btn btn-outline-primary btn-sm me-3" name="prevMonth">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
                             </form>
-                            <span
-                                id="monthYear">{{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}</span>
+
+                            <h5 id="monthYear" class="mb-0 text-primary fw-bold bg-secondary text-white py-1">
+                                {{ date('F Y', mktime(0, 0, 0, $currentMonth + 1, 1, $currentYear)) }}
+                            </h5>
+
                             <form method="GET" action="{{ route('calendar') }}" class="d-flex">
                                 <input type="hidden" name="month" value="{{ $currentMonth + 2 }}">
                                 <input type="hidden" name="year" value="{{ $currentYear }}">
                                 <input type="hidden" name="status" value="{{ $status }}">
                                 <input type="hidden" name="appointment" value="{{ $appointmentType }}">
-                                <button type="submit" class="btn btn-sm btn-primary ms-2" name="nextMonth">
+                                <button type="submit" class="btn btn-outline-primary btn-sm ms-3" name="nextMonth">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </form>
                         </div>
 
-
-                        <form method="GET" action="{{ route('calendar') }}" class="d-flex mb-3">
+                        <!-- Filters Section -->
+                        <form method="GET" action="{{ route('calendar') }}" class="d-flex align-items-center">
                             <input type="hidden" name="month" value="{{ $currentMonth + 1 }}">
                             <input type="hidden" name="year" value="{{ $currentYear }}">
-                            <div class="me-2">
-                                <select name="status" class="form-select">
+
+                            <!-- Status Filter -->
+                            <div class="me-3">
+                                <select name="status" class="form-select form-select-sm">
                                     <option value="" {{ $status == '' ? 'selected' : '' }}>All Statuses</option>
-                                    <option value="Pending" {{ $status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="Confirmed" {{ $status == 'Confirmed' ? 'selected' : '' }}>Confirmed
+                                    <option value="Approved" {{ $status == 'Approved' ? 'selected' : '' }}>Approved
                                     </option>
-                                    <option value="Completed" {{ $status == 'Completed' ? 'selected' : '' }}>Completed
+                                    <option value="Reschedule" {{ $status == 'Reschedule' ? 'selected' : '' }}>Follow-Up
+                                    </option>
+                                    <option value="Closed" {{ $status == 'Closed' ? 'selected' : '' }}>Closed
                                     </option>
                                 </select>
                             </div>
-                            <div class="me-2">
-                                <select name="appointment" class="form-select">
+
+                            <!-- Appointment Type Filter -->
+                            <div class="me-3">
+                                <select name="appointment" class="form-select form-select-sm">
                                     <option value="" {{ $appointmentType == '' ? 'selected' : '' }}>All Appointment
                                         Types</option>
+                                    <option value="Consultation"
+                                        {{ $appointmentType == 'Consultation' ? 'selected' : '' }}>
+                                        Consultation</option>
                                     <option value="Check-Up" {{ $appointmentType == 'Check-Up' ? 'selected' : '' }}>
                                         Check-Up</option>
                                     <option value="Ultrasound" {{ $appointmentType == 'Ultrasound' ? 'selected' : '' }}>
                                         Ultrasound</option>
                                     <option value="Xray" {{ $appointmentType == 'Xray' ? 'selected' : '' }}>Xray</option>
+                                    <option value="2D Echo with Doppler"
+                                        {{ $appointmentType == '2D Echo with Doppler' ? 'selected' : '' }}>2D Echo with
+                                        Doppler</option>
+                                    <option value="ECG" {{ $appointmentType == 'ECG' ? 'selected' : '' }}>ECG</option>
+                                    <option value="NST" {{ $appointmentType == 'NST' ? 'selected' : '' }}>NST</option>
+                                    <option value="Drug Test" {{ $appointmentType == 'Drug Test' ? 'selected' : '' }}>Drug
+                                        Test</option>
+
                                     <!-- Add more types as needed -->
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Filter</button>
+
+                            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
                         </form>
-
-
                     </div>
+
 
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -230,7 +250,8 @@
 </div>
 
 <!-- Modal for displaying appointment details -->
-<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -239,20 +260,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Address</th>
+                            {{-- <th>Address</th> --}}
                             <th>Appointment Type</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="appointmentDetails">
-                        @foreach ($appointments as $appointment)
+                        @forelse ($appointments as $appointment)
                             @if ($appointment->date === $selectedDate)
                                 <tr>
-                                    <td class="fw-bold text-start">{{ $appointment->fname }}
+                                    <td class="fw-bold text-start">
+                                        {{ $appointment->fname }}
                                         @if (!empty($appointment->mname))
                                             {{ substr($appointment->mname, 0, 1) }}.
                                         @endif
@@ -261,13 +283,30 @@
                                             {{ $appointment->suffix }}
                                         @endif
                                     </td>
-                                    <td>{{ $appointment->address }}</td>
                                     <td>{{ $appointment->appointment }}</td>
-                                    <td>{{ $appointment->status }}</td>
+                                    <td class="fw-bold"
+                                        style="
+                                        color: 
+                                        @if ($appointment->status === 'Approved') green
+                                        @elseif ($appointment->status === 'Rescheduled') navy
+                                        @elseif ($appointment->status === 'Closed') red
+                                        @else gray @endif">
+                                        @if ($appointment->status === 'Rescheduled')
+                                            Follow-Up
+                                        @else
+                                            {{ $appointment->status }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endif
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center text-muted">No appointments found for the
+                                    selected date.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
+
 
                 </table>
             </div>
@@ -292,7 +331,8 @@
         document.querySelectorAll('.calendar-date-link').forEach(anchor => {
             anchor.addEventListener('click', function() {
                 const date = this.getAttribute('data-date');
-                // Format the date to Month Day, Year
+
+                // Format the date to "Month Day, Year"
                 const formattedDate = new Date(date).toLocaleDateString('en-US', {
                     month: 'long',
                     day: 'numeric',
@@ -300,26 +340,59 @@
                 });
                 appointmentModalTitle.textContent = formattedDate;
 
-                // Update modal body with appointments
+                // Get appointments data from the backend
                 const appointments = @json($appointments);
                 let appointmentsHTML = '';
 
-                appointments.forEach(appointment => {
-                    if (appointment.date === date) {
+                // Filter and render appointments for the selected date
+                const filteredAppointments = appointments.filter(appointment => appointment
+                    .date === date);
+
+                if (filteredAppointments.length > 0) {
+                    filteredAppointments.forEach(appointment => {
+                        let statusColor;
+
+                        // Determine the status color
+                        switch (appointment.status) {
+                            case 'Approved':
+                                statusColor = 'green';
+                                break;
+                            case 'Rescheduled':
+                                statusColor = 'navy';
+                                break;
+                            case 'Closed':
+                                statusColor = 'red';
+                                break;
+                            default:
+                                statusColor = 'gray';
+                        }
+
+                        // Add the appointment to the HTML
                         appointmentsHTML += `
                             <tr>
-                                <td>${appointment.fname} ${appointment.mname} ${appointment.lname}</td>
-                                <td>${appointment.address}</td>
+                                <td>${appointment.fname} ${appointment.mname || ''} ${appointment.lname}</td>
                                 <td>${appointment.appointment}</td>
-                                <td>${appointment.status}</td>
+                                <td class="fw-bold" style="color: ${statusColor};">${appointment.status}</td>
                             </tr>
                         `;
-                    }
-                });
+                    });
+                } else {
+                    // Show message if no appointments are available
+                    appointmentsHTML = `
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No appointments available for the selected date.</td>
+                        </tr>
+                    `;
+                }
 
+                // Update modal body
                 appointmentDetails.innerHTML = appointmentsHTML;
+
+                // Show the modal
+                appointmentModal.show();
             });
         });
     });
 </script>
+
 @stop

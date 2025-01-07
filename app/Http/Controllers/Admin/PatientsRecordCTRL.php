@@ -16,7 +16,7 @@ class PatientsRecordCTRL extends Controller
     public function index()
     {
         // Fetch only approved patients ordered by 'fname'
-        $patients = Appointment::whereIn('status', ['Approved', 'Rescheduled'])->orderBy('fname', 'asc')->get();
+        $patients = Appointment::whereIn('status', ['Approved', 'Rescheduled', 'Closed'])->orderBy('fname', 'asc')->get();
 
         return view('Admin.Patients-Record.patients-record', compact('patients'));
     }

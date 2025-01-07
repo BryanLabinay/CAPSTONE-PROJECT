@@ -21,12 +21,12 @@ class AppointmentSeeder extends Seeder
                 'user_id' => $faker->numberBetween(2, 4),
                 'fname' => $faker->firstName(),
                 'mname' => $faker->optional()->firstName(),  // Changed to optional for middle name
-                'lname' => $faker->lastName(),
+                'lname' => $faker->lastName(), // Convert the number to a string
                 'suffix' => $faker->optional()->suffix(),  // Made suffix optional
                 'email' => $faker->unique()->safeEmail(),
                 'address' => $faker->address(),
                 'phone' => '+63' . $faker->phoneNumber,
-                'date' => $faker->dateTimeBetween('2023-01-01', '2024-12-31')->format('Y-m-d'),
+                'date' => $faker->dateTimeBetween('2025-01-01', '2025-12-31')->format('Y-m-d'),
                 'appointment' => $faker->randomElement([
                     'Check-Up',
                     'Ultrasound',
@@ -38,7 +38,7 @@ class AppointmentSeeder extends Seeder
                     'Drug Test'
                 ]),
                 'message' => $faker->sentence(),
-                'status' => $faker->randomElement(['Pending', 'Approved', 'Cancelled']),
+                'status' => $faker->randomElement(['Pending', 'Approved', 'Cancelled', 'Rescheduled']),
                 'reason' => $faker->optional()->sentence(),  // Optional reason
                 'created_at' => now(),
                 'updated_at' => now(),

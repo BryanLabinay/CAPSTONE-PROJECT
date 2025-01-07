@@ -85,6 +85,7 @@
                                 <th scope="col" class="d-none d-sm-table-cell">Email</th>
                                 <!-- Hidden on small screens -->
                                 <th scope="col">Appointment</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Date</th> <!-- Hidden on small screens -->
                                 <th scope="col">Action</th>
                                 <!-- Hidden on small screens -->
@@ -113,6 +114,20 @@
                                         <td class="d-none d-sm-table-cell">{{ $patient->email }}</td>
                                         <!-- Hidden on small screens -->
                                         <td class="fw-bold">{{ $patient->appointment }}</td>
+                                        <td class="fw-bold text-center"
+                                            style="color:
+                                        @if ($patient->status === 'Approved') green
+                                        @elseif ($patient->status === 'Rescheduled') navy
+                                        @elseif ($patient->status === 'Closed') blue
+                                        @else gray @endif">
+                                            @if ($patient->status == 'Rescheduled')
+                                                Follow-Up
+                                            @elseif ($patient->status == 'Closed')
+                                                Done
+                                            @else
+                                                {{ $patient->status }}
+                                            @endif
+                                        </td>
                                         <td class="fw-bold">
                                             {{ \Carbon\Carbon::parse($patient->date)->format('F j, Y') }}</td>
                                         <!-- Hidden on small screens -->

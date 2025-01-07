@@ -19,7 +19,7 @@ class SetAppointmentCTRL extends Controller
      */
     public function index()
     {
-        $patients = Appointment::where('status', 'Approved')->orderBy('fname', 'asc')->get();
+        $patients = Appointment::whereIn('status', ['Approved', 'Rescheduled', 'Closed'])->orderBy('fname', 'asc')->get();
 
         return view('Admin.Set-Appointment.index-set', compact('patients'));
     }

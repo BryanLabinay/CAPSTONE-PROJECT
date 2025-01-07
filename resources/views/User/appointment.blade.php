@@ -6,48 +6,48 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
             <div class="d-flex justify-content-end">
                 @if (session('status'))
-                <script>
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        iconColor: 'white',
-                        customClass: {
-                            popup: 'colored-toast',
-                        },
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
-                    });
-                    (async () => {
-                        await Toast.fire({
-                            icon: 'success',
-                            title: 'Appointment Requested'
+                    <script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            iconColor: 'white',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            showConfirmButton: false,
+                            timer: 2500,
+                            timerProgressBar: true,
                         });
-                    })();
-                </script>
-            @endif
+                        (async () => {
+                            await Toast.fire({
+                                icon: 'success',
+                                title: 'Appointment Requested'
+                            });
+                        })();
+                    </script>
+                @endif
 
-            @if (session('error'))
-                <script>
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        iconColor: 'white',
-                        customClass: {
-                            popup: 'colored-toast',
-                        },
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
-                    });
-                    (async () => {
-                        await Toast.fire({
-                            icon: 'error',
-                            title: '{{ session('error') }}'
+                @if (session('error'))
+                    <script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            iconColor: 'white',
+                            customClass: {
+                                popup: 'colored-toast',
+                            },
+                            showConfirmButton: false,
+                            timer: 2500,
+                            timerProgressBar: true,
                         });
-                    })();
-                </script>
-            @endif
+                        (async () => {
+                            await Toast.fire({
+                                icon: 'error',
+                                title: '{{ session('error') }}'
+                            });
+                        })();
+                    </script>
+                @endif
 
             </div>
             <div class="row p-2 font-web">
@@ -127,22 +127,17 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="form-group mb-2">
-                                    <label for="date" class="fw-semibold mb-1">Preferred Date</label>
-                                    <input
-                                        type="date"
-                                        class="form-control py-2"
-                                        name="date"
-                                        id="date"
-                                        placeholder="Select a date"
-                                        data-fully-booked-dates="{{ json_encode($fullyBookedDates) }}"
-                                        required
-                                    >
-                                    <small id="date-error" class="form-text text-danger" style="display: none;">This date is fully booked. Please select another date.</small>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group mb-2">
+                                        <label for="date" class="fw-semibold mb-1">Preferred Date</label>
+                                        <input type="date" class="form-control py-2" name="date"
+                                            id="date" placeholder="Select a date"
+                                            data-fully-booked-dates="{{ json_encode($fullyBookedDates) }}" required>
+                                        <small id="date-error" class="form-text text-danger"
+                                            style="display: none;">This
+                                            date is fully booked. Please select another date.</small>
+                                    </div>
                                 </div>
-
-
                             </div>
                             <div class="form-group mb-2">
                                 <label for="dropdown" class="fw-semibold mb-1">Choose an option:</label>
@@ -196,7 +191,7 @@
             </div>
             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-            <div class="form-group mb-2">
+            {{-- <div class="form-group mb-2">
                 <label for="date" class="fw-semibold mb-1">Preferred Date</label>
                 <input
                     type="date"
@@ -208,10 +203,10 @@
                     required
                 >
                 <small id="date-error" class="form-text text-danger" style="display: none;">This date is fully booked. Please select another date.</small>
-            </div>
+            </div> --}}
 
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     const dateInput = document.getElementById('date');
                     const fullyBookedDates = JSON.parse(dateInput.dataset.fullyBookedDates);
                     const errorText = document.getElementById('date-error');
@@ -221,14 +216,16 @@
                         minDate: "today", // Disable dates before today
                         disable: [
                             function(date) {
-                                return fullyBookedDates.includes(formatDate(date)); // Disable fully booked dates
+                                return fullyBookedDates.includes(formatDate(
+                                    date)); // Disable fully booked dates
                             }
                         ],
 
                         onDayCreate: function(dObj, dStr, fp, dayElem) {
                             const date = formatDate(dayElem.dateObj);
                             if (fullyBookedDates.includes(date)) {
-                                dayElem.style.backgroundColor = '#dc3545'; // Red background for fully booked dates
+                                dayElem.style.backgroundColor =
+                                    '#dc3545'; // Red background for fully booked dates
                                 dayElem.style.color = '#fff'; // White text for visibility
                                 dayElem.title = "Fully booked"; // Tooltip text for fully booked dates
                             }

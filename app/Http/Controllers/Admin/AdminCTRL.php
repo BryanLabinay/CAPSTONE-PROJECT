@@ -45,6 +45,7 @@ class AdminCTRL extends Controller
             ->when($appointmentType, function ($query, $appointmentType) {
                 return $query->where('appointment', $appointmentType);
             })
+            ->whereNotIn('status', ['cancelled', 'pending']) // Exclude cancelled and pending appointments
             ->get();
 
         // Group and count appointments by day
