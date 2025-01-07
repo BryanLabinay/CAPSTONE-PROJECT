@@ -41,15 +41,10 @@ class SetAppointmentCTRL extends Controller
         // Fetch the associated user using the relationship defined in the Appointment model
         $user = $existingPatient->user;  // Use the hasMany relationship
 
-        // Update the existing appointment status to 'Rescheduled'
+        // Update the existing appointment status to 'Rescheduled' and update the date
         $existingPatient->status = 'Rescheduled';
+        $existingPatient->date = $validated['date'];
         $existingPatient->save();
-
-        // Create a new appointment based on the existing one
-        $newAppointment = $existingPatient->replicate();
-        $newAppointment->date = $validated['date'];
-        $newAppointment->status = 'Approved';
-        $newAppointment->save();
 
         // Prepare the message content for email and notification
         $messageContent = "Your appointment has been updated. The new date is: " . \Carbon\Carbon::parse($validated['date'])->format('F j, Y') . ".\n\n" . $validated['message'];
@@ -61,7 +56,7 @@ class SetAppointmentCTRL extends Controller
         Mail::to($existingPatient->email)->send(new ClinicMail($messageContent));
 
         // Redirect with success message
-        return redirect()->route('index')->with('success', 'New appointment record created successfully with the updated date.');
+        return redirect()->route('index')->with('success', 'Appointment updated successfully with the new date.');
     }
 
 
