@@ -70,6 +70,27 @@
 @section('content_header')
     <h5 class="fw-bolder" style="color: #343984;"><i class="fa-solid fa-caret-right me-2"></i>Set-Appointment</h5>
     <hr class="mt-0 text-secondary">
+    @if (session('success'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 3000,
+                timerPr0ogressBar: true,
+            });
+            (async () => {
+                await Toast.fire({
+                    icon: 'success',
+                    title: 'Follow-Up Appointment'
+                })
+            })()
+        </script>
+    @endif
 @stop
 
 @section('content')
